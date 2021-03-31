@@ -22,7 +22,7 @@ public class Test {
 
     public void displayLamps()
     {
-        System.out.println("You selected Lamps as your furniture.\n" +
+        System.out.println("You selected lamps as your furniture.\n" +
         "Please select from the following types of chairs: \n" + 
         "1. Desk\n" +
         "2. Swing Arm\n" +
