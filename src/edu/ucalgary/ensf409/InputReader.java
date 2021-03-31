@@ -66,8 +66,7 @@ public class InputReader {
             System.out.println("\nWhat quantity of this product do you need? Please enter a positive integer\n"
                     + "Enter -1 to exit this program.");
             userInput333 = inputCollected.nextInt();
-            if ((userInput333 < 1) && (userInput333 != -1))
-            {
+            if ((userInput333 < 1) && (userInput333 != -1)) {
                 System.out.println("\nPlease enter a positive integer!\n");
             }
         } while ((userInput333 < 1) && (userInput333 != -1));
