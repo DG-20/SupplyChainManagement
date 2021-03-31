@@ -74,15 +74,59 @@ public class InputReader {
 
     }
 
-    public void displayDesks() {
-        System.out.println(
+    public int selectDeskType() {
+        Scanner inputCollected = new Scanner(System.in);
+        int userInput = -1;
+        do {
+            System.out.println(
                 "You selected desks as your furniture.\n" + "Please select from the following types of chairs:\n"
                         + "1. Standing\n" + "2. Traditional\n" + "3. Adjustable");
+            userInput = inputCollected.nextInt();
+            if (userInput < 0 || userInput > 4)
+            {
+                System.out.println("\nError: Please enter a number between 1-3!\n");
+            }
+        } while (userInput < 0 || userInput > 4);
+              
+        if(userInput == 4)
+        {
+            return(-1);
+        }
+        else if((userInput > 0) && (userInput < 4))
+        {
+            return(userInput);
+        }
+        else
+        {
+            return(-1);
+        }
     }
 
-    public void displayLamps() {
-        System.out.println("You selected lamps as your furniture.\n"
+    public int displayLamps() {
+        Scanner inputCollected = new Scanner(System.in);
+        int userInput = -1;
+        do {
+            System.out.println("You selected lamps as your furniture.\n"
                 + "Please select from the following types of chairs: \n" + "1. Desk\n" + "2. Swing Arm\n" + "3. Study");
+            userInput = inputCollected.nextInt();
+            if (userInput < 0 || userInput > 4)
+            {
+                System.out.println("\nError: Please enter a number between 1-3!\n");
+            }
+        } while (userInput < 0 || userInput > 4);
+                      
+        if(userInput == 4)
+        {
+            return(-1);
+        }
+        else if((userInput > 0) && (userInput < 4))
+        {
+            return(userInput);
+        }
+        else
+        {
+            return(-1);
+        }
     }
 
 }
