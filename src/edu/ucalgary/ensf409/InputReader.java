@@ -62,13 +62,14 @@ public class InputReader {
         }
 
         int userInput333 = 0;
-
         do {
             System.out.println("\nWhat quantity of this product do you need? Please enter a positive integer\n"
                     + "Enter -1 to exit this program.");
             userInput333 = inputCollected.nextInt();
-            // if ((userInput333 < 1) && (userInput333 != -1))
-            // System.out.println("\nPlease enter a positive integer!\n");
+            if ((userInput333 < 1) && (userInput333 != -1))
+            {
+                System.out.println("\nPlease enter a positive integer!\n");
+            }
         } while ((userInput333 < 1) && (userInput333 != -1));
 
         if (userInput333 == -1) {
@@ -100,10 +101,8 @@ public class InputReader {
         } while (userInput < 0 || userInput > 6);
 
         if (userInput == 6) {
-            inputCollected.close();
             return -1;
         }
-        inputCollected.close();
         return userInput;
     }
 
@@ -124,10 +123,8 @@ public class InputReader {
         } while (userInput < 0 || userInput > 4);
 
         if (userInput == 4) {
-            inputCollected.close();
             return -1;
         }
-        inputCollected.close();
         return userInput;
     }
 
@@ -145,11 +142,8 @@ public class InputReader {
         } while (userInput < 0 || userInput > 4);
 
         if (userInput == 4) {
-            inputCollected.close();
             return (-1);
         }
-
-        inputCollected.close();
         return (userInput);
     }
 
@@ -167,11 +161,8 @@ public class InputReader {
         } while (userInput < 0 || userInput > 4);
 
         if (userInput == 4) {
-            inputCollected.close();
             return (-1);
         }
-
-        inputCollected.close();
         return (userInput);
     }
 
