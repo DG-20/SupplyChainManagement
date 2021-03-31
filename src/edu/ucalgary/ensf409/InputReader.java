@@ -9,6 +9,7 @@ public class InputReader {
     }
 
     private String[] typeOfFurniture = { "chair", "desk", "filing", "lamp" };
+    private String [] typeOfChairs = {"Ergonomic", "Executive", "Kneeling", "Mesh", "Task"};
 
     public InputReader() {
         Scanner inputCollected = new Scanner(System.in);
