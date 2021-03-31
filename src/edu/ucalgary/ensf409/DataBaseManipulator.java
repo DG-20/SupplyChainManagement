@@ -19,7 +19,7 @@ public class DataBaseManipulator {
         this.URL = url;
         this.USERNAME = username;
         this.PASSWORD = password;
-
+        System.out.println(this.URL + this.USERNAME + this.PASSWORD);
         initializeConnection();
     }
 
