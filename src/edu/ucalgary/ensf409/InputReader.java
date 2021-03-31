@@ -14,15 +14,22 @@ public class InputReader {
         int userInput = -1;
         do {
             System.out.println("Please make a selection of the furtniture needed.\n" + "Select one from:\n"
-                    + "1. Chair\n" + "2. Desk\n" + "3. Filing\n" + "4. Lamp");
+                    + "1. Chair\n" + "2. Desk\n" + "3. Filing\n" + "4. Lamp\n"
+                    + "5. If you would like to exit the program.");
             userInput = inputCollected.nextInt();
-            if (userInput < 0 || userInput > 4)
+            if (userInput < 0 || userInput > 5)
                 System.out.println("\nError: Please enter a number between 1-4!\n");
-        } while (userInput < 0 || userInput > 4);
+        } while (userInput < 0 || userInput > 5);
+
+        if (userInput == 5) {
+            System.out.println("\nYou have successfully exited the program, to run again, compile and run!\n");
+            System.exit(1);
+        }
 
         String furnitureChosen = this.typeOfFurniture[userInput - 1];
 
-        
+        int userInput2 = -1;
+
         if (userInput == 1)
             displayChairs();
         else if (userInput == 2)
@@ -32,7 +39,10 @@ public class InputReader {
         else if (userInput == 4)
             displayLamps();
 
-        int userInputForType = inputCollected.nextInt();
+        if (userInput2 == -1) {
+            System.out.println("\nYou have successfully exited the program, to run again, compile and run!\n");
+            System.exit(1);
+        }
 
         System.out.println();
         inputCollected.close();
