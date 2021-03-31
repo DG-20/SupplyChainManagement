@@ -14,9 +14,10 @@ public class DataBaseManipulator {
     private final String USERNAME;
     private final String PASSWORD;
     private Connection dataBaseConnection;
-    private String [] manuChairs = {"Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies"};
+    private String[] manuChairs = {"Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies"};
     private String[] manuDesks = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
     private String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
+    private String[] manuLamp = {"Office Furnishings", "Furniture Goods", "Fine Office Supplies"}
 
     public DataBaseManipulator(String url, String username, String password) {
         this.URL = url;
