@@ -10,10 +10,10 @@ public class InputReader {
     public void displayFiling() {
 
         System.out.println("You selected filing as your furniture.\n" +
-        "Please select from the following types of filing: \n" + 
-        "1. Small \n" +
-        "2. Medium \n" +
-        "3. Large ");
+        "Please select from the following types of filing:\n" + 
+        "1. Small\n" +
+        "2. Medium\n" +
+        "3. Large");
 
     }
 }
