@@ -44,27 +44,25 @@ public class InputReader {
         int userInput = -1;
        
         do{
-
-        System.out.println(
-                "You selected chairs as your furniture.\n" + "Please select from the following types of chairs: \n"
+            System.out.println("You selected chairs as your furniture.\n" + "Please select from the following types of chairs: \n"
                         + "1. Ergonomic\n" + "2. Executive\n" + "3. Kneeling\n" + "4. Mesh\n" + "5. Task\n" + 
                         "6. If you would like to exit the program");
+                        
+            userInput = inputCollected.nextInt();
 
-                        userInput = inputCollected.nextInt();
-
-                        if(userInput < 0 || userInput > 6)
-                        {
-                            System.out.println("Please enter a number between 1 and 6");
-                        }
-            } while(userInput < 0 || userInput > 6);
-
-            if(userInput == 6)
+            if(userInput < 0 || userInput > 6)
             {
-                inputCollected.close();
-                return -1;
+                System.out.println("Please enter a number between 1 and 6");
             }
-           inputCollected.close();
-           return userInput;
+        } while(userInput < 0 || userInput > 6);
+
+        if(userInput == 6)
+        {
+            inputCollected.close();
+            return -1;
+        }
+        inputCollected.close();
+        return userInput;
     }
 
     public void displayFilings() {
@@ -89,20 +87,17 @@ public class InputReader {
         } while (userInput < 0 || userInput > 4);
               
         if(userInput == 4)
-        {
+        {   
+            inputCollected.close();
             return(-1);
         }
-        else if((userInput > 0) && (userInput < 4))
-        {
-            return(userInput);
-        }
-        else
-        {
-            return(-1);
-        }
+        
+        inputCollected.close();
+        return(userInput);
+        
     }
 
-    public int displayLamps() {
+    public int selectLampType() {
         Scanner inputCollected = new Scanner(System.in);
         int userInput = -1;
         do {
@@ -117,16 +112,12 @@ public class InputReader {
                       
         if(userInput == 4)
         {
+            inputCollected.close();
             return(-1);
         }
-        else if((userInput > 0) && (userInput < 4))
-        {
-            return(userInput);
-        }
-        else
-        {
-            return(-1);
-        }
+        
+        inputCollected.close();
+        return(userInput); 
     }
 
 }
