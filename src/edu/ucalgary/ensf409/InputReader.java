@@ -81,6 +81,7 @@ public class InputReader {
 
         System.out.println();
         inputCollected.close();
+        System.out.println(this.furnitureChosen + this.typeChosen + this.quantity);
     }
 
     public int selectChairType() {
