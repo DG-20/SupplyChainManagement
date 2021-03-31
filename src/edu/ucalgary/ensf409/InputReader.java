@@ -8,9 +8,10 @@ public class InputReader {
     }
 
     private String[] typeOfFurniture = { "chair", "desk", "filing", "lamp" };
-    private String[] typeOfFiling={"Small", "Medium", "Large"};
-    private String[] typeOfLamps={"Desk", "Study","Swing Arm"};
-    private String[] typeOfDesks={"Adjustable","Standing", "Traditional"};
+    private String[] typeOfFiling = { "Small", "Medium", "Large" };
+    private String[] typeOfLamps = { "Desk", "Study", "Swing Arm" };
+    private String[] typeOfDesks = { "Adjustable", "Standing", "Traditional" };
+    private String[] typeOfChairs = { "Ergonomic", "Executive", "Kneeling", "Mesh", "Task" };
 
     public InputReader() {
         Scanner inputCollected = new Scanner(System.in);
@@ -25,7 +26,6 @@ public class InputReader {
 
         String furnitureChosen = this.typeOfFurniture[userInput - 1];
 
-        
         if (userInput == 1)
             displayChairs();
         else if (userInput == 2)
@@ -41,10 +41,53 @@ public class InputReader {
         inputCollected.close();
     }
 
-    public void displayChairs() {
-        System.out.println(
-                "You selected chairs as your furniture.\n" + "Please select from the following types of chairs: \n"
-                        + "1. Ergonomic\n" + "2. Executive\n" + "3. Kneeling\n" + "4. Mesh\n" + "5. Task");
+    public int selectChairType() {
+        Scanner inputCollected = new Scanner(System.in);
+        int userInput = -1;
+
+        do {
+
+            System.out.println("You selected chairs as your furniture.\n"
+                    + "Please select from the following types of chairs: \n" + "1. Ergonomic\n" + "2. Executive\n"
+                    + "3. Kneeling\n" + "4. Mesh\n" + "5. Task\n" + "6. If you would like to exit the program");
+
+            userInput = inputCollected.nextInt();
+
+            if (userInput < 0 || userInput > 6) {
+                System.out.println("Please enter a number between 1 and 6");
+            }
+        } while (userInput < 0 || userInput > 6);
+
+        if (userInput == 6) {
+            inputCollected.close();
+            return -1;
+        }
+        inputCollected.close();
+        return userInput;
+    }
+
+    public int selectFilingType() {
+        Scanner inputCollected = new Scanner(System.in);
+        int userInput = -1;
+
+        do {
+            System.out.println(
+                    "You selected filing as your furniture.\n" + "Please select from the following types of filing: \n"
+                            + "1. Small\n" + "2. Medium\n" + "3. Large\n" + "4. If you would like to exit the program");
+
+            userInput = inputCollected.nextInt();
+
+            if (userInput < 0 || userInput > 4) {
+                System.out.println("Please enter a number between 1 and 4");
+            }
+        } while (userInput < 0 || userInput > 4);
+
+        if (userInput == 4) {
+            inputCollected.close();
+            return -1;
+        }
+        inputCollected.close();
+        return userInput;
     }
 
     public void displayFilings() {
