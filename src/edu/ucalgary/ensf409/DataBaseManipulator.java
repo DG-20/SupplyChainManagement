@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DataBaseManipulator extends InputReader {
-    public static void main(String[] args) throws IOException{
-        /*String url = "jdbc:mysql://localhost/inventory";
-        String username = "scm";
-        String password = "ensf409";
-        DataBaseManipulator obj2 = new DataBaseManipulator(url, username, password);*/
+    public static void main(String[] args) throws IOException {
+        /*
+         * String url = "jdbc:mysql://localhost/inventory"; String username = "scm";
+         * String password = "ensf409"; DataBaseManipulator obj2 = new
+         * DataBaseManipulator(url, username, password);
+         */
     }
 
     private final String URL;
@@ -125,26 +126,29 @@ public class DataBaseManipulator extends InputReader {
             System.exit(1);
         }
     }
-    
-    private boolean algorithmToCreateOrderForChair()
-    {
+
+    private boolean algorithmToCreateOrderForChair() {
         ArrayList<String> combinations = new ArrayList<String>();
-        for (int i = 0; i < storage.length; i++) 
-        {
-            if (storage[i][0] == 1) 
-            {
-                for (int j = 0; j < storage.length; j++) 
-                {
-                    if (storage[j][1] == 1) 
-                    {
-                        for (int k = 0; k < storage.length; k++)
-                         {
-                            if (storage[k][2] == 1) 
-                            {
-                                for(int l = 0; l < storage.length; l++)
-                                {
-                                    if(storage[l][3] == 1)
-                                    {
+        int yChecker1 = loopMethod(0);
+        int yChecker2 = loopMethod(1);
+        int yChecker3 = loopMethod(2);
+        int yChecker4 = loopMethod(3);
+
+        if (yChecker1 == super.quantity && yChecker2 == super.quantity && yChecker3 == super.quantity
+                && yChecker4 == super.quantity) {
+            sumAllRows();
+            deleteAllRows("chair", super.typeChosen);
+            return true;
+        }
+
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i][0] == 1) {
+                for (int j = 0; j < storage.length; j++) {
+                    if (storage[j][1] == 1) {
+                        for (int k = 0; k < storage.length; k++) {
+                            if (storage[k][2] == 1) {
+                                for (int l = 0; l < storage.length; l++) {
+                                    if (storage[l][3] == 1) {
                                         combinations.add(i + "-" + j + "-" + k + "-" + l);
                                     }
                                 }
@@ -173,7 +177,7 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
-        int [] listOfPrices = new int [combinations.size()];
+        int[] listOfPrices = new int[combinations.size()];
         String combo;
         int positionOfDash;
         int row1;
@@ -185,13 +189,22 @@ public class DataBaseManipulator extends InputReader {
             row2 = Integer.parseInt(combo.substring(positionOfDash + 1, combo.length()));
             listOfPrices[i] = storage[row1][storage[row1].length - 1] + storage[row2][storage[row2].length - 1];
         }
-        
 
         return true;
     }
 
     private boolean algorithmToCreateOrderForElse() {
         ArrayList<String> combinations = new ArrayList<String>();
+        int yChecker1 = loopMethod(0);
+        int yChecker2 = loopMethod(1);
+        int yChecker3 = loopMethod(2);
+
+        if (yChecker1 == super.quantity && yChecker2 == super.quantity && yChecker3 == super.quantity) {
+            sumAllRows();
+            deleteAllRows(super.furnitureChosen, super.typeChosen);
+            return true;
+        }
+
         for (int i = 0; i < storage.length; i++) {
             if (storage[i][0] == 1) {
                 for (int j = 0; j < storage.length; j++) {
@@ -211,7 +224,5 @@ public class DataBaseManipulator extends InputReader {
             System.out.println(obj.next());
         return true;
     }
-
-
 
 }
