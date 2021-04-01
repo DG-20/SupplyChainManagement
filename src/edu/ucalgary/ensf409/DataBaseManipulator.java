@@ -33,6 +33,8 @@ public class DataBaseManipulator extends InputReader {
 
         algorithmToCreateOrderForLamp();
         algorithmToCreateOrderForElse();
+
+        
     }
 
     private void create2DArray() {
@@ -130,29 +132,26 @@ public class DataBaseManipulator extends InputReader {
             if (storage[i][0] == 1) {
                 for (int j = 0; j < storage.length; j++) {
                     if (storage[j][1] == 1) {
-                        combinations.add(i + "." + j);
+                        combinations.add(i + "-" + j);
                     }
                 }
             }
         }
 
-        Iterator<String> obj = combinations.iterator();
-        while (obj.hasNext())
-            System.out.println(obj.next());
+        int [] listOfPrices = new int [combinations.size()];
+        String combo;
+        int positionOfDash;
+        int row1;
+        int row2;
+        for (int i = 0; i < combinations.size(); i++) {
+            combo = combinations.get(i);
+            positionOfDash = combo.indexOf('-');
+            row1 = Integer.parseInt(combo.substring(0, positionOfDash));
+            row2 = Integer.parseInt(combo.substring(positionOfDash + 1, combo.length()));
+            listOfPrices[i] = storage[row1][storage[row1].length - 1] + storage[row2][storage[row2].length - 1];
+        }
+        
 
-        /*
-         * boolean first = false; boolean second = false; int price = 0; int priceCheck
-         * = 0; int counter = 0; for (int i = 0; i < storage.length; i++) { if
-         * (storage[i][0] == 1) { price = storage[i][storage[i].length - 1]; first =
-         * true; for (int j = 0; j < storage[i].length; j++) { if (storage[j][1] == 1) {
-         * priceCheck = price; if (j == i) { price = storage[i][storage[i].length - 1];
-         * } else { counter++; if (counter == 1) { price += storage[j][storage[j].length
-         * - 1]; System.out.println(price); priceCheck = price; } else { priceCheck +=
-         * storage[j][storage[j].length - 1];
-         * 
-         * if (priceCheck < price) price = priceCheck; } } } } } }
-         * System.out.println(price);
-         */
         return true;
     }
 
@@ -164,7 +163,7 @@ public class DataBaseManipulator extends InputReader {
                     if (storage[j][1] == 1) {
                         for (int k = 0; k < storage.length; k++) {
                             if (storage[k][2] == 1) {
-                                combinations.add(i + "." + j + "." + k);
+                                combinations.add(i + "-" + j + "-" + k);
                             }
                         }
                     }
@@ -177,4 +176,7 @@ public class DataBaseManipulator extends InputReader {
             System.out.println(obj.next());
         return true;
     }
+
+
+
 }
