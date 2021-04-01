@@ -72,7 +72,7 @@ public class DataBaseManipulator extends InputReader {
             System.exit(1);
         }
     }
-    private void deleteFromDataBase(int row1, int row2, int row3, int row4)
+    /*private void deleteFromDataBase(int row1, int row2, int row3, int row4)
     {
         try
         {
@@ -103,7 +103,7 @@ public class DataBaseManipulator extends InputReader {
         {
 
         }
-    }
+    }*/
 
     private void create2DArray() {
         int numOfCols = 0;
@@ -276,7 +276,7 @@ public class DataBaseManipulator extends InputReader {
         row1 = Integer.parseInt(temp.substring(0, positionOfDash));
         row2 = Integer.parseInt(temp.substring(positionOfDash + 1, temp.length()));
 
-        deleteFromDatabase(row1, row2, -1, -1);
+        //deleteFromDatabase(row1, row2, -1, -1);
 
         if (combinations.size() == 0) {
             return false;
