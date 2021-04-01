@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class OrderForm extends DataBaseManipulator {
     public static void main(String[] args) throws IOException {
-        System.out.println("Gets to orderform");
         String url = "jdbc:mysql://localhost/inventory";
         String username = "scm";
         String password = "ensf409";
@@ -20,16 +19,23 @@ public class OrderForm extends DataBaseManipulator {
     }
 
     public void finalOrderTextFile(String furniture, String type, int quantity) throws IOException {
+        System.out.println("Printing Furniture Order Form...\n");
         String outputForm = "";
-        outputForm = "Furniture Order Form\n" + "\n" + "Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n"
-                + "\n";
+        outputForm = "┎                                                          ┓\n";
+        outputForm = outputForm.concat("\nFurniture Order Form\n");
+        //outputForm = outputForm.concat("✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂\n");
+        outputForm = outputForm.concat("┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n");
+        outputForm = outputForm.concat("Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n"
+        + "\n");
         outputForm = outputForm
                 .concat("Original Request: " + type + " " + furniture + ", " + Integer.toString(quantity) + "\n");
         outputForm = outputForm.concat("\n" + "Items Ordered" + "\n");
         outputForm = outputForm.concat("ID: ");
-        outputForm = outputForm.concat("\n" + "Total Price: ");
+        outputForm = outputForm.concat("\n\n" + "Total Price: ");
+        outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
         FileWriter fileOutput = new FileWriter("orderform.txt");
         fileOutput.write(outputForm);
         fileOutput.close();
+        System.out.println("Furniture Order Form generated.");
     }
 }
