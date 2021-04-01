@@ -4,18 +4,18 @@ import java.util.Scanner;
 
 public class InputReader {
     public static void main(String[] args) {
-        InputReader obj = new InputReader();
+
     }
 
-    private String[] typeOfFurniture = { "chair", "desk", "filing", "lamp" };
-    private String[] typeOfFiling = { "Small", "Medium", "Large" };
-    private String[] typeOfLamps = { "Desk", "Study", "Swing Arm" };
-    private String[] typeOfDesks = { "Standing", "Traditional", "Adjustable" };
-    private String[] typeOfChairs = { "Ergonomic", "Executive", "Kneeling", "Mesh", "Task" };
+    protected String[] typeOfFurniture = { "chair", "desk", "filing", "lamp" };
+    protected String[] typeOfFiling = { "Small", "Medium", "Large" };
+    protected String[] typeOfLamps = { "Desk", "Swing Arm", "Study" };
+    protected String[] typeOfDesks = { "Standing", "Traditional", "Adjustable" };
+    protected String[] typeOfChairs = { "Ergonomic", "Executive", "Kneeling", "Mesh", "Task" };
 
-    private String furnitureChosen;
-    private String typeChosen;
-    private int quantity;
+    protected String furnitureChosen;
+    protected String typeChosen;
+    protected int quantity;
 
     public InputReader() {
         Scanner inputCollected = new Scanner(System.in);
@@ -79,7 +79,7 @@ public class InputReader {
         this.quantity = userInput333;
 
         System.out.println();
-        inputCollected.close();
+        // inputCollected.close();
         System.out.println(this.furnitureChosen + this.typeChosen + this.quantity);
     }
 
