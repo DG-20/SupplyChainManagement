@@ -23,7 +23,6 @@ public class OrderForm extends DataBaseManipulator {
         String outputForm = "";
         outputForm = "┎                                                          ┓\n";
         outputForm = outputForm.concat("\nFurniture Order Form\n");
-        //outputForm = outputForm.concat("✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂✂\n");
         outputForm = outputForm.concat("┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n");
         outputForm = outputForm.concat("Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n"
         + "\n");
