@@ -1,9 +1,10 @@
 package edu.ucalgary.ensf409;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class InputReader {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
 
     }
 

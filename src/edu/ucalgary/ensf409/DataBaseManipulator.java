@@ -1,15 +1,16 @@
 package edu.ucalgary.ensf409;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DataBaseManipulator extends InputReader {
-    public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost/inventory";
+    public static void main(String[] args) throws IOException{
+        /*String url = "jdbc:mysql://localhost/inventory";
         String username = "scm";
         String password = "ensf409";
-        DataBaseManipulator obj2 = new DataBaseManipulator(url, username, password);
+        DataBaseManipulator obj2 = new DataBaseManipulator(url, username, password);*/
     }
 
     private final String URL;
