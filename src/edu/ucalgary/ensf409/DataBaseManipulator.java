@@ -233,7 +233,6 @@ public class DataBaseManipulator extends InputReader {
 
         for (int i = 0; i < combinations.size(); i++) {
             combo = combinations.get(i);
-            System.out.println(combo);
             positionOfDash = combo.indexOf('-');
             positionOfDash3 = combo.lastIndexOf('-');
             positionOfDash2 = combo.indexOf('-', positionOfDash + 1);
@@ -259,35 +258,63 @@ public class DataBaseManipulator extends InputReader {
             // pairs
             else if (row1 == row2) {
 
-                if(row3!=row4){
+                if (row3 != row4) {
                     listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row4][storage[row4].length - 1]);
-                }
-                else{
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                } else {
                     listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
                 }
             } else if (row1 == row3) {
-                listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+
+                if (row2 != row4) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
             } else if (row1 == row4) {
-                listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+                if (row2 != row3) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
             } else if (row2 == row3) {
-                listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                if (row1 != row4) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
+
             } else if (row2 == row4) {
-                listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+                if (row1 != row3) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
             } else if (row3 == row4) {
-                listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+                if (row1 != row2) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+
+                }
             }
             // singles
 
