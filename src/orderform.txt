@@ -1,0 +1,16 @@
+┎                                                          ┓
+
+Furniture Order Form
+┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+Faculty Name:     
+Contact:      
+Date:     
+
+Original Request: Study lamp, 1
+
+Items Ordered
+ID: 
+
+Total Price: 
+
+┗                                                          ┛
