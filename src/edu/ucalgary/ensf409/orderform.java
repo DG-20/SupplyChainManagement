@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class orderform extends DataBaseManipulator {
     public static void main(String[] args) throws IOException {
-        System.out.println("Gets to orderform");
         String url = "jdbc:mysql://localhost/inventory";
         String username = "scm";
         String password = "ensf409";
@@ -20,6 +19,7 @@ public class orderform extends DataBaseManipulator {
     }
 
     public void finalOrderTextFile(String furniture, String type, int quantity) throws IOException {
+        System.out.println("Printing Furniture Order Form...\n");
         String outputForm = "";
         outputForm = "Furniture Order Form\n" + "\n" + "Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n"
                 + "\n";
@@ -27,9 +27,10 @@ public class orderform extends DataBaseManipulator {
                 .concat("Original Request: " + type + " " + furniture + ", " + Integer.toString(quantity) + "\n");
         outputForm = outputForm.concat("\n" + "Items Ordered" + "\n");
         outputForm = outputForm.concat("ID: ");
-        outputForm = outputForm.concat("\n" + "Total Price: ");
+        outputForm = outputForm.concat("\n\n" + "Total Price: ");
         FileWriter fileOutput = new FileWriter("orderform.txt");
         fileOutput.write(outputForm);
         fileOutput.close();
+        System.out.println("Furniture Order Form generated.");
     }
 }
