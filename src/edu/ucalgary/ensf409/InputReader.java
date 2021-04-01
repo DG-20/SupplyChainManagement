@@ -23,12 +23,12 @@ public class InputReader {
         int userInput = -1;
         do {
             System.out
-                    .println("Please make a selection of the furniture needed.\n" + "Select one from:\n" + "1. Chair\n"
+                    .println("\nPlease make a selection of the furniture needed.\n" + "Select one from:\n" + "1. Chair\n"
                             + "2. Desk\n" + "3. Filing\n" + "4. Lamp\n" + "5. If you would like to exit the program.");
             userInput = inputCollected.nextInt();
-            if (userInput < 0 || userInput > 5)
+            if (userInput < 1 || userInput > 5)
                 System.out.println("\nError: Please enter a number between 1-4!\n");
-        } while (userInput < 0 || userInput > 5);
+        } while (userInput < 1 || userInput > 5);
 
         if (userInput == 5) {
             System.out.println("\nYou have successfully exited the program, to run again, compile and run!\n");

@@ -80,7 +80,7 @@ public class DataBaseManipulator extends InputReader {
             System.exit(1);
         }
     }
-    private void deleteFromDataBase(int row1, int row2, int row3, int row4)
+    /*private void deleteFromDataBase(int row1, int row2, int row3, int row4)
     {
         try
         {
@@ -111,7 +111,7 @@ public class DataBaseManipulator extends InputReader {
         {
 
         }
-    }
+    }*/
 
     private void create2DArray() {
         int numOfCols = 0;
