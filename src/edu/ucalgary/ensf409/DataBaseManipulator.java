@@ -22,7 +22,7 @@ public class DataBaseManipulator extends InputReader {
     private String[] manuDesks = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
     private String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     private String[] manuLamp = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
-    private int[][] storage;
+    private String[][] storage;
     private int rowToAdd;
     private int lowestPrice;
 
@@ -46,17 +46,16 @@ public class DataBaseManipulator extends InputReader {
         if (super.furnitureChosen.equals("desk") || super.furnitureChosen.equals("filing")) {
             algorithmToCreateOrderForElse();
         }
+        System.out.println(this.lowestPrice);
     }
 
-    private void sumAllRows()
-    {
-        
+    private void sumAllRows() {
+
     }
-    private void deleteAllRows(String furnitureName, String type)
-    {
+
+    private void deleteAllRows(String furnitureName, String type) {
         PreparedStatement myStmt;
-        try
-        {
+        try {
             String query = "DELETE FROM " + furnitureName + " WHERE Type = ?";
             myStmt = dataBaseConnection.prepareStatement(query);
 
@@ -66,41 +65,33 @@ public class DataBaseManipulator extends InputReader {
             System.out.println("Rows Affected: " + rowCount);
         }
 
-        catch(SQLException e)
-        {
+        catch (SQLException e) {
             System.out.println("Unable to delete all rows of type " + type);
             System.exit(1);
         }
     }
-    private void deleteFromDataBase(int row1, int row2, int row3, int row4)
-    {
-        try
-        {
+
+    private void deleteFromDataBase(int row1, int row2, int row3, int row4) {
+        try {
             String query = "DELETE FROM inventory WHERE " + furnitureChosen + " = ?";
             PreparedStatement myStmt = dataBaseConnection.prepareStatement(query);
 
-            if(row1 != -1)
-            {
+            if (row1 != -1) {
                 myStmt.setInt(1, row1);
             }
-            
-            if(row2 != -1)
-            {
+
+            if (row2 != -1) {
                 myStmt.setInt(1, row2);
             }
 
-            if(row3 != -1)
-            {
+            if (row3 != -1) {
                 myStmt.setInt(1, row3);
             }
 
-            if(row4 != -1)
-            {
+            if (row4 != -1) {
                 myStmt.setInt(1, row4);
             }
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
 
         }
     }
@@ -144,7 +135,7 @@ public class DataBaseManipulator extends InputReader {
             System.exit(1);
         }
 
-        storage = new int[numOfRows][numOfCols];
+        storage = new String[numOfRows][numOfCols];
 
         try {
             int i = 0;
@@ -156,13 +147,13 @@ public class DataBaseManipulator extends InputReader {
 
                         if (results.getString(furnitureParts[j]).equals("Y") && j < furnitureParts.length - 1
                                 && results.getString("Type").equals(super.typeChosen)) {
-                            storage[i][j] = 1;
+                            storage[i][j] = results.getString("ID");
                         } else if (j == furnitureParts.length - 1
                                 && results.getString("Type").equals(super.typeChosen)) {
-                            storage[i][j] = Integer.parseInt(results.getString(furnitureParts[j]));
+                            storage[i][j] = results.getString(furnitureParts[j]);
                         } else {
                             if (results.getString("Type").equals(super.typeChosen)) {
-                                storage[i][j] = 0;
+                                storage[i][j] = "-1";
                             }
                         }
                     }
@@ -209,13 +200,13 @@ public class DataBaseManipulator extends InputReader {
         }
 
         for (int i = 0; i < storage.length; i++) {
-            if (storage[i][0] == 1) {
+            if (!storage[i][0].equals("-1")) {
                 for (int j = 0; j < storage.length; j++) {
-                    if (storage[j][1] == 1) {
+                    if (!storage[j][1].equals("-1")) {
                         for (int k = 0; k < storage.length; k++) {
-                            if (storage[k][2] == 1) {
+                            if (!storage[k][2].equals("-1")) {
                                 for (int l = 0; l < storage.length; l++) {
-                                    if (storage[l][3] == 1) {
+                                    if (!storage[l][3].equals("-1")) {
                                         combinations.add(i + "-" + j + "-" + k + "-" + l);
                                     }
                                 }
@@ -243,9 +234,9 @@ public class DataBaseManipulator extends InputReader {
 
         ArrayList<String> combinations = new ArrayList<String>();
         for (int i = 0; i < storage.length; i++) {
-            if (storage[i][0] == 1) {
+            if (!storage[i][0].equals("-1")) {
                 for (int j = 0; j < storage.length; j++) {
-                    if (storage[j][1] == 1) {
+                    if (!storage[j][1].equals("-1")) {
                         combinations.add(i + "-" + j);
                     }
                 }
@@ -263,9 +254,10 @@ public class DataBaseManipulator extends InputReader {
             row1 = Integer.parseInt(combo.substring(0, positionOfDash));
             row2 = Integer.parseInt(combo.substring(positionOfDash + 1, combo.length()));
             if (row1 == row2) {
-                listOfPrices[i] = storage[row1][storage[row1].length - 1];
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1]);
             } else {
-                listOfPrices[i] = storage[row1][storage[row1].length - 1] + storage[row2][storage[row2].length - 1];
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
+                        + Integer.parseInt(storage[row2][storage[row2].length - 1]);
             }
         }
 
@@ -276,7 +268,7 @@ public class DataBaseManipulator extends InputReader {
         row1 = Integer.parseInt(temp.substring(0, positionOfDash));
         row2 = Integer.parseInt(temp.substring(positionOfDash + 1, temp.length()));
 
-        deleteFromDatabase(row1, row2, -1, -1);
+        // deleteFromDataBase(row1, row2, -1, -1);
 
         if (combinations.size() == 0) {
             return false;
@@ -297,11 +289,11 @@ public class DataBaseManipulator extends InputReader {
         }
 
         for (int i = 0; i < storage.length; i++) {
-            if (storage[i][0] == 1) {
+            if (!storage[i][0].equals("-1")) {
                 for (int j = 0; j < storage.length; j++) {
-                    if (storage[j][1] == 1) {
+                    if (!storage[j][1].equals("-1")) {
                         for (int k = 0; k < storage.length; k++) {
-                            if (storage[k][2] == 1) {
+                            if (!storage[k][2].equals("-1")) {
                                 combinations.add(i + "-" + j + "-" + k);
                             }
                         }
@@ -309,6 +301,46 @@ public class DataBaseManipulator extends InputReader {
                 }
             }
         }
+
+        int[] listOfPrices = new int[combinations.size()];
+        String combo;
+        int positionOfDash;
+        int positionOfDash2;
+        int row1;
+        int row2;
+        int row3;
+        for (int i = 0; i < combinations.size(); i++) {
+            combo = combinations.get(i);
+            positionOfDash = combo.indexOf('-');
+            positionOfDash2 = combo.indexOf(positionOfDash + 1, '-');
+            row1 = Integer.parseInt(combo.substring(0, positionOfDash));
+            row2 = Integer.parseInt(combo.substring(positionOfDash + 1, positionOfDash2));
+            row3 = Integer.parseInt(combo.substring(positionOfDash2 + 1, combo.length()));
+            if (row1 == row3 && row1 == row2) {
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1]);
+            } else if (row1 == row2) {
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
+                        + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+            } else if (row1 == row3) {
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
+                        + Integer.parseInt(storage[row2][storage[row2].length - 1]);
+            } else if (row2 == row3) {
+                listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                        + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+            } else {
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
+                        + Integer.parseInt(storage[row2][storage[row2].length - 1])
+                        + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+            }
+        }
+
+        minFinder(listOfPrices);
+
+        String temp = combinations.get(this.rowToAdd);
+        positionOfDash = temp.indexOf('-');
+        row1 = Integer.parseInt(temp.substring(0, positionOfDash));
+        row2 = Integer.parseInt(temp.substring(positionOfDash + 1, temp.length()));
+
         if (combinations.size() == 0) {
             return false;
         }
@@ -333,7 +365,7 @@ public class DataBaseManipulator extends InputReader {
     private int loopMethod(int col) {
         int numOfY = 0;
         for (int i = 0; i < storage.length; i++) {
-            if (storage[i][col] == 1) {
+            if (!storage[i][col].equals("-1")) {
                 numOfY++;
             }
         }
