@@ -1,6 +1,8 @@
 package edu.ucalgary.ensf409;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DataBaseManipulator extends InputReader {
     public static void main(String[] args) {
@@ -29,7 +31,8 @@ public class DataBaseManipulator extends InputReader {
 
         create2DArray();
 
-        algorithmToCreateOrder();
+        algorithmToCreateOrderForLamp();
+        algorithmToCreateOrderForElse();
     }
 
     private void create2DArray() {
@@ -77,8 +80,6 @@ public class DataBaseManipulator extends InputReader {
             int i = 0;
             newstmt = this.dataBaseConnection.createStatement();
             ResultSet results = newstmt.executeQuery("SELECT * FROM " + super.furnitureChosen);
-            int k = 0;
-            System.out.println(furnitureParts.length);
             while (results.next()) {
                 if (results.getString("Type").equals(super.typeChosen)) {
                     for (int j = 0; j < furnitureParts.length; j++) {
@@ -123,9 +124,57 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-    private boolean algorithmToCreateOrder() {
+    private boolean algorithmToCreateOrderForLamp() {
+        ArrayList<String> combinations = new ArrayList<String>();
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i][0] == 1) {
+                for (int j = 0; j < storage.length; j++) {
+                    if (storage[j][1] == 1) {
+                        combinations.add(i + "." + j);
+                    }
+                }
+            }
+        }
 
+        Iterator<String> obj = combinations.iterator();
+        while (obj.hasNext())
+            System.out.println(obj.next());
+
+        /*
+         * boolean first = false; boolean second = false; int price = 0; int priceCheck
+         * = 0; int counter = 0; for (int i = 0; i < storage.length; i++) { if
+         * (storage[i][0] == 1) { price = storage[i][storage[i].length - 1]; first =
+         * true; for (int j = 0; j < storage[i].length; j++) { if (storage[j][1] == 1) {
+         * priceCheck = price; if (j == i) { price = storage[i][storage[i].length - 1];
+         * } else { counter++; if (counter == 1) { price += storage[j][storage[j].length
+         * - 1]; System.out.println(price); priceCheck = price; } else { priceCheck +=
+         * storage[j][storage[j].length - 1];
+         * 
+         * if (priceCheck < price) price = priceCheck; } } } } } }
+         * System.out.println(price);
+         */
         return true;
     }
 
+    private boolean algorithmToCreateOrderForElse() {
+        ArrayList<String> combinations = new ArrayList<String>();
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i][0] == 1) {
+                for (int j = 0; j < storage.length; j++) {
+                    if (storage[j][1] == 1) {
+                        for (int k = 0; k < storage.length; k++) {
+                            if (storage[k][2] == 1) {
+                                combinations.add(i + "." + j + "." + k);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Iterator<String> obj = combinations.iterator();
+        while (obj.hasNext())
+            System.out.println(obj.next());
+        return true;
+    }
 }
