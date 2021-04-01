@@ -258,8 +258,6 @@ public class DataBaseManipulator extends InputReader {
         return true;
     }
 
-    <<<<<<<HEAD=======
-
     private void minFinder(int[] listOfPrices) {
         int lowest = listOfPrices[0];
         int rowToAdd = 0;
@@ -283,5 +281,4 @@ public class DataBaseManipulator extends InputReader {
             }
         }
         return numOfY;
-    }>>>>>>>Divyansh
 }
