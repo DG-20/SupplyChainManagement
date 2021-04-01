@@ -5,16 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class orderform extends DataBaseManipulator {
+public class OrderForm extends DataBaseManipulator {
     public static void main(String[] args) throws IOException {
         System.out.println("Gets to orderform");
         String url = "jdbc:mysql://localhost/inventory";
         String username = "scm";
         String password = "ensf409";
-        orderform object = new orderform(url, username, password);
+        OrderForm object = new OrderForm(url, username, password);
     }
 
-    public orderform(String url, String username, String password) throws IOException {
+    public OrderForm(String url, String username, String password) throws IOException {
         super(url, username, password);
         finalOrderTextFile(super.furnitureChosen, super.typeChosen, super.quantity);
     }
