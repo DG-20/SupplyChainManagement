@@ -36,6 +36,63 @@ public class DataBaseManipulator extends InputReader {
         algorithmToCreateOrderForChair();
     }
 
+    private void sumAllRows()
+    {
+        
+    }
+    private void deleteAllRows(String furnitureName, String type)
+    {
+        PreparedStatement myStmt;
+        try
+        {
+            String query = "DELETE FROM " + furnitureName + " WHERE Type = ?";
+            myStmt = dataBaseConnection.prepareStatement(query);
+
+            myStmt.setString(1, type);
+
+            int rowCount = myStmt.executeUpdate();
+            System.out.println("Rows Affected: " + rowCount);
+        }
+
+        catch(SQLException e)
+        {
+            System.out.println("Unable to delete all rows of type " + type);
+            System.exit(1);
+        }
+    }
+    private void deleteFromDataBase(int row1, int row2, int row3, int row4)
+    {
+        try
+        {
+            String query = "DELETE FROM inventory WHERE " + furnitureChosen + " = ?";
+            PreparedStatement myStmt = dataBaseConnection.prepareStatement(query);
+
+            if(row1 != -1)
+            {
+                myStmt.setInt(1, row1);
+            }
+            
+            if(row2 != -1)
+            {
+                myStmt.setInt(1, row2);
+            }
+
+            if(row3 != -1)
+            {
+                myStmt.setInt(1, row3);
+            }
+
+            if(row4 != -1)
+            {
+                myStmt.setInt(1, row4);
+            }
+        }
+        catch(SQLException e)
+        {
+
+        }
+    }
+
     private void create2DArray() {
         int numOfCols = 0;
         String[] furnitureParts;
