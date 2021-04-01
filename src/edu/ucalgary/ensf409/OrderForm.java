@@ -29,7 +29,7 @@ public class OrderForm extends DataBaseManipulator {
                 .concat("Original Request: " + type + " " + furniture + ", " + Integer.toString(quantity) + "\n");
         outputForm = outputForm.concat("\n" + "Items Ordered" + "\n");
         outputForm = outputForm.concat("ID: ");
-        outputForm = outputForm.concat("\n\n" + "Total Price: ");
+        outputForm = outputForm.concat("\n\n" + "Total Price: "+ super.lowestPrice);
         outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
         FileWriter fileOutput = new FileWriter("orderform.txt");
         fileOutput.write(outputForm);
