@@ -33,6 +33,7 @@ public class DataBaseManipulator extends InputReader {
 
         algorithmToCreateOrderForLamp();
         algorithmToCreateOrderForElse();
+        algorithmToCreateOrderForChair();
     }
 
     private void create2DArray() {
@@ -122,6 +123,41 @@ public class DataBaseManipulator extends InputReader {
             System.out.println("Could not connect to the database!");
             System.exit(1);
         }
+    }
+    
+    private boolean algorithmToCreateOrderForChair()
+    {
+        ArrayList<String> combinations = new ArrayList<String>();
+        for (int i = 0; i < storage.length; i++) 
+        {
+            if (storage[i][0] == 1) 
+            {
+                for (int j = 0; j < storage.length; j++) 
+                {
+                    if (storage[j][1] == 1) 
+                    {
+                        for (int k = 0; k < storage.length; k++)
+                         {
+                            if (storage[k][2] == 1) 
+                            {
+                                for(int l = 0; l < storage.length; l++)
+                                {
+                                    if(storage[l][3] == 1)
+                                    {
+                                        combinations.add(i + "-" + j + "-" + k + "-" + l);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Iterator<String> obj = combinations.iterator();
+        while (obj.hasNext())
+            System.out.println(obj.next());
+        return true;
     }
 
     private boolean algorithmToCreateOrderForLamp() {
