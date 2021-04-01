@@ -9,8 +9,8 @@ public class InputReader {
 
     protected String[] typeOfFurniture = { "chair", "desk", "filing", "lamp" };
     protected String[] typeOfFiling = { "Small", "Medium", "Large" };
-    protected String[] typeOfLamps = { "Desk", "Swing Arm", "Study" };
-    protected String[] typeOfDesks = { "Standing", "Traditional", "Adjustable" };
+    protected String[] typeOfLamps = { "Desk","Study", "Swing Arm" };
+    protected String[] typeOfDesks = { "Adjustable","Standing", "Traditional" };
     protected String[] typeOfChairs = { "Ergonomic", "Executive", "Kneeling", "Mesh", "Task" };
 
     protected String furnitureChosen;
@@ -22,7 +22,7 @@ public class InputReader {
         int userInput = -1;
         do {
             System.out
-                    .println("Please make a selection of the furtniture needed.\n" + "Select one from:\n" + "1. Chair\n"
+                    .println("Please make a selection of the furniture needed.\n" + "Select one from:\n" + "1. Chair\n"
                             + "2. Desk\n" + "3. Filing\n" + "4. Lamp\n" + "5. If you would like to exit the program.");
             userInput = inputCollected.nextInt();
             if (userInput < 0 || userInput > 5)
@@ -133,8 +133,8 @@ public class InputReader {
         int userInput = -1;
         do {
             System.out.println("\nYou selected desks as your furniture.\n"
-                    + "Please select from the following types of chairs:\n" + "1. Standing\n" + "2. Traditional\n"
-                    + "3. Adjustable\n" + "4. If you would like to exit the program.");
+                    + "Please select from the following types of chairs:\n" + "1. Adjustable\n" + "2. Standing\n"
+                    + "3. Traditional\n" + "4. If you would like to exit the program.");
             userInput = inputCollected.nextInt();
             if (userInput < 0 || userInput > 4) {
                 System.out.println("\nError: Please enter a number between 1-3!\n");
@@ -152,8 +152,8 @@ public class InputReader {
         int userInput = -1;
         do {
             System.out.println("\nYou selected lamps as your furniture.\n"
-                    + "Please select from the following types of chairs: \n" + "1. Desk\n" + "2. Swing Arm\n"
-                    + "3. Study\n" + "4. If you would like to exit the program.");
+                    + "Please select from the following types of chairs: \n" + "1. Desk\n" + "2. Study\n"
+                    + "3. Swing Arm\n" + "4. If you would like to exit the program.");
             userInput = inputCollected.nextInt();
             if (userInput < 0 || userInput > 4) {
                 System.out.println("\nError: Please enter a number between 1-3!\n");
