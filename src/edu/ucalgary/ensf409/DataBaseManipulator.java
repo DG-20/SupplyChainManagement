@@ -50,8 +50,16 @@ public class DataBaseManipulator extends InputReader {
 
     private void sumAllRows()
     {
-        
+        int sum = 0;
+
+        for(int i = 0; i < storage.length; i++)
+        {
+            sum += storage[i][storage[i].length - 1];
+        }
+
+        this.lowestPrice = sum;
     }
+
     private void deleteAllRows(String furnitureName, String type)
     {
         PreparedStatement myStmt;
@@ -76,7 +84,7 @@ public class DataBaseManipulator extends InputReader {
     {
         try
         {
-            String query = "DELETE FROM inventory WHERE " + furnitureChosen + " = ?";
+            String query = "DELETE FROM " + furnitureChosen + " WHERE " + typeChosen + " = ?";
             PreparedStatement myStmt = dataBaseConnection.prepareStatement(query);
 
             if(row1 != -1)
@@ -276,7 +284,7 @@ public class DataBaseManipulator extends InputReader {
         row1 = Integer.parseInt(temp.substring(0, positionOfDash));
         row2 = Integer.parseInt(temp.substring(positionOfDash + 1, temp.length()));
 
-        deleteFromDatabase(row1, row2, -1, -1);
+        //deleteFromDatabase(row1, row2, -1, -1);
 
         if (combinations.size() == 0) {
             return false;
