@@ -23,6 +23,8 @@ public class DataBaseManipulator extends InputReader {
     private String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     private String[] manuLamp = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     private int[][] storage;
+    private int rowToAdd;
+    private int lowestPrice;
 
     public DataBaseManipulator(String url, String username, String password) {
         this.URL = url;
@@ -33,9 +35,17 @@ public class DataBaseManipulator extends InputReader {
 
         create2DArray();
 
-        algorithmToCreateOrderForLamp();
-        algorithmToCreateOrderForElse();
-        algorithmToCreateOrderForChair();
+        if (super.furnitureChosen.equals("lamp")) {
+            algorithmToCreateOrderForLamp();
+        }
+
+        if (super.furnitureChosen.equals("chair")) {
+            algorithmToCreateOrderForChair();
+        }
+
+        if (super.furnitureChosen.equals("desk") || super.furnitureChosen.equals("filing")) {
+            algorithmToCreateOrderForElse();
+        }
     }
 
     private void create2DArray() {
@@ -159,13 +169,21 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
-        Iterator<String> obj = combinations.iterator();
-        while (obj.hasNext())
-            System.out.println(obj.next());
+        if (combinations.size() == 0) {
+            return false;
+        }
         return true;
     }
 
     private boolean algorithmToCreateOrderForLamp() {
+        int yChecker1 = loopMethod(0);
+        int yChecker2 = loopMethod(1);
+
+        if (yChecker1 == super.quantity && yChecker2 == super.quantity) {
+            sumAllRows();
+            deleteAllRows("lamp", super.typeChosen);
+        }
+
         ArrayList<String> combinations = new ArrayList<String>();
         for (int i = 0; i < storage.length; i++) {
             if (storage[i][0] == 1) {
@@ -187,9 +205,25 @@ public class DataBaseManipulator extends InputReader {
             positionOfDash = combo.indexOf('-');
             row1 = Integer.parseInt(combo.substring(0, positionOfDash));
             row2 = Integer.parseInt(combo.substring(positionOfDash + 1, combo.length()));
-            listOfPrices[i] = storage[row1][storage[row1].length - 1] + storage[row2][storage[row2].length - 1];
+            if (row1 == row2) {
+                listOfPrices[i] = storage[row1][storage[row1].length - 1];
+            } else {
+                listOfPrices[i] = storage[row1][storage[row1].length - 1] + storage[row2][storage[row2].length - 1];
+            }
         }
 
+        minFinder(listOfPrices);
+
+        String temp = combinations.get(this.rowToAdd);
+        positionOfDash = temp.indexOf('-');
+        row1 = Integer.parseInt(temp.substring(0, positionOfDash));
+        row2 = Integer.parseInt(temp.substring(positionOfDash + 1, temp.length()));
+
+        deleteFromDatabase(row1, row2, -1, -1);
+
+        if (combinations.size() == 0) {
+            return false;
+        }
         return true;
     }
 
@@ -218,11 +252,36 @@ public class DataBaseManipulator extends InputReader {
                 }
             }
         }
-
-        Iterator<String> obj = combinations.iterator();
-        while (obj.hasNext())
-            System.out.println(obj.next());
+        if (combinations.size() == 0) {
+            return false;
+        }
         return true;
     }
 
+    <<<<<<<HEAD=======
+
+    private void minFinder(int[] listOfPrices) {
+        int lowest = listOfPrices[0];
+        int rowToAdd = 0;
+
+        for (int i = 0; i < listOfPrices.length; i++) {
+            if (listOfPrices[i] < lowest) {
+                lowest = listOfPrices[i];
+                rowToAdd = i;
+            }
+        }
+
+        this.rowToAdd = rowToAdd;
+        this.lowestPrice = lowest;
+    }
+
+    private int loopMethod(int col) {
+        int numOfY = 0;
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i][col] == 1) {
+                numOfY++;
+            }
+        }
+        return numOfY;
+    }>>>>>>>Divyansh
 }
