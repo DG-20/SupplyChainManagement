@@ -22,7 +22,7 @@ public class DataBaseManipulator extends InputReader {
     private String[] manuDesks = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
     private String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     private String[] manuLamp = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
-    private String[][] storage;
+    protected String[][] storage;
     private int rowToAdd;
     private int lowestPrice;
 
