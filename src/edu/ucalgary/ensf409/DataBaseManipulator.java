@@ -198,7 +198,7 @@ public class DataBaseManipulator extends InputReader {
         if (yChecker1 == super.quantity && yChecker2 == super.quantity && yChecker3 == super.quantity
                 && yChecker4 == super.quantity) {
             sumAllRows();
-            deleteAllRows("chair", super.typeChosen);
+            //deleteAllRows("chair", super.typeChosen);
             return true;
         }
 
@@ -355,7 +355,7 @@ public class DataBaseManipulator extends InputReader {
     }
 
     private void getCodes(String lowestPriceCell) {
-        //System.out.println("lowestPriceCell is: " + lowestPriceCell);
+        System.out.println("lowestPriceCell is: " + lowestPriceCell);
         char[] charArray = lowestPriceCell.toCharArray();
         int commas = 0;
         for(int charachter = 0; charachter < charArray.length; charachter++)
@@ -377,9 +377,9 @@ public class DataBaseManipulator extends InputReader {
             {
                 concatenator += charArray[c];
             }
-            else if(charArray[c] == ',')
+            if((charArray[c] == ',') || (c == charArray.length - 1))
             {
-                //System.out.println("adding : " + Integer.parseInt(concatenator));
+                System.out.println("adding : " + Integer.parseInt(concatenator));
                 rowCells[cell] = Integer.parseInt(concatenator);
                 cell++;
                 concatenator = "";
@@ -423,7 +423,7 @@ public class DataBaseManipulator extends InputReader {
 
         if (yChecker1 == super.quantity && yChecker2 == super.quantity) {
             sumAllRows();
-            deleteAllRows("lamp", super.typeChosen);
+            //deleteAllRows("lamp", super.typeChosen);
         }
 
         ArrayList<String> combinations = new ArrayList<String>();
@@ -458,6 +458,12 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
+        for(int i = 0; i < listOfRows.length; i++)
+        {
+            System.out.print("| " + listOfRows[i] + " ");
+        }
+        System.out.println();
+
         minFinder(listOfPrices, listOfRows);
 
         String temp = combinations.get(this.rowToAdd);
@@ -481,7 +487,7 @@ public class DataBaseManipulator extends InputReader {
 
         if (yChecker1 == super.quantity && yChecker2 == super.quantity && yChecker3 == super.quantity) {
             sumAllRows();
-            deleteAllRows(super.furnitureChosen, super.typeChosen);
+            //deleteAllRows(super.furnitureChosen, super.typeChosen);
             return true;
         }
 
