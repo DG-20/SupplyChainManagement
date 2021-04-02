@@ -1,3 +1,16 @@
+/**
+ * @author Divyansh Goyal <a href="mailto:divyansh.goyal@ucalgary.ca">divyansh.goyal@ucalgary.ca</a>
+ * 
+ * @author Maheen Hossain <a href="mailto:maheen.hossain@ucalgary.ca">maheen.hossain@ucalgary.ca</a>
+ * 
+ * @author Liam Parmar <a href="mailto:liam.parmar@ucalgary.ca">liam.parmar@ucalgary.ca</a>
+ * 
+ * @author Curtis Silva <a href="mailto:curtis.silva@ucalgary.ca">curtis.silva@ucalgary.ca</a>
+ * 
+ * @version 62.0
+ * 
+ * @since 1.0
+ */
 package edu.ucalgary.ensf409;
 
 import java.io.IOException;
