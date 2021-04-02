@@ -7,11 +7,15 @@ import java.util.Iterator;
 
 public class DataBaseManipulator extends InputReader {
     public static void main(String[] args) throws IOException {
-        /*
-         * String url = "jdbc:mysql://localhost/inventory"; String username = "scm";
-         * String password = "ensf409"; DataBaseManipulator obj2 = new
-         * DataBaseManipulator(url, username, password);
-         */
+
+
+        
+         String url = "jdbc:mysql://localhost/inventory"; String username = "scm";
+         String password = "ensf409"; DataBaseManipulator obj2 = new
+         DataBaseManipulator(url, username, password);
+         obj2.sumAllRows();
+         System.out.println(obj2.lowestPrice);
+         
     }
 
     private final String URL;
@@ -49,8 +53,30 @@ public class DataBaseManipulator extends InputReader {
         System.out.println(this.lowestPrice);
     }
 
-    private void sumAllRows() {
+    private void sumAllRows() 
+    {
+        Statement newstmt;
+        lowestPrice = 0;
+        try
+        {
+            newstmt = this.dataBaseConnection.createStatement();
+            ResultSet results = newstmt.executeQuery("SELECT * FROM " + super.furnitureChosen); 
+            while(results.next())
+            {
+                 if((results.getString("Type").equals(super.typeChosen)))
+                {
+                    
+                    lowestPrice += Integer.parseInt(results.getString("Price"));
+                }
+            }
 
+        }
+
+        catch(SQLException e)
+        {
+            System.out.println("Unable to calculate sum of all rows");
+        }
+        
     }
 
     private void deleteAllRows(String furnitureName, String type) {
@@ -195,7 +221,7 @@ public class DataBaseManipulator extends InputReader {
         if (yChecker1 == super.quantity && yChecker2 == super.quantity && yChecker3 == super.quantity
                 && yChecker4 == super.quantity) {
             sumAllRows();
-            deleteAllRows("chair", super.typeChosen);
+            //deleteAllRows("chair", super.typeChosen);
             return true;
         }
 
@@ -338,7 +364,7 @@ public class DataBaseManipulator extends InputReader {
 
         if (yChecker1 == super.quantity && yChecker2 == super.quantity) {
             sumAllRows();
-            deleteAllRows("lamp", super.typeChosen);
+            //deleteAllRows("lamp", super.typeChosen);
         }
 
         ArrayList<String> combinations = new ArrayList<String>();
@@ -393,7 +419,8 @@ public class DataBaseManipulator extends InputReader {
 
         if (yChecker1 == super.quantity && yChecker2 == super.quantity && yChecker3 == super.quantity) {
             sumAllRows();
-            deleteAllRows(super.furnitureChosen, super.typeChosen);
+            System.out.println(this.lowestPrice + " asdf");
+            //deleteAllRows(super.furnitureChosen, super.typeChosen);
             return true;
         }
 
