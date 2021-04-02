@@ -28,6 +28,7 @@ import java.util.Scanner;
  * and thus allows DataBaseManipulator to access its protected field members.
  */
 public class InputReader {
+    
     // A main is included so as to not cause an error when compiling.
     // Everything will be done from the OrderForm class's main.
     public static void main(String[] args) throws IOException {
