@@ -24,7 +24,7 @@ public class DataBaseManipulator extends InputReader {
     private String[] manuLamp = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     protected String[][] storage;
     private int rowToAdd;
-    private int lowestPrice;
+    protected int lowestPrice;
 
     public DataBaseManipulator(String url, String username, String password) {
         this.URL = url;
@@ -220,7 +220,116 @@ public class DataBaseManipulator extends InputReader {
         if (combinations.size() == 0) {
             return false;
         }
+
+        int[] listOfPrices = new int[combinations.size()];
+        String combo;
+        int positionOfDash;
+        int positionOfDash2;
+        int positionOfDash3;
+        int row1;
+        int row2;
+        int row3;
+        int row4;
+
+        for (int i = 0; i < combinations.size(); i++) {
+            combo = combinations.get(i);
+            positionOfDash = combo.indexOf('-');
+            positionOfDash3 = combo.lastIndexOf('-');
+            positionOfDash2 = combo.indexOf('-', positionOfDash + 1);
+            row1 = Integer.parseInt(combo.substring(0, positionOfDash));
+            row2 = Integer.parseInt(combo.substring(positionOfDash + 1, positionOfDash2));
+            row3 = Integer.parseInt(combo.substring(positionOfDash2 + 1, positionOfDash3));
+            row4 = Integer.parseInt(combo.substring(positionOfDash3 + 1, combo.length()));
+            if (row1 == row3 && row1 == row2 && row1 == row4) {
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1]);
+            } else if (row1 == row2 && row1 == row3) {
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
+                        + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+            } else if (row1 == row3 && row1 == row4) {
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
+                        + Integer.parseInt(storage[row2][storage[row2].length - 1]);
+            } else if (row1 == row2 && row1 == row4) {
+                listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
+                        + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+            } else if (row3 == row2 && row3 == row4) {
+                listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
+                        + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+            }
+            // pairs
+            else if (row1 == row2) {
+
+                if (row3 != row4) {
+                    listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
+            } else if (row1 == row3) {
+
+                if (row2 != row4) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
+            } else if (row1 == row4) {
+                if (row2 != row3) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
+            } else if (row2 == row3) {
+                if (row1 != row4) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
+
+            } else if (row2 == row4) {
+                if (row1 != row3) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                }
+            } else if (row3 == row4) {
+                if (row1 != row2) {
+                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
+                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+                } else {
+                    listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
+                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+
+                }
+            }
+            // singles
+
+            else {
+                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
+                        + Integer.parseInt(storage[row2][storage[row2].length - 1])
+                        + Integer.parseInt(storage[row3][storage[row3].length - 1])
+                        + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+            }
+        }
+
+        minFinder(listOfPrices);
+
         return true;
+
     }
 
     private boolean algorithmToCreateOrderForLamp() {
@@ -335,13 +444,6 @@ public class DataBaseManipulator extends InputReader {
         }
 
         minFinder(listOfPrices);
-
-        /*
-         * String temp = combinations.get(this.rowToAdd); positionOfDash =
-         * temp.indexOf('-'); row1 = Integer.parseInt(temp.substring(0,
-         * positionOfDash)); row2 = Integer.parseInt(temp.substring(positionOfDash + 1,
-         * temp.length()));
-         */
 
         if (combinations.size() == 0) {
             return false;
