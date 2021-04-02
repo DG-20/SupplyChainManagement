@@ -25,6 +25,9 @@ public class DataBaseManipulator extends InputReader {
     protected String[][] storage;
     private int rowToAdd;
     protected int lowestPrice;
+    private String lowestPriceCell;
+    protected String[] codes;
+    private int codeCellCounter = 0;
 
     public DataBaseManipulator(String url, String username, String password) {
         this.URL = url;
@@ -71,25 +74,25 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-    private void deleteFromDataBase(int row1, int row2, int row3, int row4) {
+    private void deleteFromDataBase(int callRow1, int callRow2, int callRow3, int callRow4) {
         try {
             String query = "DELETE FROM inventory WHERE " + furnitureChosen + " = ?";
             PreparedStatement myStmt = dataBaseConnection.prepareStatement(query);
 
-            if (row1 != -1) {
-                myStmt.setInt(1, row1);
+            if (callRow1 != -1) {
+                myStmt.setInt(1, callRow1);
             }
 
-            if (row2 != -1) {
-                myStmt.setInt(1, row2);
+            if (callRow2 != -1) {
+                myStmt.setInt(1, callRow2);
             }
 
-            if (row3 != -1) {
-                myStmt.setInt(1, row3);
+            if (callRow3 != -1) {
+                myStmt.setInt(1, callRow3);
             }
 
-            if (row4 != -1) {
-                myStmt.setInt(1, row4);
+            if (callRow4 != -1) {
+                myStmt.setInt(1, callRow4);
             }
         } catch (SQLException e) {
 
@@ -222,113 +225,195 @@ public class DataBaseManipulator extends InputReader {
         }
 
         int[] listOfPrices = new int[combinations.size()];
+        String[] listOfRows = new String[combinations.size()];
         String combo;
         int positionOfDash;
         int positionOfDash2;
         int positionOfDash3;
-        int row1;
-        int row2;
-        int row3;
-        int row4;
+        int callRow1;
+        int callRow2;
+        int callRow3;
+        int callRow4;
 
         for (int i = 0; i < combinations.size(); i++) {
             combo = combinations.get(i);
             positionOfDash = combo.indexOf('-');
             positionOfDash3 = combo.lastIndexOf('-');
             positionOfDash2 = combo.indexOf('-', positionOfDash + 1);
-            row1 = Integer.parseInt(combo.substring(0, positionOfDash));
-            row2 = Integer.parseInt(combo.substring(positionOfDash + 1, positionOfDash2));
-            row3 = Integer.parseInt(combo.substring(positionOfDash2 + 1, positionOfDash3));
-            row4 = Integer.parseInt(combo.substring(positionOfDash3 + 1, combo.length()));
-            if (row1 == row3 && row1 == row2 && row1 == row4) {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1]);
-            } else if (row1 == row2 && row1 == row3) {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row4][storage[row4].length - 1]);
-            } else if (row1 == row3 && row1 == row4) {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row2][storage[row2].length - 1]);
-            } else if (row1 == row2 && row1 == row4) {
-                listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1]);
-            } else if (row3 == row2 && row3 == row4) {
-                listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+            callRow1 = Integer.parseInt(combo.substring(0, positionOfDash));
+            callRow2 = Integer.parseInt(combo.substring(positionOfDash + 1, positionOfDash2));
+            callRow3 = Integer.parseInt(combo.substring(positionOfDash2 + 1, positionOfDash3));
+            callRow4 = Integer.parseInt(combo.substring(positionOfDash3 + 1, combo.length()));
+            if (callRow1 == callRow3 && callRow1 == callRow2 && callRow1 == callRow4) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1);
+            } else if (callRow1 == callRow2 && callRow1 == callRow3) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                        + Integer.parseInt(storage[callRow4][storage[callRow4].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1, callRow4);
+            } else if (callRow1 == callRow3 && callRow1 == callRow4) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                        + Integer.parseInt(storage[callRow2][storage[callRow2].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
+            } else if (callRow1 == callRow2 && callRow1 == callRow4) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow3][storage[callRow3].length - 1])
+                        + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1, callRow3);
+            } else if (callRow3 == callRow2 && callRow3 == callRow4) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow3][storage[callRow3].length - 1])
+                        + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1, callRow3);
             }
             // pairs
-            else if (row1 == row2) {
+            else if (callRow1 == callRow2) {
 
-                if (row3 != row4) {
-                    listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                if (callRow3 != callRow4) {
+                    listOfPrices[i] = Integer.parseInt(storage[callRow3][storage[callRow3].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                            + Integer.parseInt(storage[callRow4][storage[callRow4].length - 1]);
+                    listOfRows[i] = String.format("%,%d,%d", callRow1, callRow3, callRow4);
                 } else {
-                    listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                    listOfPrices[i] = Integer.parseInt(storage[callRow3][storage[callRow3].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                    listOfRows[i] = String.format("%d,%d", callRow1, callRow3);
                 }
-            } else if (row1 == row3) {
+            } else if (callRow1 == callRow3) {
 
-                if (row2 != row4) {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                if (callRow2 != callRow4) {
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                            + Integer.parseInt(storage[callRow4][storage[callRow4].length - 1]);
+                    listOfRows[i] = String.format("%d,%d,%d", callRow1, callRow2, callRow4);
                 } else {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                    listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
                 }
-            } else if (row1 == row4) {
-                if (row2 != row3) {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+            } else if (callRow1 == callRow4) {
+                if (callRow2 != callRow3) {
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                            + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
+                    listOfRows[i] = String.format("%d,%d,%d", callRow1, callRow2, callRow3);
 
                 } else {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                    listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
                 }
-            } else if (row2 == row3) {
-                if (row1 != row4) {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                            + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+            } else if (callRow2 == callRow3) {
+                if (callRow1 != callRow4) {
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                            + Integer.parseInt(storage[callRow4][storage[callRow4].length - 1]);
+                    listOfRows[i] = String.format("%d,%d,%d", callRow1, callRow2, callRow4);
                 } else {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                    listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
                 }
 
-            } else if (row2 == row4) {
-                if (row1 != row3) {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+            } else if (callRow2 == callRow4) {
+                if (callRow1 != callRow3) {
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                            + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
+                    listOfRows[i] = String.format("%d,%d,%d", callRow1, callRow2, callRow3);
                 } else {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                    listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
                 }
-            } else if (row3 == row4) {
-                if (row1 != row2) {
-                    listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1])
-                            + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+            } else if (callRow3 == callRow4) {
+                if (callRow1 != callRow2) {
+                    listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                            + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
+                    listOfRows[i] = String.format("%,%d,%d", callRow1, callRow2, callRow3);
                 } else {
-                    listOfPrices[i] = Integer.parseInt(storage[row3][storage[row3].length - 1])
-                            + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+                    listOfPrices[i] = Integer.parseInt(storage[callRow3][storage[callRow3].length - 1])
+                            + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                    listOfRows[i] = String.format("%d,%d", callRow1, callRow3);
 
                 }
             }
             // singles
 
             else {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row2][storage[row2].length - 1])
-                        + Integer.parseInt(storage[row3][storage[row3].length - 1])
-                        + Integer.parseInt(storage[row4][storage[row4].length - 1]);
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                        + Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                        + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1])
+                        + Integer.parseInt(storage[callRow4][storage[callRow4].length - 1]);
+                listOfRows[i] = String.format("%d,%d,%d,%d", callRow1, callRow2, callRow3, callRow4);
             }
         }
 
-        minFinder(listOfPrices);
+        minFinder(listOfPrices, listOfRows);
 
         return true;
+
+    }
+
+    private void getCodes(String lowestPriceCell) {
+        //System.out.println("lowestPriceCell is: " + lowestPriceCell);
+        char[] charArray = lowestPriceCell.toCharArray();
+        int commas = 0;
+        for(int charachter = 0; charachter < charArray.length; charachter++)
+        {
+            if(charArray[charachter] == ',')
+            {
+                commas++;
+            }
+        }
+
+        int[] rowCells = new int[charArray.length - commas];
+        String[] codeInserts = new String[charArray.length - commas];
+        int cell = 0;
+
+        String concatenator = "";
+        for (int c = 0; c < charArray.length; c++)       //char charachter : charArray 
+        {
+            if (Character.isDigit(charArray[c])) 
+            {
+                concatenator += charArray[c];
+            }
+            else if(charArray[c] == ',')
+            {
+                //System.out.println("adding : " + Integer.parseInt(concatenator));
+                rowCells[cell] = Integer.parseInt(concatenator);
+                cell++;
+                concatenator = "";
+            }
+            //System.out.println("cncatenot : " + concatenator);
+        }
+
+        System.out.println("rowCells is: ");
+        for(int i = 0; i < rowCells.length; i++)
+        {
+            System.out.print("| " + rowCells[i] + " ");
+        }
+        System.out.println();
+
+        int cellInsert = 0;
+        for (int i = 0; i < rowCells.length; i++) {
+            // System.out.println("GETS HERE " + i);
+            for (int j = 0; j < storage[rowCells[i]].length; j++) {
+                // System.out.println("GETS HERE Loop 2: " + j);
+                char[] charArray2 = storage[rowCells[i]][j].toCharArray();
+                // System.out.println(storage[rowCells[i] - 1][j]);
+                if (Character.isLetter(charArray2[0])) {
+                    //System.out.println("cellinsert is: " + cellInsert);
+                    codeInserts[cellInsert] = storage[rowCells[i]][j];
+                    cellInsert++;
+                    break;
+                }
+            }
+        }
+
+        codes = new String[charArray.length - commas];
+        for (int goThrough = 0; goThrough < codes.length; goThrough++) {
+            codes[goThrough] = codeInserts[goThrough];
+        }
 
     }
 
@@ -353,31 +438,34 @@ public class DataBaseManipulator extends InputReader {
         }
 
         int[] listOfPrices = new int[combinations.size()];
+        String[] listOfRows = new String[combinations.size()];
         String combo;
         int positionOfDash;
-        int row1;
-        int row2;
+        int callRow1;
+        int callRow2;
         for (int i = 0; i < combinations.size(); i++) {
             combo = combinations.get(i);
             positionOfDash = combo.indexOf('-');
-            row1 = Integer.parseInt(combo.substring(0, positionOfDash));
-            row2 = Integer.parseInt(combo.substring(positionOfDash + 1, combo.length()));
-            if (row1 == row2) {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1]);
+            callRow1 = Integer.parseInt(combo.substring(0, positionOfDash));
+            callRow2 = Integer.parseInt(combo.substring(positionOfDash + 1, combo.length()));
+            if (callRow1 == callRow2) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                listOfRows[i] = String.format("%d", callRow1);
             } else {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row2][storage[row2].length - 1]);
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                        + Integer.parseInt(storage[callRow2][storage[callRow2].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
             }
         }
 
-        minFinder(listOfPrices);
+        minFinder(listOfPrices, listOfRows);
 
         String temp = combinations.get(this.rowToAdd);
         positionOfDash = temp.indexOf('-');
-        row1 = Integer.parseInt(temp.substring(0, positionOfDash));
-        row2 = Integer.parseInt(temp.substring(positionOfDash + 1, temp.length()));
+        callRow1 = Integer.parseInt(temp.substring(0, positionOfDash));
+        callRow2 = Integer.parseInt(temp.substring(positionOfDash + 1, temp.length()));
 
-        // deleteFromDataBase(row1, row2, -1, -1);
+        // deleteFromDataBase(callRow1, callRow2, -1, -1);
 
         if (combinations.size() == 0) {
             return false;
@@ -412,38 +500,44 @@ public class DataBaseManipulator extends InputReader {
         }
 
         int[] listOfPrices = new int[combinations.size()];
+        String[] listOfRows = new String[combinations.size()];
         String combo;
         int positionOfDash;
         int positionOfDash2;
-        int row1;
-        int row2;
-        int row3;
+        int callRow1;
+        int callRow2;
+        int callRow3;
         for (int i = 0; i < combinations.size(); i++) {
             combo = combinations.get(i);
             positionOfDash = combo.indexOf('-');
             positionOfDash2 = combo.lastIndexOf('-');
-            row1 = Integer.parseInt(combo.substring(0, positionOfDash));
-            row2 = Integer.parseInt(combo.substring(positionOfDash + 1, positionOfDash2));
-            row3 = Integer.parseInt(combo.substring(positionOfDash2 + 1, combo.length()));
-            if (row1 == row3 && row1 == row2) {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1]);
-            } else if (row1 == row2) {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row3][storage[row3].length - 1]);
-            } else if (row1 == row3) {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row2][storage[row2].length - 1]);
-            } else if (row2 == row3) {
-                listOfPrices[i] = Integer.parseInt(storage[row2][storage[row2].length - 1])
-                        + Integer.parseInt(storage[row1][storage[row1].length - 1]);
+            callRow1 = Integer.parseInt(combo.substring(0, positionOfDash));
+            callRow2 = Integer.parseInt(combo.substring(positionOfDash + 1, positionOfDash2));
+            callRow3 = Integer.parseInt(combo.substring(positionOfDash2 + 1, combo.length()));
+            if (callRow1 == callRow3 && callRow1 == callRow2) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                listOfRows[i] = String.format("%d", callRow1);
+            } else if (callRow1 == callRow2) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                        + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1, callRow3);
+            } else if (callRow1 == callRow3) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                        + Integer.parseInt(storage[callRow2][storage[callRow2].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
+            } else if (callRow2 == callRow3) {
+                listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                        + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
+                listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
             } else {
-                listOfPrices[i] = Integer.parseInt(storage[row1][storage[row1].length - 1])
-                        + Integer.parseInt(storage[row2][storage[row2].length - 1])
-                        + Integer.parseInt(storage[row3][storage[row3].length - 1]);
+                listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
+                        + Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
+                        + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
+                listOfRows[i] = String.format("%d,%d,%d", callRow1, callRow2, callRow3);
             }
         }
 
-        minFinder(listOfPrices);
+        minFinder(listOfPrices, listOfRows);
 
         if (combinations.size() == 0) {
             return false;
@@ -451,7 +545,7 @@ public class DataBaseManipulator extends InputReader {
         return true;
     }
 
-    private void minFinder(int[] listOfPrices) {
+    private void minFinder(int[] listOfPrices, String[] listOfRows) {
         int lowest = listOfPrices[0];
         int rowToAdd = 0;
 
@@ -464,6 +558,10 @@ public class DataBaseManipulator extends InputReader {
 
         this.rowToAdd = rowToAdd;
         this.lowestPrice = lowest;
+
+        lowestPriceCell = listOfRows[this.rowToAdd];
+
+        getCodes(lowestPriceCell);
     }
 
     private int loopMethod(int col) {
