@@ -33,12 +33,16 @@ public class OrderForm extends DataBaseManipulator {
      * It also creates an object of type OrderForm which is where everything
      * begins to run from.
      */
+    private String[][] copyStorage = new String[super.storage.length][super.storage[0].length];
+
     public static void main(String[] args) throws IOException {
         String url = "jdbc:mysql://localhost/inventory"; 
         String username = "scm"; 
         String password = "ensf409"; 
         OrderForm object = new OrderForm(url, username, password); 
     }
+
+
 
     /* The constructor OrderForm takes in 3 arguments: A string containing the path
      * to the file, a string for the username of the host, and a string for the password
@@ -48,10 +52,19 @@ public class OrderForm extends DataBaseManipulator {
      * of the furniture, and the quantity desired to the creation method of 
      * the finalOrder, finalOrderTextFile.
      */
-    public OrderForm(String url, String username, String password) throws IOException 
-    {
-        super(url, username, password); 
+    public OrderForm(String url, String username, String password) throws IOException {
+        super(url, username, password);
+        storageArrayCopy();
         finalOrderTextFile(super.furnitureChosen, super.typeChosen, super.quantity);
+    }
+
+    public void storageArrayCopy() {
+        for (int i = 0; i < super.storage.length; i++) {
+            for (int j = 0; j < super.storage[i].length; j++) 
+            {
+                copyStorage[i][j] = super.storage[i][j];
+            }
+        }
     }
 
     /* The following method finalOrderTextFile generates an order form and concatenates 
@@ -61,8 +74,7 @@ public class OrderForm extends DataBaseManipulator {
      *  type of furniture. The formatting along with the various inputted strings are 
      *  then written to an output file called OrderForm.txt. The orderform is then closed.
      */ 
-    public void finalOrderTextFile(String furniture, String type, int quantity) throws IOException 
-    {
+    public void finalOrderTextFile(String furniture, String type, int quantity) throws IOException {
         System.out.println("Printing Furniture Order Form...\n");
         String outputForm = "";
         outputForm = "┎                                                          ┓\n";
@@ -72,12 +84,24 @@ public class OrderForm extends DataBaseManipulator {
         outputForm = outputForm
                 .concat("Original Request: " + type + " " + furniture + ", " + Integer.toString(quantity) + "\n");
         outputForm = outputForm.concat("\n" + "Items Ordered" + "\n");
-        outputForm = outputForm.concat("ID: ");
-        outputForm = outputForm.concat("\n\n" + "Total Price: "+ super.lowestPrice);
+        for(int i = 0; i < super.codes.length; i++)
+        {
+            outputForm = outputForm.concat("ID: " + super.codes[i]);
+            outputForm = outputForm.concat("\n");
+        }
+        outputForm = outputForm.concat("\n\n" + "Total Price: " + super.lowestPrice);
         outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
         FileWriter fileOutput = new FileWriter("OrderForm.txt");
         fileOutput.write(outputForm);
         fileOutput.close();
         System.out.println("Furniture Order Form generated.");
+
+        /*for (int i = 0; i < copyStorage.length; i++) {
+            for (int j = 0; j < copyStorage[i].length; j++) 
+            {
+                System.out.print("| " + copyStorage[i][j] + " ");
+            }
+            System.out.println();
+        }*/
     }
 }

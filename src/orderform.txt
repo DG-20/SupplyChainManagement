@@ -6,11 +6,13 @@ Faculty Name:
 Contact:      
 Date:     
 
-Original Request: Executive chair, 3
+Original Request: Ergonomic chair, 1
 
 Items Ordered
-ID: 
+ID: C5409
+ID: C4839
 
-Total Price: 400
+
+Total Price: 250
 
 ┗                                                          ┛
