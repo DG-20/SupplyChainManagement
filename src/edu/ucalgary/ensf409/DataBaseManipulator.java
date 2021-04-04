@@ -704,6 +704,14 @@ public class DataBaseManipulator extends InputReader {
         return true;
     }
 
+    /*
+     *The following void method takes two arrays as parameters, an integer array named listOfPrices and a String array named listOfRows.
+     *These arrays are used in the algorithms to develop value and index of lowest prices
+     *listOfRows is utilized for the row index that corresponds to lowest price.
+     *This method also calls getCodes, which takes lowestPriceCell:this finds the lowest price of a chosen cell, which leads to the
+     *next part of the implementation, taking place in the getCodes method
+     */
+
     private void minFinder(int[] listOfPrices, String[] listOfRows) {
         int lowest = listOfPrices[0];
         int rowToAdd = 0;
@@ -726,6 +734,12 @@ public class DataBaseManipulator extends InputReader {
         getCodes(lowestPriceCell);
     }
 
+    /*
+     *The following method is used in conjuction with the algorithmToCreateOrderForChair(), algorithmToCreateOrderForLamp() and 
+     * algorithmToCreateOrderForElse() methods. The integer that this method takes as a parameter is used 
+     * 
+     */
+    
     private int loopMethod(int col) {
         int numOfY = 0;
         for (int i = 0; i < storage.length; i++) {
