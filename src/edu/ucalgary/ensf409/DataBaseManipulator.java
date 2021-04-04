@@ -740,10 +740,10 @@ public class DataBaseManipulator extends InputReader {
 
     /*
      *The following void method takes two arrays as parameters, an integer array named listOfPrices and a String array named listOfRows.
-     *These arrays are used in the algorithms to develop value and index of lowest prices
-     *listOfRows is utilized for the row index that corresponds to lowest price.
-     *This method also calls getCodes, which takes lowestPriceCell:this finds the lowest price of a chosen cell, which leads to the
-     *next part of the implementation, taking place in the getCodes method
+     *These arrays are used in the algorithms to develop value and index of lowest prices. The listOfPrices method is used in the for loop to keep iterating, as
+     *long as its length is less than the total length of array, and its value is less than the variable called lowest, after which its values gets updated into it.
+     *The listOfRows array is utilized for the row index that corresponds to lowest price. This method also calls getCodes, which takes
+     *lowestPriceCell:this finds the lowest price of a chosen cell, which leads to the next part of the implementation, taking place in the getCodes method.
      */
 
     private void minFinder(int[] listOfPrices, String[] listOfRows) {
@@ -770,8 +770,9 @@ public class DataBaseManipulator extends InputReader {
 
     /*
      *The following method is used in conjuction with the algorithmToCreateOrderForChair(), algorithmToCreateOrderForLamp() and 
-     * algorithmToCreateOrderForElse() methods. The integer that this method takes as a parameter is used 
-     * 
+     *algorithmToCreateOrderForElse() methods. The integer that this method takes as a parameter specifies the column that is mentioned.
+     *The for loop that is used in this method iterates a variable over the length of every row in the database, and checks for a '-1' in 
+     *the 2D array called storage: it then updates numofY, which is the number of Y's in the column specified and finally returns numOfY.
      */
     
     private int loopMethod(int col) {
