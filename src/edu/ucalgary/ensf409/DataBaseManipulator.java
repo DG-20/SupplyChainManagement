@@ -152,6 +152,12 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
+    /*
+     * sumAllRows is a method that total's up all of the sums of a specified furniture object and its specific sub type.
+     * It makes a statement called newstmt which is used to execute a select from statement. The result of the executed
+     * statement is then stored and the string contained under the "Type" column is compared to the desired type. If  
+     * they match then the "Price" column of that particular result is taken in and added onto the price.
+    */
     private void sumAllRows() 
     {
         Statement newstmt;
@@ -178,6 +184,11 @@ public class DataBaseManipulator extends InputReader {
         
     }
 
+    /*
+     * deleteAllRows is a method that deletes all the rows that match the specified furniture type.
+     * A query is created that holds the instruction to delete from a specified furniture name where
+     * the desired type to delete is stored. 
+    */
     private void deleteAllRows(String furnitureName, String type) {
         PreparedStatement myStmt;
         try {
@@ -288,6 +299,11 @@ public class DataBaseManipulator extends InputReader {
 
     }
 
+    /*
+     * initializeConnection is a method that creates a connection from the code to the database.
+     * dataBaseConnection stores the connection between the sql database and the code by taking 
+     * in a url, username, and password for the host connection storing the database.
+    */
     private void initializeConnection() {
         try {
             this.dataBaseConnection = DriverManager.getConnection(this.URL, this.USERNAME, this.PASSWORD);
@@ -297,6 +313,15 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
+    /*
+     * algorithmToCreateOrderForChair is a method that performs the algorithm on chairs.
+     * The method performs 4 loops on the database to check for number of Yes occurences in the table
+     * and then stores the amount of occurences in an int. It then compares each check through the loop's
+     * occurences. Checking to see if the number of Y's allows for an order of a particular quantity. 
+     * The nested for loop's check each cell for a yes or no storing each combination of allowed occurences in i,j,k,l.
+     * After storing the combinations, an array for the listOfPrices of type int and an array for the listOfRows of type String
+     * are created. The array listOfPrices 
+    */
     private boolean algorithmToCreateOrderForChair() {
         ArrayList<String> combinations = new ArrayList<String>();
         int yChecker1 = loopMethod(0);
