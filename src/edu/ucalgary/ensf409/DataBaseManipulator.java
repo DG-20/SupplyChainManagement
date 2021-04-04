@@ -193,6 +193,17 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
+    /*
+     * deleteFromDataBase is a method which creates a statement and query which 
+     * deletes certain rows in the database using the IDs which have been used
+     * already to create a combination to obtain the lowest price when fulfilling 
+     * an order. This is done within a for loop which iterates over the size of the
+     * ArrayList which contains the codes. Then, within each iteration, the statement
+     * is executed and thus the corresponding rows are deleted from the database.
+     * Note: The updates to the entire database only appear after the code has terminated
+     * and thus the 2D array containing the relevant part of the database is updated at a later
+     * point in the code. 
+     */
     private void deleteFromDataBase() {
         PreparedStatement myStmt;
         try {
@@ -209,6 +220,20 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
+    /*
+     * create2DArray is the method which recreates the relevant part, the part that 
+     * we are interested in, into a 2D array to be used locally. Every Y is included
+     * in the array as the ID representing the specific row of the database. Every N
+     * is included in the array as a -1. Both are written as Strings so that the IDs
+     * can be re-used for deleting rows from the database.
+     * This method initially begins with reading data in from the database
+     * to count the number of rows for the type of furniture chosen to get the height
+     * needed for the 2D array. Then, another try/catch block is used to read in the Y/N
+     * from each cell in the database in the relevant rows and then storing either the 
+     * ID associated with the row for a Y or "-1" in each cell in the 2D array iteratively.
+     * Thus, this method creates and populates a 2D array to then be used for all other methods 
+     * in DataBaseManipulator.
+     */
     private void create2DArray() {
         int numOfCols = 0;
         String[] furnitureParts;
@@ -277,13 +302,6 @@ public class DataBaseManipulator extends InputReader {
         } catch (SQLException e) {
             System.out.println("Something went wrong when trying to read from database!");
             System.exit(1);
-        }
-
-        for (int l = 0; l < storage.length; l++) {
-            for (int m = 0; m < storage[l].length; m++) {
-                System.out.print(storage[l][m] + " ");
-            }
-            System.out.println();
         }
 
     }
@@ -528,6 +546,28 @@ public class DataBaseManipulator extends InputReader {
 
     }
 
+    /*
+     * algorithmToCreateOrderForLamp is a method which applies an algorithm if the 
+     * user provides an order for lamps. Initially, the base condition is checked
+     * by calling upon loopMethod twice, once for each column in the Lamp table,
+     * and storing them into two variables. Then, if the number of Ys in each column
+     * of all the rows for the selected furniture is less than the quantity desired,
+     * the complete order is not possible and thus this method returns false.
+     * Then, if the total amount of Y's in each column is exactly equal to the 
+     * ordered quantity, this method calls sumAllRows and then deleteAllRows to
+     * delete all the rows from the database and then reutrns true.
+     * If these base cases are not met, then the algorithm takes place. 
+     * The algorithm utilizes an ArrayList and iterates over each column in the array
+     * in a nested for loop, to get all possible combinations to get Y in both columns
+     * (0 and 1). Each combination is combined into a String seperated by a dash and
+     * added to the ArrayList. Then, if no combinations were found, meaning the size of the
+     * ArrayList == 0, then return false. Next, two arrays listOfPrices and listOfRows 
+     * are created and a for loop iterates over all combinations in the ArrayList, adding
+     * each price into the array and the rows corresponding to those prices are added to 
+     * listOfRows as a String seperated by a comma. Then, this method calls 
+     * minFinder with both arrays. Then, deleteFromDataBase is called to update the database
+     * and then this method returns true.
+     */
     private boolean algorithmToCreateOrderForLamp() {
         int yChecker1 = loopMethod(0);
         int yChecker2 = loopMethod(1);
@@ -537,7 +577,8 @@ public class DataBaseManipulator extends InputReader {
             }
         if (yChecker1 == super.quantity && yChecker2 == super.quantity) {
             sumAllRows();
-            //deleteAllRows("lamp", super.typeChosen);
+            deleteAllRows("lamp", super.typeChosen);
+            return true;
         }
 
         ArrayList<String> combinations = new ArrayList<String>();
@@ -577,14 +618,7 @@ public class DataBaseManipulator extends InputReader {
         }
 
         minFinder(listOfPrices, listOfRows);
-
-        String temp = combinations.get(this.rowToAdd);
-        positionOfDash = temp.indexOf('-');
-        callRow1 = Integer.parseInt(temp.substring(0, positionOfDash));
-        callRow2 = Integer.parseInt(temp.substring(positionOfDash + 1, temp.length()));
-
         deleteFromDataBase();
-
         return true;
     }
 
