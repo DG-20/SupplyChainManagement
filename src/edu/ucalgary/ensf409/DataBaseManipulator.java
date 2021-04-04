@@ -469,6 +469,15 @@ public class DataBaseManipulator extends InputReader {
 
     }
 
+    /* getCodes is a private method in the DataBaseManipulator java file. It takes in a 
+     * string argument and does not return anything. The method getCodes gets called 
+     * within the private method minFinder as the last thing in the method. The private
+     * method getCodes recieves a String in the form of number followed by commas (ex; #,#,#).
+     * The numbers indicate what rows in the selected table should be taken in and used to 
+     * find the minimum price for the quantity requested (with all parts). The rows are scanned 
+     * to find the ID code which is then stored in a String array. Once the ID codes are stored
+     * the row in the storage array is set to -1's.
+     */
     private void getCodes(String lowestPriceCell) {
         char[] charArray = lowestPriceCell.toCharArray();
         int commas = 0;
@@ -503,9 +512,11 @@ public class DataBaseManipulator extends InputReader {
 
         int cellInsert = 0;
         for (int i = 0; i < rowCells.length; i++) {
-            for (int j = 0; j < storage[rowCells[i]].length; j++) {
+            for (int j = 0; j < storage[rowCells[i]].length; j++) 
+            {
                 char[] charArray2 = storage[rowCells[i]][j].toCharArray();
-                if (Character.isLetter(charArray2[0])) {
+                if (Character.isLetter(charArray2[0])) 
+                {
                     codeInserts[cellInsert] = storage[rowCells[i]][j];
                     cellInsert++;
                     break;
@@ -514,7 +525,8 @@ public class DataBaseManipulator extends InputReader {
         }
 
         //codes = new String[charArray.length - commas];
-        for (int goThrough = 0; goThrough < charArray.length - commas; goThrough++) {
+        for (int goThrough = 0; goThrough < charArray.length - commas; goThrough++) 
+        {
             codes.add(codeInserts[goThrough]);
         }
 
