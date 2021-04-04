@@ -152,6 +152,12 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
+    /*
+     * sumAllRows is a method that total's up all of the sums of a specified furniture object and its specific sub type.
+     * It makes a statement called newstmt which is used to execute a select from statement. The result of the executed
+     * statement is then stored and the string contained under the "Type" column is compared to the desired type. If  
+     * they match then the "Price" column of that particular result is taken in and added onto the price.
+    */
     private void sumAllRows() 
     {
         Statement newstmt;
@@ -178,6 +184,11 @@ public class DataBaseManipulator extends InputReader {
         
     }
 
+    /*
+     * deleteAllRows is a method that deletes all the rows that match the specified furniture type.
+     * A query is created that holds the instruction to delete from a specified furniture name where
+     * the desired type to delete is stored. 
+    */
     private void deleteAllRows(String furnitureName, String type) {
         PreparedStatement myStmt;
         try {
@@ -306,6 +317,11 @@ public class DataBaseManipulator extends InputReader {
 
     }
 
+    /*
+     * initializeConnection is a method that creates a connection from the code to the database.
+     * dataBaseConnection stores the connection between the sql database and the code by taking 
+     * in a url, username, and password for the host connection storing the database.
+    */
     private void initializeConnection() {
         try {
             this.dataBaseConnection = DriverManager.getConnection(this.URL, this.USERNAME, this.PASSWORD);
@@ -315,6 +331,15 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
+    /*
+     * algorithmToCreateOrderForChair is a method that performs the algorithm on chairs.
+     * The method performs 4 loops on the database to check for number of Yes occurences in the table
+     * and then stores the amount of occurences in an int. It then compares each check through the loop's
+     * occurences. Checking to see if the number of Y's allows for an order of a particular quantity. 
+     * The nested for loop's check each cell for a yes or no storing each combination of allowed occurences in i,j,k,l.
+     * After storing the combinations, an array for the listOfPrices of type int and an array for the listOfRows of type String
+     * are created. The array listOfPrices 
+    */
     private boolean algorithmToCreateOrderForChair() {
         ArrayList<String> combinations = new ArrayList<String>();
         int yChecker1 = loopMethod(0);
@@ -487,6 +512,15 @@ public class DataBaseManipulator extends InputReader {
 
     }
 
+    /* getCodes is a private method in the DataBaseManipulator java file. It takes in a 
+     * string argument and does not return anything. The method getCodes gets called 
+     * within the private method minFinder as the last thing in the method. The private
+     * method getCodes recieves a String in the form of number followed by commas (ex; #,#,#).
+     * The numbers indicate what rows in the selected table should be taken in and used to 
+     * find the minimum price for the quantity requested (with all parts). The rows are scanned 
+     * to find the ID code which is then stored in a String array. Once the ID codes are stored
+     * the row in the storage array is set to -1's.
+     */
     private void getCodes(String lowestPriceCell) {
         char[] charArray = lowestPriceCell.toCharArray();
         int commas = 0;
@@ -521,9 +555,11 @@ public class DataBaseManipulator extends InputReader {
 
         int cellInsert = 0;
         for (int i = 0; i < rowCells.length; i++) {
-            for (int j = 0; j < storage[rowCells[i]].length; j++) {
+            for (int j = 0; j < storage[rowCells[i]].length; j++) 
+            {
                 char[] charArray2 = storage[rowCells[i]][j].toCharArray();
-                if (Character.isLetter(charArray2[0])) {
+                if (Character.isLetter(charArray2[0])) 
+                {
                     codeInserts[cellInsert] = storage[rowCells[i]][j];
                     cellInsert++;
                     break;
@@ -532,7 +568,8 @@ public class DataBaseManipulator extends InputReader {
         }
 
         //codes = new String[charArray.length - commas];
-        for (int goThrough = 0; goThrough < charArray.length - commas; goThrough++) {
+        for (int goThrough = 0; goThrough < charArray.length - commas; goThrough++) 
+        {
             codes.add(codeInserts[goThrough]);
         }
 
