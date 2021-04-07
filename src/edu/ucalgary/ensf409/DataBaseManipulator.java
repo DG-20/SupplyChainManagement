@@ -659,6 +659,29 @@ public class DataBaseManipulator extends InputReader {
         return true;
     }
 
+     /*
+     * algorithmToCreateOrderForElse is a method which applies an algorithm if the 
+     * user provides an order for desks or filing. This method does not take in any arguments 
+     * and returns a boolean based off whether or not it was successful in satisfying the order
+     * Initially, the base condition is checked by calling upon loopMethod twice, once for each column 
+     * in the desired desk/filing table, and storing them into two variables. Then, if the number of Ys in each column
+     * of all the rows for the selected furniture is less than the quantity desired,
+     * the complete order is not possible and thus this method returns false.
+     * Then, if the total amount of Y's in each column is exactly equal to the 
+     * ordered quantity, this method calls sumAllRows and then deleteAllRows to
+     * delete all the rows from the database and then reutrns true.
+     * If these base cases are not met, then the algorithm takes place. 
+     * The algorithm utilizes an ArrayList and iterates over each column in the array
+     * in a nested for loop, to get all possible combinations to get Y in both columns
+     * (0 and 1). Each combination is combined into a String seperated by a dash and
+     * added to the ArrayList. Then, if no combinations were found, meaning the size of the
+     * ArrayList == 0, then return false. Next, two arrays listOfPrices and listOfRows 
+     * are created and a for loop iterates over all combinations in the ArrayList, adding
+     * each price into the array and the rows corresponding to those prices are added to 
+     * listOfRows as a String seperated by a comma. Then, this method calls 
+     * minFinder with both arrays. Then, deleteFromDataBase is called to update the database
+     * and then this method returns true.
+     */
     private boolean algorithmToCreateOrderForElse() {
         ArrayList<String> combinations = new ArrayList<String>();
         int yChecker1 = loopMethod(0);
