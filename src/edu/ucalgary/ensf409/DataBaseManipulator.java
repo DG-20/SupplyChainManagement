@@ -12,11 +12,22 @@
  * @since 1.0
  */
 package edu.ucalgary.ensf409;
-
+// Importing the necessary packages.
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
+/*
+ * DataBaseManipulator is a class which performs the algorithms required 
+ * to calculate the cheapest combination available for the order. If no such
+ * combination is possible, this class prints the suggested manufacturers
+ * associated with the selected type of furniture. This class is a child class
+ * of InputReader and thus has access to the selections that are stored as 
+ * protected member variables. DataBaseManipulator also updates the database
+ * if the order is fulfilled, by deleting the rows that were used to fulfil 
+ * the order. To do so, the connection to the database, inventory.sql, is
+ * also established here.
+ */
 public class DataBaseManipulator extends InputReader {
     public static void main(String[] args) throws IOException {
          String url = "jdbc:mysql://localhost/inventory"; String username = "scm";
@@ -25,39 +36,65 @@ public class DataBaseManipulator extends InputReader {
          obj2.sumAllRows();
     }
 
+    // The URL, USERNAME, and PASSWORD are member variables which are used in 
+    // the initializeConnection method to establish a connection with inventory.sql.
     private final String URL;
     private final String USERNAME;
     private final String PASSWORD;
+    // The dataBaseConnection member just holds the connection to the database so that
+    // the methods which deal with reading or writing to the database can create and apply
+    // queries and statements. 
     private Connection dataBaseConnection;
-    //The following four String array's provide the names of the avaliable manufacturers that supply the specified type of furniture.
+    // The following four String arrays provide the names of the available manufacturers 
+    // that supply the specified type of furniture.
     private String[] manuChairs = { "Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies" };
     private String[] manuDesks = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
     private String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     private String[] manuLamp = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
+    // The storage 2D array is created in the method create2DArray and is used throughout the class
+    // to have a version of the database rows which are relevant to the selections made in InputReader.
+    // This is used in all three algorithms to iterate over and create combinations which can fulfill the order.
     protected String[][] storage;
+    // The following three members are instantiated in minFinder and correspond to the index of the 
+    // cell which contains the combination of rows to obtain the cheapest price, the cheapest price
+    // itself, and the actual rows, stored in the specified index as a String.
     private int rowToAdd;
     protected int lowestPrice;
     private String lowestPriceCell;
-    // The following ArrayList codes is used in getCodes() to store the parts that are to be used in the cheapeast combination
-    // this ArrayList is then accessed later on in deleteFromDatabase to delete the rows corresponding to these ID's
-    protected ArrayList<String> codes= new ArrayList<String>(); //USE ARRAYLIST
-    // quantityStored uses the super method to go to the parent class InputReader and retrieves the quantity of the order
+    // The following ArrayList codes is used in the method getCodes to store the parts 
+    // that are to be used in the cheapeast combination. This ArrayList is then accessed 
+    // later on in the method deleteFromDatabase to delete the rows corresponding to these IDs.
+    protected ArrayList<String> codes= new ArrayList<String>();
+    // quantityStored retreives the quantity member field from InputReader by using super and storing it.
     private int quantityStored = super.quantity;
 
+    /*
+     * The constructor is where the appropriate algorithm is called based on the stored variables
+     * in InputReader. This is also where, if no combinations are found, it prints the list
+     * of manufacturers. The constructor takes in three Strings, url, username, and password
+     * and stores them in the corresponding member fields.
+     */
     public DataBaseManipulator(String url, String username, String password) {
         this.URL = url;
         this.USERNAME = username;
         this.PASSWORD = password;
+        // Initialize the connection to the database.
         initializeConnection();
 
+        // Get the quanitity requested from InputReader.
         int numOfItemsRequested = super.quantity;
 
+        // Create the 2D array by calling this method.
         create2DArray();
 
         boolean status = false;
 
         int priceStore = 0;
 
+        // If "lamp" was selected as the furniture, keep running the algorithm
+        // until either the whole order is fulfilled, or the algorithm is unable
+        // to complete the full order. And on every run, add the lowest price to 
+        // obtain the total for the order.
         if (super.furnitureChosen.equals("lamp")) {
             for (int i = 0; i < numOfItemsRequested; i++)
             {
@@ -74,6 +111,10 @@ public class DataBaseManipulator extends InputReader {
 
         priceStore = 0;
 
+        // If "chair" was selected as the furniture, keep running the algorithm
+        // until either the whole order is fulfilled, or the algorithm is unable
+        // to complete the full order. And on every run, add the lowest price to 
+        // obtain the total for the order.
         if (super.furnitureChosen.equals("chair")) {
             for (int i = 0; i < numOfItemsRequested; i++)
             {
@@ -90,6 +131,11 @@ public class DataBaseManipulator extends InputReader {
 
         priceStore = 0;
 
+        // If "desk" or "filing" (they both call upon the algorithmToCreateOrderForElse) 
+        // was selected as the furniture, keep running the algorithm
+        // until either the whole order is fulfilled, or the algorithm is unable
+        // to complete the full order. And on every run, add the lowest price to 
+        // obtain the total for the order.
         if (super.furnitureChosen.equals("desk") || super.furnitureChosen.equals("filing")) {
             for (int i = 0; i < numOfItemsRequested; i++)
             {
@@ -104,14 +150,16 @@ public class DataBaseManipulator extends InputReader {
 
         this.lowestPrice = priceStore;
 
-        System.out.println(this.lowestPrice);
-
         print2DArray();
 
+        // If the for loops above were unable, at any point, to create
+        // the complete order.
         if (status == false)
         {
+            // General print statements.
             System.out.println("\nUnable to create the order as there are not enough materials in stock to do so!");
             System.out.println("Here are a list of manufacturers that may have the needed items: \n");
+            // If the furniture selected was a desk, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("desk"))
             {
                 for (int i = 0; i < manuDesks.length; i++)
@@ -119,6 +167,7 @@ public class DataBaseManipulator extends InputReader {
                     System.out.println(i+1 + ". " + manuDesks[i]);
                 }
             }
+            // If the furniture selected was a filing, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("filing"))
             {
                 for (int i = 0; i < manuFilings.length; i++)
@@ -126,6 +175,7 @@ public class DataBaseManipulator extends InputReader {
                     System.out.println(i+1 + ". " + manuFilings[i]);
                 }
             }
+            // If the furniture selected was a chair, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("chair"))
             {
                 for (int i = 0; i < manuChairs.length; i++)
@@ -133,6 +183,7 @@ public class DataBaseManipulator extends InputReader {
                     System.out.println(i+1 + ". " + manuChairs[i]);
                 }
             }
+            // If the furniture selected was a lamp, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("lamp"))
             {
                 for (int i = 0; i < manuLamp.length; i++)
@@ -140,6 +191,7 @@ public class DataBaseManipulator extends InputReader {
                     System.out.println(i+i + ". " + manuLamp[i]);
                 }
             }
+            // Terminate the program.
             System.exit(1);
         }
     }
@@ -564,7 +616,7 @@ public class DataBaseManipulator extends InputReader {
         int cell = 0;
 
         String concatenator = "";
-        for (int c = 0; c < charArray.length; c++)       //char charachter : charArray 
+        for (int c = 0; c < charArray.length; c++)
         {
             if (Character.isDigit(charArray[c])) 
             {
@@ -592,7 +644,6 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
-        //codes = new String[charArray.length - commas];
         for (int goThrough = 0; goThrough < charArray.length - commas; goThrough++) 
         {
             codes.add(codeInserts[goThrough]);
@@ -693,16 +744,16 @@ public class DataBaseManipulator extends InputReader {
      * user provides an order for desks or filing. This method does not take in any arguments 
      * and returns a boolean based off whether or not it was successful in satisfying the order
      * Initially, the base condition is checked by calling upon loopMethod twice, once for each column 
-     * in the desired desk/filing table, and storing them into two variables. Then, if the number of Ys in each column
-     * of all the rows for the selected furniture is less than the quantity desired,
-     * the complete order is not possible and thus this method returns false.
+     * in the desired desk/filing table, and storing them into three variables. Then, if the 
+     * number of Ys in each column of all the rows for the selected furniture is less than the 
+     * quantity desired, the complete order is not possible and thus this method returns false.
      * Then, if the total amount of Y's in each column is exactly equal to the 
      * ordered quantity, this method calls sumAllRows and then deleteAllRows to
      * delete all the rows from the database and then reutrns true.
      * If these base cases are not met, then the algorithm takes place. 
      * The algorithm utilizes an ArrayList and iterates over each column in the array
-     * in a nested for loop, to get all possible combinations to get Y in both columns
-     * (0 and 1). Each combination is combined into a String seperated by a dash and
+     * in nested for loops, to get all possible combinations to get Y in all three columns
+     * (0, 1, and 2). Each combination is combined into a String seperated by a dash and
      * added to the ArrayList. Then, if no combinations were found, meaning the size of the
      * ArrayList == 0, then return false. Next, two arrays listOfPrices and listOfRows 
      * are created and a for loop iterates over all combinations in the ArrayList, adding
@@ -760,10 +811,13 @@ public class DataBaseManipulator extends InputReader {
             callRow1 = Integer.parseInt(combo.substring(0, positionOfDash));
             callRow2 = Integer.parseInt(combo.substring(positionOfDash + 1, positionOfDash2));
             callRow3 = Integer.parseInt(combo.substring(positionOfDash2 + 1, combo.length()));
+            // If all three rows are the same.
             if (callRow1 == callRow3 && callRow1 == callRow2) {
                 listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
                 listOfRows[i] = String.format("%d", callRow1);
-            } else if (callRow1 == callRow2) {
+            } 
+            // If two rows are the same.
+            else if (callRow1 == callRow2) {
                 listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
                         + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
                 listOfRows[i] = String.format("%d,%d", callRow1, callRow3);
@@ -775,7 +829,9 @@ public class DataBaseManipulator extends InputReader {
                 listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
                         + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
                 listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
-            } else {
+            } 
+            // If none of the rows are the same as the others.
+            else {
                 listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
                         + Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
                         + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
