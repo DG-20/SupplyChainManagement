@@ -65,7 +65,7 @@ public class DataBaseManipulator extends InputReader {
     // that are to be used in the cheapeast combination. This ArrayList is then accessed 
     // later on in the method deleteFromDatabase to delete the rows corresponding to these IDs.
     protected ArrayList<String> codes= new ArrayList<String>();
-    // quantityStored retreives the quantity member field from InputReader by using super and storing it.
+    // quantityStored retrieves the quantity member field from InputReader by using super and storing it.
     private int quantityStored = super.quantity;
 
     /*
