@@ -29,6 +29,7 @@ public class DataBaseManipulator extends InputReader {
     private final String USERNAME;
     private final String PASSWORD;
     private Connection dataBaseConnection;
+    //The following four String array's provide the names of the avaliable manufacturers that supply the specified type of furniture.
     private String[] manuChairs = { "Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies" };
     private String[] manuDesks = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
     private String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
@@ -37,7 +38,10 @@ public class DataBaseManipulator extends InputReader {
     private int rowToAdd;
     protected int lowestPrice;
     private String lowestPriceCell;
+    // The following ArrayList codes is used in getCodes() to store the parts that are to be used in the cheapeast combination
+    // this ArrayList is then accessed later on in deleteFromDatabase to delete the rows corresponding to these ID's
     protected ArrayList<String> codes= new ArrayList<String>(); //USE ARRAYLIST
+    // quantityStored uses the super method to go to the parent class InputReader and retrieves the quantity of the order
     private int quantityStored = super.quantity;
 
     public DataBaseManipulator(String url, String username, String password) {
