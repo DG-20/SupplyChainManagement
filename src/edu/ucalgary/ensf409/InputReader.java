@@ -161,6 +161,7 @@ public class InputReader {
      * If the user has selected to terminate and exit the program, the method returns a -1 which
      * is dealt with in the constructor above.
      */
+    
     private int selectChairType() {
         Scanner inputCollected2 = new Scanner(System.in);
         int userInput = -1;
