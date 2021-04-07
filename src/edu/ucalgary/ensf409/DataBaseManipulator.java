@@ -153,10 +153,11 @@ public class DataBaseManipulator extends InputReader {
     }
 
     /*
-     * sumAllRows is a method that total's up all of the sums of a specified furniture object and its specific sub type.
+     * sumAllRows is a method that totals up all of the sums of a specified furniture object and its specific sub type.
      * It makes a statement called newstmt which is used to execute a select from statement. The result of the executed
      * statement is then stored and the string contained under the "Type" column is compared to the desired type. If  
-     * they match then the "Price" column of that particular result is taken in and added onto the price.
+     * they match, then the "Price" column of that particular result is taken in and added onto the price. This method is
+     * used for the base cases in all three algorithm methods, in case all rows are required to fulfil the specified order.
     */
     private void sumAllRows() 
     {
@@ -187,7 +188,9 @@ public class DataBaseManipulator extends InputReader {
     /*
      * deleteAllRows is a method that deletes all the rows that match the specified furniture type.
      * A query is created that holds the instruction to delete from a specified furniture name where
-     * the desired type to delete is stored. 
+     * the desired type to delete is stored. This method is used in conjunction with sumAllRows,
+     * if the base case is needed, this deletes all the rows of the specified furniture type after
+     * using them all to add to the price.
     */
     private void deleteAllRows(String furnitureName, String type) {
         PreparedStatement myStmt;
@@ -332,14 +335,31 @@ public class DataBaseManipulator extends InputReader {
     }
 
     /*
-     * algorithmToCreateOrderForChair is a method that performs the algorithm on chairs.
-     * The method performs 4 loops on the database to check for number of Yes occurences in the table
-     * and then stores the amount of occurences in an int. It then compares each check through the loop's
-     * occurences. Checking to see if the number of Y's allows for an order of a particular quantity. 
-     * The nested for loop's check each cell for a yes or no storing each combination of allowed occurences in i,j,k,l.
-     * After storing the combinations, an array for the listOfPrices of type int and an array for the listOfRows of type String
-     * are created. The array listOfPrices 
-    */
+     * algorithmToCreateOrderForChair is a method which applies an algorithm if the 
+     * user provides an order for chairs. This method does not take in any arguments, 
+     * and returns a boolean based on whether or not it was successful 
+     * in satisfying the order. Initially, the base condition is checked
+     * by calling upon loopMethod four times, once for each column in the chair table,
+     * and storing them into four variables. Then, if the number of Ys in each column
+     * of all the rows for the selected furniture is less than the quantity desired,
+     * the complete order is not possible and thus this method returns false.
+     * Then, if the total amount of Y's in each column is exactly equal to the 
+     * ordered quantity, this method calls sumAllRows and then deleteAllRows to
+     * delete all the rows from the database and then returns true.
+     * If these base cases are not met, then the algorithm takes place. 
+     * The algorithm utilizes an ArrayList and iterates over each column in the array
+     * in nested for loops, to get all possible combinations to get Y in all four columns
+     * (0, 1, 2, and 3). Each combination is combined into a String seperated by a dash and
+     * added to the ArrayList. Then, if no combinations were found, meaning the size of the
+     * ArrayList == 0, then return false. Next, two arrays listOfPrices and listOfRows 
+     * are created and a for loop iterates over all combinations in the ArrayList, adding
+     * each price into the array and the rows corresponding to those prices are added to 
+     * listOfRows as a String seperated by a comma. In this for loop, to avoid duplicating prices
+     * for the same row, all conditions of duplicate rows are written into if statements, and the
+     * arrays are updated accordingly. Then, this method calls 
+     * minFinder with both arrays. Then, deleteFromDataBase is called to update the database
+     * and then this method returns true.
+     */
     private boolean algorithmToCreateOrderForChair() {
         ArrayList<String> combinations = new ArrayList<String>();
         int yChecker1 = loopMethod(0);
@@ -401,10 +421,13 @@ public class DataBaseManipulator extends InputReader {
             callRow2 = Integer.parseInt(combo.substring(positionOfDash + 1, positionOfDash2));
             callRow3 = Integer.parseInt(combo.substring(positionOfDash2 + 1, positionOfDash3));
             callRow4 = Integer.parseInt(combo.substring(positionOfDash3 + 1, combo.length()));
+            // All rows are the same.
             if (callRow1 == callRow3 && callRow1 == callRow2 && callRow1 == callRow4) {
                 listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
                 listOfRows[i] = String.format("%d,%d", callRow1);
-            } else if (callRow1 == callRow2 && callRow1 == callRow3) {
+            } 
+            // All combos of three rows being the same.
+            else if (callRow1 == callRow2 && callRow1 == callRow3) {
                 listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
                         + Integer.parseInt(storage[callRow4][storage[callRow4].length - 1]);
                 listOfRows[i] = String.format("%d,%d", callRow1, callRow4);
@@ -421,7 +444,7 @@ public class DataBaseManipulator extends InputReader {
                         + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
                 listOfRows[i] = String.format("%d,%d", callRow1, callRow3);
             }
-            // pairs
+            // All combos of pairs being the same.
             else if (callRow1 == callRow2) {
 
                 if (callRow3 != callRow4) {
@@ -487,15 +510,15 @@ public class DataBaseManipulator extends InputReader {
                             + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
                             + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
                     listOfRows[i] = String.format("%,%d,%d", callRow1, callRow2, callRow3);
-                } else {
+                }
+                else {
                     listOfPrices[i] = Integer.parseInt(storage[callRow3][storage[callRow3].length - 1])
                             + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
                     listOfRows[i] = String.format("%d,%d", callRow1, callRow3);
 
                 }
             }
-            // singles
-
+            // Everything being different.
             else {
                 listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
                         + Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
@@ -551,8 +574,6 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
-
-
         int cellInsert = 0;
         for (int i = 0; i < rowCells.length; i++) {
             for (int j = 0; j < storage[rowCells[i]].length; j++) 
@@ -580,19 +601,20 @@ public class DataBaseManipulator extends InputReader {
                 storage[ch][i] = "-1";
             }
         }
-
     }
 
     /*
      * algorithmToCreateOrderForLamp is a method which applies an algorithm if the 
-     * user provides an order for lamps. Initially, the base condition is checked
-     * by calling upon loopMethod twice, once for each column in the Lamp table,
+     * user provides an order for lamps. This method does not take in any arguments, 
+     * and returns a boolean based on whether or not it was successful 
+     * in satisfying the order. Initially, the base condition is checked
+     * by calling upon loopMethod twice, once for each column in the lamp table,
      * and storing them into two variables. Then, if the number of Ys in each column
      * of all the rows for the selected furniture is less than the quantity desired,
      * the complete order is not possible and thus this method returns false.
      * Then, if the total amount of Y's in each column is exactly equal to the 
      * ordered quantity, this method calls sumAllRows and then deleteAllRows to
-     * delete all the rows from the database and then reutrns true.
+     * delete all the rows from the database and then returns true.
      * If these base cases are not met, then the algorithm takes place. 
      * The algorithm utilizes an ArrayList and iterates over each column in the array
      * in a nested for loop, to get all possible combinations to get Y in both columns
@@ -644,10 +666,13 @@ public class DataBaseManipulator extends InputReader {
             positionOfDash = combo.indexOf('-');
             callRow1 = Integer.parseInt(combo.substring(0, positionOfDash));
             callRow2 = Integer.parseInt(combo.substring(positionOfDash + 1, combo.length()));
+            // If the rows are the same.
             if (callRow1 == callRow2) {
                 listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1]);
                 listOfRows[i] = String.format("%d", callRow1);
-            } else {
+            } 
+            // If the rows are different.
+            else {
                 listOfPrices[i] = Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
                         + Integer.parseInt(storage[callRow2][storage[callRow2].length - 1]);
                 listOfRows[i] = String.format("%d,%d", callRow1, callRow2);
@@ -739,14 +764,18 @@ public class DataBaseManipulator extends InputReader {
     }
 
     /*
-     *The following void method takes two arrays as parameters, an integer array named listOfPrices and a String array named listOfRows.
-     *These arrays are used in the algorithms to develop value and index of lowest prices. The listOfPrices method is used in the for loop to keep iterating, as
-     *long as its length is less than the total length of array, and its value is less than the variable called lowest, after which its values gets updated into it.
-     *The listOfRows array is utilized for the row index that corresponds to lowest price. This method also calls getCodes, which takes
-     *lowestPriceCell:this finds the lowest price of a chosen cell, which leads to the next part of the implementation, taking place in the getCodes method.
+     * The following void method takes two arrays as parameters, an integer array named 
+     * listOfPrices and a String array named listOfRows. These arrays are used in the 
+     * algorithms to obtain the value and index of lowest prices. The listOfPrices array 
+     * is used in the for loop to keep iterating over the length of the array, storing the 
+     * price in each cell into an int called lowest if and only if it is less than the already
+     * stored price. The corresponding index of the lowest price is also stored and updated conditionally
+     * in an int called rowToAdd. Then, these values of the lowest price and the corresponding index are 
+     * stored into the member fields rowToAdd and lowestPrice. Then, the obtained index is used to 
+     * store the corresponding rows by using this rowToAdd variable as the index for the listOfRows array,
+     * and finally, this String gets passed into getCodes.
      */
-
-    private void minFinder(int[] listOfPrices, String[] listOfRows) {
+    private void minFinder(int [] listOfPrices, String [] listOfRows) {
         int lowest = listOfPrices[0];
         int rowToAdd = 0;
 
@@ -764,17 +793,19 @@ public class DataBaseManipulator extends InputReader {
         for (int i = 0; i < listOfRows.length; i++)
             System.out.println(listOfRows[rowToAdd]);
         
-
         getCodes(lowestPriceCell);
     }
 
     /*
-     *The following method is used in conjuction with the algorithmToCreateOrderForChair(), algorithmToCreateOrderForLamp() and 
-     *algorithmToCreateOrderForElse() methods. The integer that this method takes as a parameter specifies the column that is mentioned.
-     *The for loop that is used in this method iterates a variable over the length of every row in the database, and checks for a '-1' in 
-     *the 2D array called storage: it then updates numofY, which is the number of Y's in the column specified and finally returns numOfY.
+     * The following method is used in conjuction with the algorithmToCreateOrderForChair(), 
+     * algorithmToCreateOrderForLamp() and algorithmToCreateOrderForElse() methods.
+     * The integer that this method takes as a parameter specifies the column that is mentioned.
+     * The for loop that is used in this method iterates a variable over the number of 
+     * rows of the 2D array, storage, and checks for anything except '-1' in the 2D array. 
+     * Everytime it sees anything other than a '-1' in the specified column, over all the rows, 
+     * it updates a counter called numOfY, which is the number of Y's in the column specified 
+     * and finally returns numOfY.
      */
-    
     private int loopMethod(int col) {
         int numOfY = 0;
         for (int i = 0; i < storage.length; i++) {
