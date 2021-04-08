@@ -29,11 +29,14 @@ import java.util.ArrayList;
  * also established here.
  */
 public class DataBaseManipulator extends InputReader {
+
     public static void main(String[] args) throws IOException {
-         String url = "jdbc:mysql://localhost/inventory"; String username = "scm";
+        /*
+        String url = "jdbc:mysql://localhost/inventory"; String username = "scm";
          String password = "ensf409"; DataBaseManipulator obj2 = new
          DataBaseManipulator(url, username, password);
          obj2.sumAllRows();
+         */
     }
 
     // The URL, USERNAME, and PASSWORD are member variables which are used in 
@@ -215,17 +218,17 @@ public class DataBaseManipulator extends InputReader {
      * they match, then the "Price" column of that particular result is taken in and added onto the price. This method is
      * used for the base cases in all three algorithm methods, in case all rows are required to fulfil the specified order.
     */
-    private void sumAllRows() 
+    private void sumAllRows(String furniture, String type) 
     {
         Statement newstmt;
         lowestPrice = 0;
         try
         {
             newstmt = this.dataBaseConnection.createStatement();
-            ResultSet results = newstmt.executeQuery("SELECT * FROM " + super.furnitureChosen); 
+            ResultSet results = newstmt.executeQuery("SELECT * FROM " + furniture); 
             while(results.next())
             {
-                 if((results.getString("Type").equals(super.typeChosen)))
+                 if((results.getString("Type").equals(type)))
                 {
                     
                     lowestPrice += Integer.parseInt(results.getString("Price"));
@@ -274,7 +277,7 @@ public class DataBaseManipulator extends InputReader {
      * and thus the 2D array containing the relevant part of the database is updated at a later
      * point in the code. 
      */
-    private void deleteFromDataBase() {
+    private void deleteFromDataBase(ArrayList<String> codes) {
         PreparedStatement myStmt;
         try {
             for (int i = 0; i < this.codes.size(); i++)
@@ -430,7 +433,7 @@ public class DataBaseManipulator extends InputReader {
 
         if (yChecker1 == super.quantity && yChecker2 == super.quantity && yChecker3 == super.quantity
                 && yChecker4 == super.quantity) {
-            sumAllRows();
+            sumAllRows("chair",super.typeChosen);
             deleteAllRows("chair", super.typeChosen);
             return true;
         }
@@ -586,7 +589,7 @@ public class DataBaseManipulator extends InputReader {
 
         minFinder(listOfPrices, listOfRows);
 
-        deleteFromDataBase();
+        deleteFromDataBase(this.codes);
         return true;
 
     }
@@ -655,7 +658,9 @@ public class DataBaseManipulator extends InputReader {
             {
                 storage[ch][i] = "-1";
             }
+
         }
+        
     }
 
     /*
@@ -690,7 +695,7 @@ public class DataBaseManipulator extends InputReader {
                 return false;
             }
         if (yChecker1 == super.quantity && yChecker2 == super.quantity) {
-            sumAllRows();
+            sumAllRows("lamp",super.typeChosen);
             deleteAllRows("lamp", super.typeChosen);
             return true;
         }
@@ -735,7 +740,7 @@ public class DataBaseManipulator extends InputReader {
         }
 
         minFinder(listOfPrices, listOfRows);
-        deleteFromDataBase();
+        deleteFromDataBase(this.codes);
         return true;
     }
 
@@ -773,7 +778,7 @@ public class DataBaseManipulator extends InputReader {
             }
 
         if (yChecker1 == this.quantityStored && yChecker2 == this.quantityStored && yChecker3 == this.quantityStored) {
-            sumAllRows();
+            sumAllRows(super.furnitureChosen,super.typeChosen);
             deleteAllRows(super.furnitureChosen, super.typeChosen);
             return true;
         }
@@ -841,7 +846,7 @@ public class DataBaseManipulator extends InputReader {
 
         minFinder(listOfPrices, listOfRows);
 
-        deleteFromDataBase();
+        deleteFromDataBase(this.codes);
 
         return true;
     }

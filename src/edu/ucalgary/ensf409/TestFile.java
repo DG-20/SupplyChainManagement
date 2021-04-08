@@ -14,4 +14,8 @@ public class TestFile
         DataBaseManipulator obj2 = new DataBaseManipulator("filing", "Large", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
         System.out.println(obj2.lowestPrice);
     }
+
+  
+
+
 }

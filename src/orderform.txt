@@ -6,13 +6,16 @@ Faculty Name:
 Contact:      
 Date:     
 
-Original Request: Ergonomic chair, 1
+Original Request: Adjustable desk, 3
 
 Items Ordered
-ID: C5409
-ID: C4839
+ID: D5437
+ID: D1030
+ID: D3682
+ID: D2746
+ID: D4475
 
 
-Total Price: 0
+Total Price: 1750
 
 ┗                                                          ┛
