@@ -6,13 +6,16 @@ Faculty Name:
 Contact:      
 Date:     
 
-Original Request: Medium filing, 1
+Original Request: Medium filing, 3
 
 Items Ordered
-ID: F008
+ID: F002
 ID: F007
+ID: F008
+ID: F009
+ID: F014
 
 
-Total Price: 200
+Total Price: 600
 
 ┗                                                          ┛
