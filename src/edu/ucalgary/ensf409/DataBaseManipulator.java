@@ -47,7 +47,7 @@ public class DataBaseManipulator extends InputReader {
     // The dataBaseConnection member just holds the connection to the database so that
     // the methods which deal with reading or writing to the database can create and apply
     // queries and statements. 
-    private Connection dataBaseConnection;
+    protected Connection dataBaseConnection;
     // The following four String arrays provide the names of the available manufacturers 
     // that supply the specified type of furniture.
     private String[] manuChairs = { "Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies" };
@@ -70,6 +70,7 @@ public class DataBaseManipulator extends InputReader {
     protected ArrayList<String> codes= new ArrayList<String>();
     // quantityStored retrieves the quantity member field from InputReader by using super and storing it.
     private int quantityStored = super.quantity;
+    protected int rowsAffected = 0;
 
     /*
      * The constructor is where the appropriate algorithm is called based on the stored variables
@@ -218,7 +219,7 @@ public class DataBaseManipulator extends InputReader {
      * they match, then the "Price" column of that particular result is taken in and added onto the price. This method is
      * used for the base cases in all three algorithm methods, in case all rows are required to fulfil the specified order.
     */
-    private void sumAllRows(String furniture, String type) 
+    protected void sumAllRows(String furniture, String type) 
     {
         Statement newstmt;
         lowestPrice = 0;
@@ -251,7 +252,7 @@ public class DataBaseManipulator extends InputReader {
      * if the base case is needed, this deletes all the rows of the specified furniture type after
      * using them all to add to the price.
     */
-    private void deleteAllRows(String furnitureName, String type) {
+    protected void deleteAllRows(String furnitureName, String type) {
         PreparedStatement myStmt;
         try {
             String query = "DELETE FROM " + furnitureName + " WHERE Type = ?";
@@ -277,19 +278,20 @@ public class DataBaseManipulator extends InputReader {
      * and thus the 2D array containing the relevant part of the database is updated at a later
      * point in the code. 
      */
-    private void deleteFromDataBase(ArrayList<String> codes) {
+    protected void deleteFromDataBase(ArrayList<String> codesToDel) {
         PreparedStatement myStmt;
         try {
-            for (int i = 0; i < this.codes.size(); i++)
+            for (int i = 0; i < codesToDel.size(); i++)
             {
                 String query = "DELETE FROM " + this.furnitureChosen + " WHERE ID = ?";
                 myStmt = this.dataBaseConnection.prepareStatement(query);
-                myStmt.setString(1, codes.get(i));
-                myStmt.executeUpdate();
+                myStmt.setString(1, codesToDel.get(i));
+                this.rowsAffected += myStmt.executeUpdate();
                 //System.out.println(codes.get(i));
             }
         } catch (SQLException e) {
             System.out.println("Unable to delete from the database! Something went wrong :(");
+            System.exit(1);
         }
     }
 
@@ -384,7 +386,7 @@ public class DataBaseManipulator extends InputReader {
      * dataBaseConnection stores the connection between the sql database and the code by taking 
      * in a url, username, and password for the host connection storing the database.
     */
-    private void initializeConnection() {
+    protected void initializeConnection() {
         try {
             this.dataBaseConnection = DriverManager.getConnection(this.URL, this.USERNAME, this.PASSWORD);
         } catch (SQLException e) {
@@ -894,7 +896,7 @@ public class DataBaseManipulator extends InputReader {
      * it updates a counter called numOfY, which is the number of Y's in the column specified 
      * and finally returns numOfY.
      */
-    private int loopMethod(int col) {
+    protected int loopMethod(int col) {
         int numOfY = 0;
         for (int i = 0; i < storage.length; i++) {
             if (!storage[i][col].equals("-1")) {
@@ -904,7 +906,7 @@ public class DataBaseManipulator extends InputReader {
         return numOfY;
     }
 
-    public DataBaseManipulator(String furniture, String type, int a, String url, String username, String password)
+    public DataBaseManipulator(String furniture, String type, int a, String url, String username, String password, boolean fullTest)
     {
         super(furniture, type, a);
 
@@ -1028,12 +1030,15 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-   public DataBaseManipulator(String furniture, String type, String url, String username, String password)
+   public DataBaseManipulator(String furniture, String type,int quantity, String url, String username, String password)
    {
+       super(furniture, type, quantity);
        this.furnitureChosen = furniture;
        this.typeChosen = type;
        this.URL = url;
        this.USERNAME = username;
        this.PASSWORD = password;
+       this.quantity = quantity;
+       this.quantityStored = quantity;
    }
 }

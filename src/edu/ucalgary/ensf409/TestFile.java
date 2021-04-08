@@ -3,7 +3,7 @@ package edu.ucalgary.ensf409;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
-
+import java.util.ArrayList;
 
 
 import static org.junit.Assert.*;
@@ -70,9 +70,72 @@ public class TestFile
     @Test
     public void testG(){
 
-        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "study", "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        
+        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Study", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.initializeConnection();
+        assertNotEquals(null, obj.dataBaseConnection);
     }
 
+    @Test
+    public void testH()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Adjustable", 4, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.initializeConnection();
+        obj.sumAllRows("desk", "Adjustable");
+        assertEquals(1200, obj.lowestPrice);
+    }
+
+    @Test
+    public void testI()
+    {
+        String array [][] = {{"C123","-1"}, {"-1","D52"}, {"E62","-1"}};
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Adjustable", 4, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.initializeConnection();
+        obj.storage = array;
+        int numOfYInCol0 = obj.loopMethod(0);
+        assertEquals(2,numOfYInCol0);
+    }
+
+    @Test
+    public void testJ()
+    {
+        exit.expectSystemExitWithStatus(1);
+        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Study", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.initializeConnection();
+        obj.deleteAllRows("lamp", "Study");
+        obj = new DataBaseManipulator("lamp" , "Study", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+    }
+
+    @Test
+    public void testK()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.initializeConnection();
+        ArrayList <String> codes = new ArrayList <String>();
+        codes.add("F9999");
+        codes.add("F1234");
+        obj.deleteFromDataBase(codes);
+        assertEquals(0,obj.rowsAffected);
+    }
    
+    @Test
+    public void testL()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.initializeConnection();
+        ArrayList <String> codes = new ArrayList <String>();
+        codes.add("D9387");
+        obj.deleteFromDataBase(codes);
+        assertEquals(1,obj.rowsAffected);
+    }
+
+    @Test
+    public void testM()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.initializeConnection();
+        ArrayList <String> codes = new ArrayList <String>();
+        codes.add("D9387");
+        obj.deleteFromDataBase(codes);
+        assertEquals(1,obj.rowsAffected);
+    }
 }
