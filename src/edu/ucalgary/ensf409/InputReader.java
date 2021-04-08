@@ -40,11 +40,11 @@ public class InputReader {
      * used as the index to set the member variables to the Strings in the same
      * exact way as they appear in the database.
      */
-    private String[] typeOfFurniture = { "chair", "desk", "filing", "lamp" };
-    private String[] typeOfFiling = { "Small", "Medium", "Large" };
-    private String[] typeOfLamps = { "Desk", "Study", "Swing Arm" };
-    private String[] typeOfDesks = { "Adjustable", "Standing", "Traditional" };
-    private String[] typeOfChairs = { "Ergonomic", "Executive", "Kneeling", "Mesh", "Task" };
+    private final String[] typeOfFurniture = { "chair", "desk", "filing", "lamp" };
+    private final String[] typeOfFiling = { "Small", "Medium", "Large" };
+    private final String[] typeOfLamps = { "Desk", "Study", "Swing Arm" };
+    private final String[] typeOfDesks = { "Adjustable", "Standing", "Traditional" };
+    private final String[] typeOfChairs = { "Ergonomic", "Executive", "Kneeling", "Mesh", "Task" };
 
     /*
      * Three protected member fields. These fields will later be accessed by the
@@ -315,8 +315,6 @@ public class InputReader {
             
             return(false);
         }
-
-       
         return(true);
     }
 }

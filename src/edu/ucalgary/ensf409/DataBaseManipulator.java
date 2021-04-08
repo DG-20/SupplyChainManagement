@@ -50,10 +50,10 @@ public class DataBaseManipulator extends InputReader {
     protected Connection dataBaseConnection;
     // The following four String arrays provide the names of the available manufacturers 
     // that supply the specified type of furniture.
-    private String[] manuChairs = { "Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies" };
-    private String[] manuDesks = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
-    private String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
-    private String[] manuLamp = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
+    private final String[] manuChairs = { "Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies" };
+    private final String[] manuDesks = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
+    private final String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
+    private final String[] manuLamp = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     // The storage 2D array is created in the method create2DArray and is used throughout the class
     // to have a version of the database rows which are relevant to the selections made in InputReader.
     // This is used in all three algorithms to iterate over and create combinations which can fulfill the order.
@@ -113,8 +113,6 @@ public class DataBaseManipulator extends InputReader {
 
         this.lowestPrice = priceStore;
 
-        priceStore = 0;
-
         // If "chair" was selected as the furniture, keep running the algorithm
         // until either the whole order is fulfilled, or the algorithm is unable
         // to complete the full order. And on every run, add the lowest price to 
@@ -133,8 +131,6 @@ public class DataBaseManipulator extends InputReader {
 
         this.lowestPrice = priceStore;
 
-        priceStore = 0;
-
         // If "desk" or "filing" (they both call upon the algorithmToCreateOrderForElse) 
         // was selected as the furniture, keep running the algorithm
         // until either the whole order is fulfilled, or the algorithm is unable
@@ -145,7 +141,6 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForElse();
                 this.quantityStored--;
-                //System.out.println(status);
                 if (status == false)
                   break;  
                 priceStore += this.lowestPrice;
@@ -241,6 +236,7 @@ public class DataBaseManipulator extends InputReader {
         catch(SQLException e)
         {
             System.out.println("Unable to calculate sum of all rows");
+            System.exit(1);
         }
         
     }
@@ -570,7 +566,7 @@ public class DataBaseManipulator extends InputReader {
                     listOfPrices[i] = Integer.parseInt(storage[callRow2][storage[callRow2].length - 1])
                             + Integer.parseInt(storage[callRow1][storage[callRow1].length - 1])
                             + Integer.parseInt(storage[callRow3][storage[callRow3].length - 1]);
-                    listOfRows[i] = String.format("%,%d,%d", callRow1, callRow2, callRow3);
+                    listOfRows[i] = String.format("%d,%d,%d", callRow1, callRow2, callRow3);
                 }
                 else {
                     listOfPrices[i] = Integer.parseInt(storage[callRow3][storage[callRow3].length - 1])
@@ -590,10 +586,8 @@ public class DataBaseManipulator extends InputReader {
         }
 
         minFinder(listOfPrices, listOfRows);
-
         deleteFromDataBase(this.codes);
         return true;
-
     }
 
     /* getCodes is a private method in the DataBaseManipulator java file. It takes in a 
@@ -662,7 +656,6 @@ public class DataBaseManipulator extends InputReader {
             }
 
         }
-        
     }
 
     /*
@@ -877,11 +870,9 @@ public class DataBaseManipulator extends InputReader {
         }
 
         this.rowToAdd = rowToAdd;
-        this.lowestPrice = lowest;
+        lowestPrice = lowest;
 
         lowestPriceCell = listOfRows[this.rowToAdd];
-        //for (int i = 0; i < listOfRows.length; i++)
-        //    System.out.println(listOfRows[rowToAdd]);
         
         getCodes(lowestPriceCell);
     }
@@ -1041,4 +1032,11 @@ public class DataBaseManipulator extends InputReader {
        this.quantity = quantity;
        this.quantityStored = quantity;
    }
+
+   protected String getURL()
+   {
+       return this.URL;
+   }
+
+
 }
