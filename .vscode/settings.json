@@ -1,0 +1,9 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "C:\\Users\\Div\\Desktop\\Supply_Chain_Management\\SupplyChainManagement\\junit-4.13.2",
+        "C:\\Users\\Div\\Desktop\\Supply_Chain_Management\\SupplyChainManagement\\hamcrest-core-1.3",
+        "hamcrest-core-1.3.jar",
+        "junit-4.13.2.jar"
+    ]
+}
