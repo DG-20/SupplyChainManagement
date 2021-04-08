@@ -117,7 +117,7 @@ public class TestFile
 
         DataBaseManipulator obj = new DataBaseManipulator("chair" , "Kneeling", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
         obj.setQuantityStored(5);
-        int quantityObtained=obj.getQuantity();
+        int quantityObtained=obj.getQuantityStored();
         assertEquals(5,quantityObtained);
 
     }
@@ -186,16 +186,5 @@ public class TestFile
         assertEquals(1,obj.rowsAffected);
     }
 
-    @Test
-    public void testM()
-    {
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        obj.initializeConnection();
-        ArrayList <String> codes = new ArrayList <String>();
-        codes.add("D9387");
-        obj.deleteFromDataBase(codes);
-        assertEquals(1,obj.rowsAffected);
-    }
-    
 
 }
