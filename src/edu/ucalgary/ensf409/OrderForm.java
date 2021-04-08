@@ -76,7 +76,7 @@ public class OrderForm extends DataBaseManipulator {
             outputForm = outputForm.concat("\n");
         }
         System.out.println(super.lowestPrice);
-        outputForm = outputForm.concat("\n\n" + "Total Price: " + super.lowestPrice);
+        outputForm = outputForm.concat("\n\n" + "Total Price: " + super.getLowestPrice());
         outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
         FileWriter fileOutput = new FileWriter("OrderForm.txt");
         fileOutput.write(outputForm);

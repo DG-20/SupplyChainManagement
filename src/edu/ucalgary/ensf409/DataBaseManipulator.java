@@ -107,11 +107,11 @@ public class DataBaseManipulator extends InputReader {
                 //System.out.println(status);
                 if (status == false)
                   break;  
-                priceStore += this.lowestPrice;
+                priceStore += getLowestPrice();
             }
         }
 
-        this.lowestPrice = priceStore;
+        setLowestPrice(priceStore);
 
         // If "chair" was selected as the furniture, keep running the algorithm
         // until either the whole order is fulfilled, or the algorithm is unable
@@ -125,11 +125,11 @@ public class DataBaseManipulator extends InputReader {
                 //System.out.println(status);
                 if (status == false)
                   break;  
-                priceStore += this.lowestPrice;
+                priceStore += getLowestPrice();
             }
         }
 
-        this.lowestPrice = priceStore;
+        setLowestPrice(priceStore);
 
         // If "desk" or "filing" (they both call upon the algorithmToCreateOrderForElse) 
         // was selected as the furniture, keep running the algorithm
@@ -143,11 +143,11 @@ public class DataBaseManipulator extends InputReader {
                 this.quantityStored--;
                 if (status == false)
                   break;  
-                priceStore += this.lowestPrice;
+                priceStore += getLowestPrice();
             }
         }
 
-        this.lowestPrice = priceStore;
+        setLowestPrice(priceStore);
 
         print2DArray();
 
@@ -384,7 +384,7 @@ public class DataBaseManipulator extends InputReader {
     */
     protected void initializeConnection() {
         try {
-            this.dataBaseConnection = DriverManager.getConnection(this.URL, this.USERNAME, this.PASSWORD);
+            this.dataBaseConnection = DriverManager.getConnection(getURL(), getUSERNAME(), getPASSWORD());
         } catch (SQLException e) {
             System.out.println("Could not connect to the database!");
             System.exit(1);
@@ -860,19 +860,19 @@ public class DataBaseManipulator extends InputReader {
      */
     private void minFinder(int [] listOfPrices, String [] listOfRows) {
         int lowest = listOfPrices[0];
-        int rowToAdd = 0;
+        int rows = 0;
 
         for (int i = 0; i < listOfPrices.length; i++) {
             if (listOfPrices[i] < lowest) {
                 lowest = listOfPrices[i];
-                rowToAdd = i;
+                rows = i;
             }
         }
 
-        this.rowToAdd = rowToAdd;
+        setRowToAdd(rows);
         lowestPrice = lowest;
 
-        lowestPriceCell = listOfRows[this.rowToAdd];
+        lowestPriceCell = listOfRows[getRowToAdd()];
         
         getCodes(lowestPriceCell);
     }
@@ -930,11 +930,11 @@ public class DataBaseManipulator extends InputReader {
                 //System.out.println(status);
                 if (status == false)
                 break;  
-                priceStore += this.lowestPrice;
+                priceStore += getLowestPrice();
             }
         }
 
-        this.lowestPrice = priceStore;
+        setLowestPrice(priceStore);
 
         priceStore = 0;
 
@@ -950,11 +950,11 @@ public class DataBaseManipulator extends InputReader {
                 //System.out.println(status);
                 if (status == false)
                 break;  
-                priceStore += this.lowestPrice;
+                priceStore += getLowestPrice();
             }
         }
 
-        this.lowestPrice = priceStore;
+        setLowestPrice(priceStore);
 
         priceStore = 0;
 
@@ -971,11 +971,11 @@ public class DataBaseManipulator extends InputReader {
                 //System.out.println(status);
                 if (status == false)
                 break;  
-                priceStore += this.lowestPrice;
+                priceStore += getLowestPrice();
             }
         }
 
-        this.lowestPrice = priceStore;
+        setLowestPrice(priceStore);
 
         // If the for loops above were unable, at any point, to create
         // the complete order.
@@ -1030,7 +1030,7 @@ public class DataBaseManipulator extends InputReader {
        this.USERNAME = username;
        this.PASSWORD = password;
        this.quantity = quantity;
-       this.quantityStored = quantity;
+       setQuantityStored(quantity);
    }
 
    protected String getURL()
@@ -1038,5 +1038,49 @@ public class DataBaseManipulator extends InputReader {
        return this.URL;
    }
 
+   protected String getUSERNAME()
+   {
+       return this.USERNAME;
+   }
+
+   protected String getPASSWORD()
+   {
+       return this.PASSWORD;
+   }
+
+   protected Connection getDataBaseConnection()
+   {
+       return this.dataBaseConnection;
+   }
+
+   protected int getLowestPrice()
+   {
+       return this.lowestPrice;
+   }
+
+   protected int getRowsAffected()
+   {
+       return this.rowsAffected;
+   }
+
+   protected int getRowToAdd()
+   {
+       return this.rowToAdd;
+   }
+
+   protected void setLowestPrice(int lowestPriceToAdd)
+   {
+        this.lowestPrice = lowestPriceToAdd;
+   }
+
+   protected void setRowToAdd(int row)
+   {
+       this.rowToAdd = row;
+   }
+
+   protected void setQuantityStored(int store)
+   {
+       this.quantityStored = store;
+   }
 
 }

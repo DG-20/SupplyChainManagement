@@ -6,11 +6,13 @@ Faculty Name:
 Contact:      
 Date:     
 
-Original Request: Swing Arm lamp, 2
+Original Request: Medium filing, 1
 
 Items Ordered
+ID: F008
+ID: F007
 
 
-Total Price: 60
+Total Price: 200
 
 ┗                                                          ┛

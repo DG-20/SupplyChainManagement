@@ -92,7 +92,7 @@ public class InputReader {
 
         // Using the user input as an index to the typeOfFurniture array and storing into the
         // member field for later use.
-        this.furnitureChosen = this.typeOfFurniture[userInput - 1];
+        setFurnitureChosen(this.typeOfFurniture[userInput - 1]);
 
         int userInput2 = 0;
 
@@ -102,19 +102,19 @@ public class InputReader {
         if (userInput == 1) {
             userInput2 = selectChairType();
             if (userInput2 != -1)
-                this.typeChosen = this.typeOfChairs[userInput2 - 1];
+                setTypeChosen(this.typeOfChairs[userInput2 - 1]);
         } else if (userInput == 2) {
             userInput2 = selectDeskType();
             if (userInput2 != -1)
-                this.typeChosen = this.typeOfDesks[userInput2 - 1];
+                setTypeChosen(this.typeOfDesks[userInput2 - 1]);
         } else if (userInput == 3) {
             userInput2 = selectFilingType();
             if (userInput2 != -1)
-                this.typeChosen = this.typeOfFiling[userInput2 - 1];
+                setTypeChosen(this.typeOfFiling[userInput2 - 1]);
         } else if (userInput == 4) {
             userInput2 = selectLampType();
             if (userInput2 != -1)
-                this.typeChosen = this.typeOfLamps[userInput2 - 1];
+                setTypeChosen(this.typeOfLamps[userInput2 - 1]);
         }
 
         // If the method corresponding to the user's choice returned -1, the user wants to 
@@ -145,12 +145,12 @@ public class InputReader {
         }
 
         // The quantity entered is stored into the protected member field to be used later.
-        this.quantity = userInput333;
+        setQuantity(userInput333);
 
         // Printing the user's order.
         System.out.println();
-        System.out.println("Your placed order is: \n" + "Quantity: " + this.quantity 
-        + "\nType: " + this.typeChosen + "\nFurniture: " + this.furnitureChosen + "\n");
+        System.out.println("Your placed order is: \n" + "Quantity: " + getQuantity()
+        + "\nType: " + getTypeChosen() + "\nFurniture: " + getFurnitureChosen() + "\n");
     }
 
     /*
@@ -257,9 +257,9 @@ public class InputReader {
         boolean validArgsChecker = isValid(furniture, type, size);
         if(validArgsChecker == true)
         {
-            this.furnitureChosen = furniture;
-            this.typeChosen = type;
-            this.quantity = size;
+            setFurnitureChosen(furniture);
+            setTypeChosen(type);
+            setQuantity(size);
         }
         else
         {
@@ -316,5 +316,35 @@ public class InputReader {
             return(false);
         }
         return(true);
+    }
+
+    protected String getFurnitureChosen()
+    {
+        return this.furnitureChosen;
+    }
+
+    protected String getTypeChosen()
+    {
+        return this.typeChosen;
+    }
+
+    protected int getQuantity()
+    {
+        return this.quantity;
+    }
+
+    protected void setFurnitureChosen(String furniture)
+    {
+        this.furnitureChosen = furniture;
+    }
+
+    protected void setTypeChosen(String type)
+    {
+        this.typeChosen = type;
+    }
+
+    protected void setQuantity(int quantityAdd)
+    {
+        this.quantity = quantityAdd;
     }
 }
