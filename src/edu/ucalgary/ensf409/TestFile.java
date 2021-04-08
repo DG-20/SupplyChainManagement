@@ -9,8 +9,17 @@ public class TestFile
     @Test
     public void test1()
     {
-        int hi = 0;
-        System.out.println(hi);
-        assertEquals(1,hi);
+        DataBaseManipulator obj2 = new DataBaseManipulator("filing", "Large", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        System.out.println(obj2.lowestPrice);
+        //obj2.resetDataBase("C:\\Users\\Div\\Desktop\\Supply_Chain_Management\\SupplyChainManagement\\src\\edu\\ucalgary\\ensf409\\inventory.sql");
+    }
+
+    public void writeData1()
+    {
+        try {
+            
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
     }
 }

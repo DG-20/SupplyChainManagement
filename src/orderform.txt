@@ -6,15 +6,13 @@ Faculty Name:
 Contact:      
 Date:     
 
-Original Request: Large filing, 2
+Original Request: Ergonomic chair, 1
 
 Items Ordered
-ID: F010
-ID: F012
-ID: F015
-ID: F011
+ID: C5409
+ID: C4839
 
 
-Total Price: 600
+Total Price: 0
 
 ┗                                                          ┛

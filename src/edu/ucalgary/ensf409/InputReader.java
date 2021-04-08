@@ -249,4 +249,13 @@ public class InputReader {
         return (userInput);
     }
 
+    /*
+     * Constructor used when testing to take in values and set them.
+     */
+    public InputReader(String furniture, String type, int size)
+    {
+        this.furnitureChosen = furniture;
+        this.typeChosen = type;
+        this.quantity = size;
+    }
 }

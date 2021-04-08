@@ -100,7 +100,7 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForLamp();
                 this.quantityStored--;
-                System.out.println(status);
+                //System.out.println(status);
                 if (status == false)
                   break;  
                 priceStore += this.lowestPrice;
@@ -120,7 +120,7 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForChair();
                 this.quantityStored--;
-                System.out.println(status);
+                //System.out.println(status);
                 if (status == false)
                   break;  
                 priceStore += this.lowestPrice;
@@ -141,7 +141,7 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForElse();
                 this.quantityStored--;
-                System.out.println(status);
+                //System.out.println(status);
                 if (status == false)
                   break;  
                 priceStore += this.lowestPrice;
@@ -283,7 +283,7 @@ public class DataBaseManipulator extends InputReader {
                 myStmt = this.dataBaseConnection.prepareStatement(query);
                 myStmt.setString(1, codes.get(i));
                 myStmt.executeUpdate();
-                System.out.println(codes.get(i));
+                //System.out.println(codes.get(i));
             }
         } catch (SQLException e) {
             System.out.println("Unable to delete from the database! Something went wrong :(");
@@ -873,8 +873,8 @@ public class DataBaseManipulator extends InputReader {
         this.lowestPrice = lowest;
 
         lowestPriceCell = listOfRows[this.rowToAdd];
-        for (int i = 0; i < listOfRows.length; i++)
-            System.out.println(listOfRows[rowToAdd]);
+        //for (int i = 0; i < listOfRows.length; i++)
+        //    System.out.println(listOfRows[rowToAdd]);
         
         getCodes(lowestPriceCell);
     }
@@ -897,5 +897,143 @@ public class DataBaseManipulator extends InputReader {
             }
         }
         return numOfY;
+    }
+
+    public DataBaseManipulator(String furniture, String type, int a, String url, String username, String password)
+    {
+        super(furniture, type, a);
+
+        this.URL = url;
+        this.USERNAME = username;
+        this.PASSWORD = password;
+
+        // Initialize the connection to the database.
+        initializeConnection();
+
+        // Get the quanitity requested from InputReader.
+        int numOfItemsRequested = super.quantity;
+
+        // Create the 2D array by calling this method.
+        create2DArray();
+
+        boolean status = false;
+
+        int priceStore = 0;
+
+        // If "lamp" was selected as the furniture, keep running the algorithm
+        // until either the whole order is fulfilled, or the algorithm is unable
+        // to complete the full order. And on every run, add the lowest price to 
+        // obtain the total for the order.
+        if (super.furnitureChosen.equals("lamp")) {
+            for (int i = 0; i < numOfItemsRequested; i++)
+            {
+                status = algorithmToCreateOrderForLamp();
+                this.quantityStored--;
+                //System.out.println(status);
+                if (status == false)
+                break;  
+                priceStore += this.lowestPrice;
+            }
+        }
+
+        this.lowestPrice = priceStore;
+
+        priceStore = 0;
+
+        // If "chair" was selected as the furniture, keep running the algorithm
+        // until either the whole order is fulfilled, or the algorithm is unable
+        // to complete the full order. And on every run, add the lowest price to 
+        // obtain the total for the order.
+        if (super.furnitureChosen.equals("chair")) {
+            for (int i = 0; i < numOfItemsRequested; i++)
+            {
+                status = algorithmToCreateOrderForChair();
+                this.quantityStored--;
+                //System.out.println(status);
+                if (status == false)
+                break;  
+                priceStore += this.lowestPrice;
+            }
+        }
+
+        this.lowestPrice = priceStore;
+
+        priceStore = 0;
+
+        // If "desk" or "filing" (they both call upon the algorithmToCreateOrderForElse) 
+        // was selected as the furniture, keep running the algorithm
+        // until either the whole order is fulfilled, or the algorithm is unable
+        // to complete the full order. And on every run, add the lowest price to 
+        // obtain the total for the order.
+        if (super.furnitureChosen.equals("desk") || super.furnitureChosen.equals("filing")) {
+            for (int i = 0; i < numOfItemsRequested; i++)
+            {
+                status = algorithmToCreateOrderForElse();
+                this.quantityStored--;
+                //System.out.println(status);
+                if (status == false)
+                break;  
+                priceStore += this.lowestPrice;
+            }
+        }
+
+        this.lowestPrice = priceStore;
+
+        // If the for loops above were unable, at any point, to create
+        // the complete order.
+        if (status == false)
+        {
+            // General print statements.
+            System.out.println("\nUnable to create the order as there are not enough materials in stock to do so!");
+            System.out.println("Here are a list of manufacturers that may have the needed items: \n");
+            // If the furniture selected was a desk, print the appropriate manufacturers.
+            if (super.furnitureChosen.equals("desk"))
+            {
+                for (int i = 0; i < manuDesks.length; i++)
+                {
+                    System.out.println(i+1 + ". " + manuDesks[i]);
+                }
+            }
+            // If the furniture selected was a filing, print the appropriate manufacturers.
+            if (super.furnitureChosen.equals("filing"))
+            {
+                for (int i = 0; i < manuFilings.length; i++)
+                {
+                    System.out.println(i+1 + ". " + manuFilings[i]);
+                }
+            }
+            // If the furniture selected was a chair, print the appropriate manufacturers.
+            if (super.furnitureChosen.equals("chair"))
+            {
+                for (int i = 0; i < manuChairs.length; i++)
+                {
+                    System.out.println(i+1 + ". " + manuChairs[i]);
+                }
+            }
+            // If the furniture selected was a lamp, print the appropriate manufacturers.
+            if (super.furnitureChosen.equals("lamp"))
+            {
+                for (int i = 0; i < manuLamp.length; i++)
+                {
+                    System.out.println(i+i + ". " + manuLamp[i]);
+                }
+            }
+            // Terminate the program.
+            System.exit(1);
+        }
+    }
+
+    public void resetDataBase(String path)
+    {
+        Statement myStmt;
+        try {
+            System.out.println("Source " + path);
+            String query = "Source " + path;
+            myStmt = this.dataBaseConnection.prepareStatement(query);
+            myStmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            System.out.println("Unable to restore the database!");
+        }
     }
 }
