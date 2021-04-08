@@ -254,8 +254,67 @@ public class InputReader {
      */
     public InputReader(String furniture, String type, int size)
     {
-        this.furnitureChosen = furniture;
-        this.typeChosen = type;
-        this.quantity = size;
+        boolean validArgsChecker = isValid(furniture, type, size);
+        if(validArgsChecker == true)
+        {
+            this.furnitureChosen = furniture;
+            this.typeChosen = type;
+            this.quantity = size;
+        }
+        else
+        {
+            System.out.println("The inputs given to constructor InputReader are invalid");
+            System.exit(1);
+        }
+    }
+
+    private boolean isValid(String furniture, String type, int size)
+    {
+        furniture = furniture.strip();
+        type = type.strip();
+        furniture = furniture.toLowerCase();
+        type = type.toLowerCase();
+        if(furniture.equals("desk"))
+        {
+            if((type.equals("adjustable") == false) || (type.equals("standing") == false) 
+                || (type.equals("traditional") == false))
+            {
+                return(false);
+            }  
+        }
+        else if(furniture.equals("chair"))
+        {
+            if((type.equals("ergonomic") == false) || (type.equals("executive") == false) 
+                || (type.equals("kneeling") == false) || (type.equals("mesh") == false) || (type.equals("task") == false))
+            {
+                return(false);
+            }  
+        }
+        else if(furniture.equals("lamp"))
+        {
+            if((type.equals("desk") == false) || (type.equals("study") == false) 
+                || (type.equals("swing arm") == false))
+            {
+                return(false);
+            }  
+        }
+        else if(furniture.equals("filing"))
+        {
+            if((type.equals("small") == false) || (type.equals("medium") == false) 
+                || (type.equals("large") == false))
+            {
+                return(false);
+            }  
+        }
+        else
+        {
+            return(false);
+        }
+
+        if(size < 1)
+        {
+            return(false);
+        }
+        return(true);
     }
 }
