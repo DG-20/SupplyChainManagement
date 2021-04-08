@@ -268,53 +268,55 @@ public class InputReader {
         }
     }
 
-    private boolean isValid(String furniture, String type, int size)
+    protected static boolean isValid(String furniture, String type, int size)
     {
         furniture = furniture.strip();
         type = type.strip();
         furniture = furniture.toLowerCase();
         type = type.toLowerCase();
+        if(size < 1)
+        {
+            return(false);
+        }
         if(furniture.equals("desk"))
         {
-            if((type.equals("adjustable") == false) || (type.equals("standing") == false) 
-                || (type.equals("traditional") == false))
+            if((type.equals("adjustable") == false) && (type.equals("standing") == false) 
+                && (type.equals("traditional") == false))
             {
                 return(false);
             }  
         }
         else if(furniture.equals("chair"))
         {
-            if((type.equals("ergonomic") == false) || (type.equals("executive") == false) 
-                || (type.equals("kneeling") == false) || (type.equals("mesh") == false) || (type.equals("task") == false))
+            if((type.equals("ergonomic") == false) && (type.equals("executive") == false) 
+            && (type.equals("kneeling") == false) && (type.equals("mesh") == false) && (type.equals("task") == false))
             {
                 return(false);
             }  
         }
         else if(furniture.equals("lamp"))
         {
-            if((type.equals("desk") == false) || (type.equals("study") == false) 
-                || (type.equals("swing arm") == false))
+            if((type.equals("desk") == false) && (type.equals("study") == false) 
+            && (type.equals("swing arm") == false))
             {
                 return(false);
             }  
         }
         else if(furniture.equals("filing"))
         {
-            if((type.equals("small") == false) || (type.equals("medium") == false) 
-                || (type.equals("large") == false))
+            if((type.equals("small") == false) && (type.equals("medium") == false) 
+            && (type.equals("large") == false))
             {
                 return(false);
             }  
         }
         else
         {
+            
             return(false);
         }
 
-        if(size < 1)
-        {
-            return(false);
-        }
+       
         return(true);
     }
 }
