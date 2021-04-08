@@ -16,60 +16,53 @@ import java.util.Arrays;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestFile
 {
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+
     @Test
     public void testA()
     {
-        boolean testerA=InputReader.isValid("chair","small",3);
+        boolean testerA = InputReader.isValid("chair", "small", 3);
         assertEquals(false, testerA);
     }
 
     @Test
 
     public void testB(){
-
-        boolean testerB=InputReader.isValid("table","Swing Arm",20);
+        boolean testerB=InputReader.isValid("table", "Swing Arm", 20);
         assertEquals(false, testerB);
-
     }
 
     @Test
     public void testC(){
-
-        boolean testerC=InputReader.isValid("filing","Large",-1);
+        boolean testerC = InputReader.isValid("filing", "Large", -1);
         assertEquals(false, testerC);
-
     }
 
 
     @Test
     public void testD(){
 
-        boolean testerD=InputReader.isValid("lamp","Study",2);
+        boolean testerD=InputReader.isValid("lamp", "Study", 2);
         assertEquals(true, testerD);
 
     }
-/*
+
     @Test
     public void testE(){
-
-        InputReader obj= new InputReader("chiar" , "Ergonomic" , 4);
-        //exit.expectSystemExitWithStatus(1);
-        assertEquals(obj,System.exit(1));
+        exit.expectSystemExitWithStatus(1);
+        InputReader obj= new InputReader("chiar" , "Ergonomic" , 4); 
     }
-*/
+
     @Test
     public void testF(){
-
-        InputReader obj =new InputReader("filing","Medium",2);
-        String[] expected={"filing","Medium","2"};
-        String[] actual= new String[3];
-        actual[0]=obj.furnitureChosen;
-        actual[1]=obj.typeChosen;
-        String quantity=""+obj.quantity;
-        actual[2]=quantity;
+        InputReader obj = new InputReader("filing", "Medium", 2);
+        String[] expected = {"filing", "Medium", "2"};
+        String[] actual = new String[3];
+        actual[0] = obj.furnitureChosen;
+        actual[1] = obj.typeChosen;
+        String quantity = "" + obj.quantity;
+        actual[2] = quantity;
         assertEquals(true, Arrays.equals(expected, actual));
-
-    }
-
-   
+    }   
 }
