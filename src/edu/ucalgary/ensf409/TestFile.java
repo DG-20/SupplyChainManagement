@@ -106,7 +106,6 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("chair" , "Ergonomic", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
         obj.initializeConnection();
         Connection testerP = obj.getDataBaseConnection();
-        //assertEquals(null, testerP);
         assertNotEquals(null, testerP);
 
     }
