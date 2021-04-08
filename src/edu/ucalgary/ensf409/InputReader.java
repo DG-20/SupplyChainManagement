@@ -318,6 +318,7 @@ public class InputReader {
         return(true);
     }
 
+    // Getters.
     protected String getFurnitureChosen()
     {
         return this.furnitureChosen;
@@ -333,6 +334,7 @@ public class InputReader {
         return this.quantity;
     }
 
+    // Setters.
     protected void setFurnitureChosen(String furniture)
     {
         this.furnitureChosen = furniture;

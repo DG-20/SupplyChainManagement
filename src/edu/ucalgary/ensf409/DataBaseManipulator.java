@@ -71,6 +71,7 @@ public class DataBaseManipulator extends InputReader {
     // quantityStored retrieves the quantity member field from InputReader by using super and storing it.
     private int quantityStored = super.quantity;
     protected int rowsAffected = 0;
+    private boolean done = false;
 
     /*
      * The constructor is where the appropriate algorithm is called based on the stored variables
@@ -85,7 +86,7 @@ public class DataBaseManipulator extends InputReader {
         // Initialize the connection to the database.
         initializeConnection();
 
-        // Get the quanitity requested from InputReader.
+        // Get the quantity requested from InputReader.
         int numOfItemsRequested = super.quantity;
 
         // Create the 2D array by calling this method.
@@ -107,6 +108,11 @@ public class DataBaseManipulator extends InputReader {
                 //System.out.println(status);
                 if (status == false)
                   break;  
+                if (this.done == true)
+                {
+                    priceStore += getLowestPrice();
+                    break;
+                }
                 priceStore += getLowestPrice();
             }
         }
@@ -125,6 +131,11 @@ public class DataBaseManipulator extends InputReader {
                 //System.out.println(status);
                 if (status == false)
                   break;  
+                if (this.done == true)
+                {
+                    priceStore += getLowestPrice();
+                    break;
+                }
                 priceStore += getLowestPrice();
             }
         }
@@ -143,6 +154,11 @@ public class DataBaseManipulator extends InputReader {
                 this.quantityStored--;
                 if (status == false)
                   break;  
+                if (this.done == true)
+                {
+                    priceStore += getLowestPrice();
+                    break;
+                }
                 priceStore += getLowestPrice();
             }
         }
@@ -217,7 +233,7 @@ public class DataBaseManipulator extends InputReader {
     protected void sumAllRows(String furniture, String type) 
     {
         Statement newstmt;
-        lowestPrice = 0;
+        int lowestPriceToAdd = 0;
         try
         {
             newstmt = this.dataBaseConnection.createStatement();
@@ -226,11 +242,14 @@ public class DataBaseManipulator extends InputReader {
             {
                  if((results.getString("Type").equals(type)))
                 {
-                    
-                    lowestPrice += Integer.parseInt(results.getString("Price"));
+                    String idToAdd = results.getString("ID");
+                    if (!this.codes.contains(idToAdd))
+                        this.codes.add(idToAdd);
+                    lowestPriceToAdd += Integer.parseInt(results.getString("Price"));
+                    System.out.println(lowestPriceToAdd);
                 }
             }
-
+        setLowestPrice(lowestPriceToAdd);
         }
 
         catch(SQLException e)
@@ -238,7 +257,6 @@ public class DataBaseManipulator extends InputReader {
             System.out.println("Unable to calculate sum of all rows");
             System.exit(1);
         }
-        
     }
 
     /*
@@ -433,6 +451,7 @@ public class DataBaseManipulator extends InputReader {
                 && yChecker4 == super.quantity) {
             sumAllRows("chair",super.typeChosen);
             deleteAllRows("chair", super.typeChosen);
+            this.done = true;
             return true;
         }
 
@@ -600,6 +619,7 @@ public class DataBaseManipulator extends InputReader {
      * the row in the storage array is set to -1's.
      */
     private void getCodes(String lowestPriceCell) {
+        System.out.println("LOWEST PRICE CELL " + lowestPriceCell);
         char[] charArray = lowestPriceCell.toCharArray();
         int commas = 0;
         for(int charachter = 0; charachter < charArray.length; charachter++)
@@ -692,6 +712,7 @@ public class DataBaseManipulator extends InputReader {
         if (yChecker1 == super.quantity && yChecker2 == super.quantity) {
             sumAllRows("lamp",super.typeChosen);
             deleteAllRows("lamp", super.typeChosen);
+            this.done = true;
             return true;
         }
 
@@ -706,6 +727,7 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
+        System.out.println(combinations.size());
         if (combinations.size() == 0) {
             return false;
         }
@@ -734,6 +756,7 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
+        System.out.println("MIN FINDER BEING CALLED");
         minFinder(listOfPrices, listOfRows);
         deleteFromDataBase(this.codes);
         return true;
@@ -775,6 +798,7 @@ public class DataBaseManipulator extends InputReader {
         if (yChecker1 == this.quantityStored && yChecker2 == this.quantityStored && yChecker3 == this.quantityStored) {
             sumAllRows(super.furnitureChosen,super.typeChosen);
             deleteAllRows(super.furnitureChosen, super.typeChosen);
+            this.done = true;
             return true;
         }
 
@@ -873,7 +897,7 @@ public class DataBaseManipulator extends InputReader {
         lowestPrice = lowest;
 
         lowestPriceCell = listOfRows[getRowToAdd()];
-        
+        System.out.println(lowestPriceCell + " LOW PRICE STUFF");
         getCodes(lowestPriceCell);
     }
 
@@ -897,6 +921,10 @@ public class DataBaseManipulator extends InputReader {
         return numOfY;
     }
 
+    /*
+     * This overloaded constructor is to test the entire algorithm in JUNIT testing by passing in the inputs
+     * as Strings instead of command prompt inputs.
+     */
     public DataBaseManipulator(String furniture, String type, int a, String url, String username, String password, boolean fullTest)
     {
         super(furniture, type, a);
@@ -908,7 +936,7 @@ public class DataBaseManipulator extends InputReader {
         // Initialize the connection to the database.
         initializeConnection();
 
-        // Get the quanitity requested from InputReader.
+        // Get the quantity requested from InputReader.
         int numOfItemsRequested = super.quantity;
 
         // Create the 2D array by calling this method.
@@ -1021,6 +1049,10 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
+    /*
+     * This overloaded constructor just sets the values of the member fields, used in JUNIT
+     * tests for things other than the algorithm.
+     */
    public DataBaseManipulator(String furniture, String type,int quantity, String url, String username, String password)
    {
        super(furniture, type, quantity);
@@ -1033,6 +1065,7 @@ public class DataBaseManipulator extends InputReader {
        setQuantityStored(quantity);
    }
 
+   // Getters.
    protected String getURL()
    {
        return this.URL;
@@ -1068,6 +1101,12 @@ public class DataBaseManipulator extends InputReader {
        return this.rowToAdd;
    }
 
+   protected int getQuantityStored()
+   {
+       return this.quantityStored;
+   }
+
+   // Setters.
    protected void setLowestPrice(int lowestPriceToAdd)
    {
         this.lowestPrice = lowestPriceToAdd;
