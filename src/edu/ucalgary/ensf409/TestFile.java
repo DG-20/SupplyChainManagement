@@ -3,6 +3,8 @@ package edu.ucalgary.ensf409;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
+
+import java.sql.Connection;
 import java.util.ArrayList;
 
 
@@ -59,13 +61,69 @@ public class TestFile
         InputReader obj = new InputReader("filing", "Medium", 2);
         String[] expected = {"filing", "Medium", "2"};
         String[] actual = new String[3];
-        actual[0] = obj.furnitureChosen;
-        actual[1] = obj.typeChosen;
-        String quantity = "" + obj.quantity;
+        actual[0] = obj.getFurnitureChosen();
+        actual[1] = obj.getTypeChosen();
+        String quantity = "" + obj.getQuantity();
         actual[2] = quantity;
         assertEquals(true, Arrays.equals(expected, actual));
 
     }
+    @Test
+
+    public void test1(){
+
+        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Executive", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        String tester1 = obj.getUSERNAME();
+        assertEquals("scm", tester1);
+
+    }
+
+    @Test
+
+    public void test2(){
+
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        String tester2 = obj.getPASSWORD();
+        assertEquals("ensf409", tester2);
+
+    }
+
+
+    @Test
+
+    public void test3(){
+
+        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        String tester3 = obj.getURL();
+        assertEquals("jdbc:mysql://localhost/inventory", tester3);
+
+    }
+
+    @Test
+
+    public void test4(){
+
+        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Ergonomic", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.initializeConnection();
+        Connection testerP = obj.getDataBaseConnection();
+        //assertEquals(null, testerP);
+        assertNotEquals(null, testerP);
+
+    }
+
+    @Test
+
+    public void test5(){
+
+        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Kneeling", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        obj.setQuantityStored(5);
+        int quantityObtained=obj.getQuantity();
+        assertEquals(5,quantityObtained);
+
+    }
+
+
+
 
     @Test
     public void testG(){
@@ -138,4 +196,6 @@ public class TestFile
         obj.deleteFromDataBase(codes);
         assertEquals(1,obj.rowsAffected);
     }
+    
+
 }
