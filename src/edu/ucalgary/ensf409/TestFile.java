@@ -71,5 +71,12 @@ public class TestFile
 
     }
 
+    @Test
+    public void testG(){
+
+        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "study", "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        
+    }
+
    
 }

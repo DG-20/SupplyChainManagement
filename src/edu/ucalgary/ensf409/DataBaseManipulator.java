@@ -1028,17 +1028,12 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-    public void resetDataBase(String path)
-    {
-        Statement myStmt;
-        try {
-            System.out.println("Source " + path);
-            String query = "Source " + path;
-            myStmt = this.dataBaseConnection.prepareStatement(query);
-            myStmt.executeUpdate(query);
-
-        } catch (SQLException e) {
-            System.out.println("Unable to restore the database!");
-        }
-    }
+   public DataBaseManipulator(String furniture, String type, String url, String username, String password)
+   {
+       this.furnitureChosen = furniture;
+       this.typeChosen = type;
+       this.URL = url;
+       this.USERNAME = username;
+       this.PASSWORD = password;
+   }
 }
