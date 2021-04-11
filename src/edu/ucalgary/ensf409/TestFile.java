@@ -21,6 +21,12 @@ public class TestFile
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
+    /*
+     * The following 3 tests call upon the isValid method passing in 
+     * an incorrect type, an incorrect furniture, and an invalid quantity
+     * respectively. The tests expect the return value of this method
+     * to be false in each case.
+    */
     @Test
     public void testAInvalidTypePassedIntoIsValidMethod()
     {
@@ -43,7 +49,12 @@ public class TestFile
         assertEquals(false, invalidQuantity);
     }
 
-
+    /*
+     * This test calls upon the isValid method passing in
+     * valid arguments for the furniture, the type, and the
+     * quantity. This test expects a return value of true
+     * as all arguments are valid.
+    */
     @Test
     public void testDValidIsValidMethodCall()
     {
@@ -51,6 +62,12 @@ public class TestFile
         assertEquals(true, valid);
     }
 
+    /*
+     * This test calls upon the constructor of InputReader
+     * passing in an incorrect spelling of "chair" (invalid input).
+     * The test expects this constructor to produce a System.exit(1)
+     * as this is the correct handling of this situation.
+    */
     @Test
     public void testEInvalidInputForConstructor()
     {
@@ -58,6 +75,13 @@ public class TestFile
         InputReader obj= new InputReader("chiar" , "Ergonomic" , 4); 
     }
 
+    /*
+     * This test calls upon the constructor of InputReader, passing
+     * in valid inputs for furniture, type, and quantity.
+     * It then stores the expected values in a String array
+     * and compares it to the member variables of InputReader,
+     * to check if they were correctly assigned the inputs.
+    */
     @Test
     public void testFConstructorCorrectlyAssignsMemberFields()
     {
@@ -179,10 +203,11 @@ public class TestFile
     }
 
      /*
-     * This tests the method deleteFromDatabase by checking
-     * 
-     * 
-     * 
+     * This tests the method deleteFromDatabase. After the connection has
+     * been established, a new ArrayList of type String is created and stores
+     * the IDs that need to be deleted from the database. This test is passing
+     * in invalid IDs (the ones that don't exist in the database). The rowsAffected
+     * variable is expected to be 0 as no rows were affected in the database.
      */
     @Test
     public void testOPassingInvalidCodesToDelete()
@@ -196,6 +221,13 @@ public class TestFile
         assertEquals(0,obj.rowsAffected);
     }
    
+    /*
+     * This tests the method deleteFromDatabase. After the connection has
+     * been established, a new ArrayList of type String is created and stores
+     * the IDs that need to be deleted from the database. This test is passing
+     * in a valid ID (one that does exist in the database). The rowsAffected
+     * variable is expected to be 1 as 1 row was affected in the database.
+    */
     @Test
     public void testPPassingValidCodeToDelete()
     {
