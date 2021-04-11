@@ -45,7 +45,7 @@ public class TestFile
     @Test
     public void testCInvalidQuantityPassedIntoIsValidMethod()
     {
-        boolean invalidQuantity = InputReader.isValid("filing", "Large", -1);
+        boolean invalidQuantity = InputReader.isValid("filing", "Large", 0);
         assertEquals(false, invalidQuantity);
     }
 
@@ -237,5 +237,120 @@ public class TestFile
         codes.add("D9387");
         obj.deleteFromDataBase(codes);
         assertEquals(1,obj.rowsAffected);
+    }
+
+    @Test
+    public void testQLowestPriceOf1MeshChair()
+    {
+        System.out.println("THIS FAILED\n\n\n\n");
+        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Mesh", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(200, obj.lowestPrice);
+    }
+
+    @Test
+    public void testRInvalidOrderOf2ErgonomicChairs()
+    {
+        exit.expectSystemExitWithStatus(1);
+        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Ergonomic", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+    }
+
+    @Test
+    public void testSInvalidOrderOf1KneelingChair()
+    {
+        exit.expectSystemExitWithStatus(1);
+        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Kneeling", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+    }
+
+    @Test
+    public void testTIDsOf2StandingDesks()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        ArrayList<String> codesToCheck = new ArrayList<String>();
+        codesToCheck.add("D1927");
+        codesToCheck.add("D2341");
+        codesToCheck.add("D3820");
+        codesToCheck.add("D4438");
+        assertEquals(true, codesToCheck.equals(obj.codes));
+    }
+
+    @Test
+    public void testUInvalidOrderOf1StandingDesk()
+    {
+        exit.expectSystemExitWithStatus(1);
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+    }
+
+    @Test
+    public void testVLowestPriceOf1AdjustableDesk()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(400, obj.lowestPrice);
+    }
+
+    @Test
+    public void testWLowestPriceOf1AdjustableDeskAgain()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(400, obj.lowestPrice);
+    }
+
+    @Test
+    public void testXLowestPriceOf3MediumFilings()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Medium", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(600, obj.lowestPrice);
+    }
+
+    @Test
+    public void testYIDsOf2SmallFilings()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        ArrayList<String> codesToCheck = new ArrayList<String>();
+        codesToCheck.add("F001");
+        codesToCheck.add("F013");
+        codesToCheck.add("F005");
+        codesToCheck.add("F006");
+        assertEquals(true, codesToCheck.equals(obj.codes));
+    }
+
+    @Test
+    public void testZInvalidOrderOf2SmallFiling()
+    {
+        exit.expectSystemExitWithStatus(1);
+        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+    }
+
+    @Test
+    public void testZZInvalidOrderOf1StudyLamp()
+    {
+        exit.expectSystemExitWithStatus(1);
+        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Study", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+    }
+
+    @Test
+    public void testZZZLowestPriceOf2SwingArmLamps()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Swing Arm", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(60, obj.lowestPrice);
+    }
+
+    @Test
+    public void testZZZZIDsOf3DeskLamps()
+    {
+        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Desk", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        ArrayList<String> codesToCheck = new ArrayList<String>();
+        codesToCheck.add("L013");
+        codesToCheck.add("L208");
+        codesToCheck.add("L112");
+        codesToCheck.add("L342");
+        codesToCheck.add("L564");
+        assertEquals(true, codesToCheck.equals(obj.codes));
+    }
+
+    @Test
+    public void testZZZZZIDsOf1DeskLamp()
+    {
+        exit.expectSystemExitWithStatus(1);
+        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Desk", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 }

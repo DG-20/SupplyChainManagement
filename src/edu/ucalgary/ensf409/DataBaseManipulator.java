@@ -932,7 +932,6 @@ public class DataBaseManipulator extends InputReader {
         this.URL = url;
         this.USERNAME = username;
         this.PASSWORD = password;
-
         // Initialize the connection to the database.
         initializeConnection();
 
@@ -957,14 +956,17 @@ public class DataBaseManipulator extends InputReader {
                 this.quantityStored--;
                 //System.out.println(status);
                 if (status == false)
-                break;  
+                  break;  
+                if (this.done == true)
+                {
+                    priceStore += getLowestPrice();
+                    break;
+                }
                 priceStore += getLowestPrice();
             }
         }
 
         setLowestPrice(priceStore);
-
-        priceStore = 0;
 
         // If "chair" was selected as the furniture, keep running the algorithm
         // until either the whole order is fulfilled, or the algorithm is unable
@@ -977,14 +979,17 @@ public class DataBaseManipulator extends InputReader {
                 this.quantityStored--;
                 //System.out.println(status);
                 if (status == false)
-                break;  
+                  break;  
+                if (this.done == true)
+                {
+                    priceStore += getLowestPrice();
+                    break;
+                }
                 priceStore += getLowestPrice();
             }
         }
 
         setLowestPrice(priceStore);
-
-        priceStore = 0;
 
         // If "desk" or "filing" (they both call upon the algorithmToCreateOrderForElse) 
         // was selected as the furniture, keep running the algorithm
@@ -996,14 +1001,20 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForElse();
                 this.quantityStored--;
-                //System.out.println(status);
                 if (status == false)
-                break;  
+                  break;  
+                if (this.done == true)
+                {
+                    priceStore += getLowestPrice();
+                    break;
+                }
                 priceStore += getLowestPrice();
             }
         }
 
         setLowestPrice(priceStore);
+
+        print2DArray();
 
         // If the for loops above were unable, at any point, to create
         // the complete order.
