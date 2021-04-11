@@ -78,7 +78,15 @@ public class InputReader {
             System.out.println(
                     "\nPlease make a selection of the furniture needed.\n" + "Select one from:\n" + "1. Chair\n"
                             + "2. Desk\n" + "3. Filing\n" + "4. Lamp\n" + "5. If you would like to exit the program.");
-            userInput = inputCollected.nextInt();
+                            try
+                            {
+                                userInput = inputCollected.nextInt();
+                            }
+                            catch (Exception e)
+                            {
+                                System.out.println("Try again but enter an integer!");
+                                System.exit(1);
+                            }
             if (userInput < 1 || userInput > 5)
                 System.out.println("\nError: Please enter a number between 1-4!\n");
         } while (userInput < 1 || userInput > 5);
@@ -132,7 +140,15 @@ public class InputReader {
         do {
             System.out.println("\nWhat quantity of this product do you need? Please enter a positive integer\n"
                     + "Enter -1 to exit this program.");
-            userInput333 = inputCollected.nextInt();
+                    try
+                    {
+                        userInput333 = inputCollected.nextInt();
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("Try again but enter an integer!");
+                        System.exit(1);
+                    }
             if ((userInput333 < 1) && (userInput333 != -1)) {
                 System.out.println("\nPlease enter a positive integer!\n");
             }
@@ -170,8 +186,15 @@ public class InputReader {
             System.out.println("\nYou selected chairs as your furniture.\n"
                     + "Please select from the following types of chairs: \n" + "1. Ergonomic\n" + "2. Executive\n"
                     + "3. Kneeling\n" + "4. Mesh\n" + "5. Task\n" + "6. If you would like to exit the program.");
-
-            userInput = inputCollected2.nextInt();
+            try
+            {
+                userInput = inputCollected2.nextInt();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Try again but enter an integer!");
+                System.exit(1);
+            }
             if (userInput < 0 || userInput > 6) {
                 System.out.println("\nPlease enter a number between 1 and 6!\n");
             }
@@ -192,8 +215,15 @@ public class InputReader {
             System.out.println("\nYou selected filing as your furniture.\n"
                     + "Please select from the following types of filing: \n" + "1. Small\n" + "2. Medium\n"
                     + "3. Large\n" + "4. If you would like to exit the program");
-
-            userInput = inputCollected3.nextInt();
+            try
+            {
+                userInput = inputCollected3.nextInt();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Try again but enter an integer!");
+                System.exit(1);
+            }
             if (userInput < 0 || userInput > 4) {
                 System.out.println("\nPlease enter a number between 1 and 4!\n");
             }
@@ -214,8 +244,15 @@ public class InputReader {
             System.out.println("\nYou selected desks as your furniture.\n"
                     + "Please select from the following types of chairs:\n" + "1. Adjustable\n" + "2. Standing\n"
                     + "3. Traditional\n" + "4. If you would like to exit the program.");
-
-            userInput = inputCollected4.nextInt();
+            try
+            {
+                userInput = inputCollected4.nextInt();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Try again but enter an integer!");
+                System.exit(1);
+            }
             if (userInput < 0 || userInput > 4) {
                 System.out.println("\nError: Please enter a number between 1-3!\n");
             }
@@ -236,7 +273,15 @@ public class InputReader {
             System.out.println("\nYou selected lamps as your furniture.\n"
                     + "Please select from the following types of chairs: \n" + "1. Desk\n" + "2. Study\n"
                     + "3. Swing Arm\n" + "4. If you would like to exit the program.");
-            userInput = inputCollected5.nextInt();
+            try 
+            {
+                userInput = inputCollected5.nextInt();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Try again but enter an integer!");
+                System.exit(1);
+            }
             if (userInput < 0 || userInput > 4) {
                 System.out.println("\nError: Please enter a number between 1-3!\n");
             }

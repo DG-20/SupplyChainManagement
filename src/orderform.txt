@@ -6,16 +6,14 @@ Faculty Name:
 Contact:      
 Date:     
 
-Original Request: Medium filing, 3
+Original Request: Study lamp, 2
 
 Items Ordered
-ID: F002
-ID: F007
-ID: F008
-ID: F009
-ID: F014
+ID: L928
+ID: L982
+ID: L223
 
 
-Total Price: 600
+Total Price: 20
 
 ┗                                                          ┛
