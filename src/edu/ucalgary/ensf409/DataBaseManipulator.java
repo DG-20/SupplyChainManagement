@@ -12,10 +12,12 @@
  * @since 1.0
  */
 package edu.ucalgary.ensf409;
+
 // Importing the necessary packages.
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.io.FileWriter;
 
 /*
  * DataBaseManipulator is a class which performs the algorithms required 
