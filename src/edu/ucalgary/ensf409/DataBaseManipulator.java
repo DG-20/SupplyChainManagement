@@ -79,7 +79,7 @@ public class DataBaseManipulator extends InputReader {
      * of manufacturers. The constructor takes in three Strings, url, username, and password
      * and stores them in the corresponding member fields.
      */
-    public DataBaseManipulator(String url, String username, String password) {
+    public DataBaseManipulator(String url, String username, String password) throws IOException {
         this.URL = url;
         this.USERNAME = username;
         this.PASSWORD = password;
@@ -206,9 +206,32 @@ public class DataBaseManipulator extends InputReader {
                     System.out.println(i+i + ". " + manuLamp[i]);
                 }
             }
+
+            resetOrderForm();
             // Terminate the program.
             System.exit(1);
         }
+    }
+
+    private void resetOrderForm() throws IOException
+    {
+        String outputForm = "";
+        outputForm = "┎                                                          ┓\n";
+        outputForm = outputForm.concat("\nFurniture Order Form\n");
+        outputForm = outputForm.concat("┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n");
+        outputForm = outputForm.concat("Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n" + "\n");
+        outputForm = outputForm
+                .concat("Original Request: " + typeChosen + " " + furnitureChosen + ", " + quantity + "\n");
+        outputForm = outputForm.concat("\n" + "Items Ordered" + "\n");
+        outputForm = outputForm.concat("Unable to fulfill request at this time.");
+        outputForm = outputForm.concat("\n");
+
+        outputForm = outputForm.concat("\n\n" + "Total Price: N/A");
+        outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
+        FileWriter fileOutput = new FileWriter("OrderForm.txt");
+        fileOutput.write(outputForm);
+        fileOutput.close();
+        System.out.println("Furniture Order Form generated.");
     }
 
     private void print2DArray()

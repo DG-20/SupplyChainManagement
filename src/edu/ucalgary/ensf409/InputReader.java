@@ -13,6 +13,7 @@
  */
 package edu.ucalgary.ensf409;
 
+import java.io.FileWriter;
 /*
  * Importing the libraries necessary to read in from the terminal to obtain user choices.
 */
