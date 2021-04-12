@@ -433,6 +433,13 @@ public class InventoryTest
         
     }
 
+    /**
+     * This tests calls the overloaded constructor OrderForm, that implements the DatabaseManipulator constructor
+     * for tests purposes. In the OrderForm constructor, the furniture "desk", type "Traditional", and quantity of 2 are
+     * passed in. The URL, PASSWORD, USERNAME are the standard values passed in. In the constructor the finalOrderTextFile
+     * method is called and uses the arguments that are passed into the constructor. This tests checks to see if a
+     * text file with the name OrderForm exists.
+     */
     @Test
     public void testIfOrderFormExists()
     {
@@ -442,6 +449,15 @@ public class InventoryTest
         assertEquals(true, fileExists);
     }
 
+    /**
+     * This tests calls the overloaded constructor OrderForm, that implements the DatabaseManipulator constructor
+     * for tests purposes. In the OrderForm constructor, the furniture "filing", type "Large", and quantity of 1 are
+     * passed in. The URL, PASSWORD, USERNAME are the standard values passed in. In the constructor the finalOrderTextFile
+     * method is called and uses the arguments that are passed into the constructor and an OrderForm.txt file is created with
+     * information. Once the text file is created a Scanner object is created to scan the OrderForm.txt file, using a while
+     * loop and the hasNextLine() method, the line within the text file is concatenated to a string. Once every line is 
+     * concatenated it is compared to the private String outputFormInfo to check if they are equal.
+     */
     @Test
     public void testCheckOutputOfOrderForm() throws FileNotFoundException
     {
