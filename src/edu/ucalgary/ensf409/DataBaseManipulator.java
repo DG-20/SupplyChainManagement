@@ -933,9 +933,9 @@ public class DataBaseManipulator extends InputReader {
      * This overloaded constructor is to test the entire algorithm in JUNIT testing by passing 
      * in the inputs as Strings instead of command prompt inputs.
      */
-    public DataBaseManipulator(String furniture, String type, int a, String url, String username, String password, boolean fullTest)
+    public DataBaseManipulator(String furniture, String type, int quantityAskedFor, String url, String username, String password, boolean fullTest)
     {
-        super(furniture, type, a);
+        super(furniture, type, quantityAskedFor);
 
         this.URL = url;
         this.USERNAME = username;
@@ -1008,7 +1008,7 @@ public class DataBaseManipulator extends InputReader {
                 status = algorithmToCreateOrderForElse();
                 this.quantityStored--;
                 if (status == false)
-                  break;  
+                  break;
                 if (this.done == true)
                 {
                     priceStore += getLowestPrice();
@@ -1073,35 +1073,11 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-    public void finalOrderTextFile1(ArrayList<String> codes, String furnitureChosen, String typeChosen, int quantity, int lowestPrice) throws IOException {
-        System.out.println("Printing Furniture Order Form...\n");
-        String outputForm = "";
-        outputForm = "┎                                                          ┓\n";
-        outputForm = outputForm.concat("\nFurniture Order Form\n");
-        outputForm = outputForm.concat("┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n");
-        outputForm = outputForm.concat("Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n" + "\n");
-        outputForm = outputForm
-                .concat("Original Request: " + typeChosen + " " + furnitureChosen + ", " + Integer.toString(quantity) + "\n");
-        outputForm = outputForm.concat("\n" + "Items Ordered" + "\n");
-        for(int i = 0; i < codes.size(); i++)
-        {
-            outputForm = outputForm.concat("ID: " + codes.get(i));
-            outputForm = outputForm.concat("\n");
-        }
-        System.out.println(lowestPrice);
-        outputForm = outputForm.concat("\n\n" + "Total Price: " + lowestPrice);
-        outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
-        FileWriter fileOutput = new FileWriter("OrderForm.txt");
-        fileOutput.write(outputForm);
-        fileOutput.close();
-        System.out.println("Furniture Order Form generated.");
-    }
-
     /** 
      * This overloaded constructor just sets the values of the member fields, used in JUNIT
      * tests for things other than the algorithm.
      */
-   public DataBaseManipulator(String furniture, String type,int quantity, String url, String username, String password)
+   public DataBaseManipulator(String furniture, String type, int quantity, String url, String username, String password)
    {
        super(furniture, type, quantity);
        this.furnitureChosen = furniture;
@@ -1176,6 +1152,7 @@ public class DataBaseManipulator extends InputReader {
    {
        return this.quantityStored;
    }
+
    /** 
     * Setter for lowestPrice
     */

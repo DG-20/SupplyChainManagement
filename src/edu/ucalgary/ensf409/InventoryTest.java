@@ -3,20 +3,16 @@ package edu.ucalgary.ensf409;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
-
 import java.sql.Connection;
 import java.util.ArrayList;
-
-
 import static org.junit.Assert.*;
-
 import java.util.Arrays;
 
 // Please download the inventory.sql file provided in the D2L shell: www
 // Please run Source filepath/inventory.sql in the command line for mysql
 // And 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestFile
+public class InventoryTest
 {
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
@@ -255,7 +251,7 @@ public class TestFile
     @Test
     public void testQLowestPriceOf1MeshChair()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Mesh", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("chair" , "Mesh", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         assertEquals(200, obj.lowestPrice);
     }
 
@@ -268,7 +264,7 @@ public class TestFile
     public void testRInvalidOrderOf2ErgonomicChairs()
     {
         exit.expectSystemExitWithStatus(1);
-        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Ergonomic", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("chair" , "Ergonomic", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -280,7 +276,7 @@ public class TestFile
     public void testSInvalidOrderOf1KneelingChair()
     {
         exit.expectSystemExitWithStatus(1);
-        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Kneeling", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("chair" , "Kneeling", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -292,7 +288,7 @@ public class TestFile
     @Test
     public void testTIDsOf2StandingDesks()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("desk" , "Standing", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         ArrayList<String> codesToCheck = new ArrayList<String>();
         codesToCheck.add("D1927");
         codesToCheck.add("D2341");
@@ -306,12 +302,11 @@ public class TestFile
      * desk. After the connection to the database has been established the algorithm
      * is run and a system exit value of 1 is expected as it is an invalid order.
      */
-
     @Test
     public void testUInvalidOrderOf1StandingDesk()
     {
         exit.expectSystemExitWithStatus(1);
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -319,11 +314,10 @@ public class TestFile
      * desk. After the connection to the database has been established the algorithm
      * is run and compared to the expected value from the original database.
      */
-
     @Test
     public void testVLowestPriceOf1AdjustableDesk()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         assertEquals(400, obj.lowestPrice);
     }
 
@@ -332,11 +326,10 @@ public class TestFile
      * desk. After the connection to the database has been established the algorithm
      * is run and a system exit value of 1 is expected as it is an invalid order.
      */
-
     @Test
     public void testWLowestPriceOf1AdjustableDeskAgain()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         assertEquals(400, obj.lowestPrice);
     }
 
@@ -345,11 +338,10 @@ public class TestFile
      * filings. After the connection to the database has been established the algorithm
      * is run and compared to the expected value.
      */
-
     @Test
     public void testXLowestPriceOf3MediumFilings()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Medium", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("filing" , "Medium", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         assertEquals(600, obj.lowestPrice);
     }
 
@@ -358,11 +350,10 @@ public class TestFile
      * filings. After the connection to the database has been established the algorithm
      * is run and compared to the expected value.
      */
-
     @Test
     public void testYIDsOf2SmallFilings()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         ArrayList<String> codesToCheck = new ArrayList<String>();
         codesToCheck.add("F001");
         codesToCheck.add("F013");
@@ -376,12 +367,11 @@ public class TestFile
      * small filings. After the connection to the database has been established the 
      * algorithm is run and compared to the expected value.
      */
-
     @Test
     public void testZInvalidOrderOf2SmallFiling()
     {
         exit.expectSystemExitWithStatus(1);
-        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -393,7 +383,7 @@ public class TestFile
     public void testZZInvalidOrderOf1StudyLamp()
     {
         exit.expectSystemExitWithStatus(1);
-        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Study", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("lamp" , "Study", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -401,11 +391,10 @@ public class TestFile
      * small filings. After the connection to the database has been established the 
      * algorithm is run and compared to the expected value.
      */
-
     @Test
     public void testZZZLowestPriceOf2SwingArmLamps()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Swing Arm", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("lamp" , "Swing Arm", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         assertEquals(60, obj.lowestPrice);
     }
 
@@ -414,11 +403,10 @@ public class TestFile
      * desk lamps. After the connection to the database has been established the 
      * algorithm is run and compared to the expected IDs.
      */
-
     @Test
     public void testZZZZIDsOf3DeskLamps()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Desk", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("lamp" , "Desk", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         ArrayList<String> codesToCheck = new ArrayList<String>();
         codesToCheck.add("L013");
         codesToCheck.add("L208");
@@ -433,11 +421,11 @@ public class TestFile
      * desk lamps. After the connection to the database has been established the 
      * algorithm is run and compared to the expected value of system exit 1.
      */
-
     @Test
     public void testZZZZZIDsOf1DeskLamp()
     {
         exit.expectSystemExitWithStatus(1);
-        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Desk", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm obj = new OrderForm("lamp" , "Desk", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        
     }
 }

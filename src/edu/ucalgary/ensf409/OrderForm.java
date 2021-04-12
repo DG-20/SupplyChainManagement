@@ -38,7 +38,7 @@ public class OrderForm extends DataBaseManipulator {
         String url = "jdbc:mysql://localhost/inventory"; 
         String username = "scm"; 
         String password = "ensf409"; 
-        OrderForm object = new OrderForm(url, username, password); 
+        OrderForm myOrderForm = new OrderForm(url, username, password); 
     }
 
     /** 
@@ -50,9 +50,24 @@ public class OrderForm extends DataBaseManipulator {
      * of the furniture, and the quantity desired to the creation method of 
      * the finalOrder, finalOrderTextFile.
      */
-    public OrderForm(String url, String username, String password) throws IOException {
+    public OrderForm(String url, String username, String password) throws IOException 
+    {
         super(url, username, password);
         finalOrderTextFile(super.furnitureChosen, super.typeChosen, super.quantity);
+    }
+
+    public OrderForm(String furniture, String type, int quantityAskedFor, String url, String username, String password, boolean fullTest)
+    {
+        super(furniture, type, quantityAskedFor, url, username, password, fullTest);
+        try
+        {
+            finalOrderTextFile(super.furnitureChosen, super.typeChosen, super.quantity);
+        }
+        catch (Exception e)
+        {
+            System.out.println("Something went wrong when trying to generate orderform.txt!");
+            System.exit(1);
+        }
     }
 
     /**
@@ -63,7 +78,8 @@ public class OrderForm extends DataBaseManipulator {
      *  type of furniture. The formatting along with the various inputted strings are 
      *  then written to an output file called OrderForm.txt. The orderform is then closed.
      */ 
-    public void finalOrderTextFile(String furniture, String type, int quantity) throws IOException {
+    public void finalOrderTextFile(String furniture, String type, int quantity) throws IOException 
+    {
         System.out.println("Printing Furniture Order Form...\n");
         String outputForm = "";
         outputForm = "┎                                                          ┓\n";
@@ -78,7 +94,6 @@ public class OrderForm extends DataBaseManipulator {
             outputForm = outputForm.concat("ID: " + super.codes.get(i));
             outputForm = outputForm.concat("\n");
         }
-        System.out.println(super.lowestPrice);
         outputForm = outputForm.concat("\n\n" + "Total Price: " + super.getLowestPrice());
         outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
         FileWriter fileOutput = new FileWriter("OrderForm.txt");
