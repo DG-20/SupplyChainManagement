@@ -215,6 +215,16 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
+    /**
+     * resetOrderForm() is a private method that returns nothing. The method resetOrderForm contains 
+     * a String called outputForm that creates a string for the OrderForm text file. This outputForm
+     * String shows the original request the user made and also a message that states "Unable to fullfil
+     * request at this time" in the orderForm text file. The Total price is also N/A. All this information 
+     * gets provided and printed to the OrderFrom text file. Also this method gets called in the constructor
+     * if status equals false. Otherwise the finalOrderTextFile in the OrderForm constructor will provide
+     * proper contents to the orderForm text file (with the ID codes and Total Price) because the request
+     * is able to happen.
+     */
     private void resetOrderForm() throws IOException
     {
         String outputForm = "";
