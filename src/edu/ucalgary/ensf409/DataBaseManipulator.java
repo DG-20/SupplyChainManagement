@@ -1020,8 +1020,6 @@ public class DataBaseManipulator extends InputReader {
 
         setLowestPrice(priceStore);
 
-        OrderForm(this.codes, this.furnitureChosen, this.typeChosen, this.quantity);
-
         // If the for loops above were unable, at any point, to create
         // the complete order.
         if (status == false)
@@ -1073,6 +1071,30 @@ public class DataBaseManipulator extends InputReader {
             // Terminate the program.
             System.exit(1);
         }
+    }
+
+    public void finalOrderTextFile1(ArrayList<String> codes, String furnitureChosen, String typeChosen, int quantity, int lowestPrice) throws IOException {
+        System.out.println("Printing Furniture Order Form...\n");
+        String outputForm = "";
+        outputForm = "┎                                                          ┓\n";
+        outputForm = outputForm.concat("\nFurniture Order Form\n");
+        outputForm = outputForm.concat("┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n");
+        outputForm = outputForm.concat("Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n" + "\n");
+        outputForm = outputForm
+                .concat("Original Request: " + typeChosen + " " + furnitureChosen + ", " + Integer.toString(quantity) + "\n");
+        outputForm = outputForm.concat("\n" + "Items Ordered" + "\n");
+        for(int i = 0; i < codes.size(); i++)
+        {
+            outputForm = outputForm.concat("ID: " + codes.get(i));
+            outputForm = outputForm.concat("\n");
+        }
+        System.out.println(lowestPrice);
+        outputForm = outputForm.concat("\n\n" + "Total Price: " + lowestPrice);
+        outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
+        FileWriter fileOutput = new FileWriter("OrderForm.txt");
+        fileOutput.write(outputForm);
+        fileOutput.close();
+        System.out.println("Furniture Order Form generated.");
     }
 
     /** 
