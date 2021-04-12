@@ -638,7 +638,8 @@ public class DataBaseManipulator extends InputReader {
         return true;
     }
 
-    /* getCodes is a private method in the DataBaseManipulator java file. It takes in a 
+    /* 
+     * getCodes is a private method in the DataBaseManipulator java file. It takes in a 
      * string argument and does not return anything. The method getCodes gets called 
      * within the private method minFinder as the last thing in the method. The private
      * method getCodes recieves a String in the form of number followed by commas (ex; #,#,#).
@@ -792,28 +793,28 @@ public class DataBaseManipulator extends InputReader {
     }
 
      /*
-     * algorithmToCreateOrderForElse is a method which applies an algorithm if the 
-     * user provides an order for desks or filing. This method does not take in any arguments 
-     * and returns a boolean based off whether or not it was successful in satisfying the order
-     * Initially, the base condition is checked by calling upon loopMethod twice, once for each column 
-     * in the desired desk/filing table, and storing them into three variables. Then, if the 
-     * number of Ys in each column of all the rows for the selected furniture is less than the 
-     * quantity desired, the complete order is not possible and thus this method returns false.
-     * Then, if the total amount of Y's in each column is exactly equal to the 
-     * ordered quantity, this method calls sumAllRows and then deleteAllRows to
-     * delete all the rows from the database and then reutrns true.
-     * If these base cases are not met, then the algorithm takes place. 
-     * The algorithm utilizes an ArrayList and iterates over each column in the array
-     * in nested for loops, to get all possible combinations to get Y in all three columns
-     * (0, 1, and 2). Each combination is combined into a String seperated by a dash and
-     * added to the ArrayList. Then, if no combinations were found, meaning the size of the
-     * ArrayList == 0, then return false. Next, two arrays listOfPrices and listOfRows 
-     * are created and a for loop iterates over all combinations in the ArrayList, adding
-     * each price into the array and the rows corresponding to those prices are added to 
-     * listOfRows as a String seperated by a comma. Then, this method calls 
-     * minFinder with both arrays. Then, deleteFromDataBase is called to update the database
-     * and then this method returns true.
-     */
+      * algorithmToCreateOrderForElse is a method which applies an algorithm if the 
+      * user provides an order for desks or filing. This method does not take in any arguments 
+      * and returns a boolean based off whether or not it was successful in satisfying the order
+      * Initially, the base condition is checked by calling upon loopMethod twice, once for each column 
+      * in the desired desk/filing table, and storing them into three variables. Then, if the 
+      * number of Ys in each column of all the rows for the selected furniture is less than the 
+      * quantity desired, the complete order is not possible and thus this method returns false.
+      * Then, if the total amount of Y's in each column is exactly equal to the 
+      * ordered quantity, this method calls sumAllRows and then deleteAllRows to
+      * delete all the rows from the database and then reutrns true.
+      * If these base cases are not met, then the algorithm takes place. 
+      * The algorithm utilizes an ArrayList and iterates over each column in the array
+      * in nested for loops, to get all possible combinations to get Y in all three columns
+      * (0, 1, and 2). Each combination is combined into a String seperated by a dash and
+      * added to the ArrayList. Then, if no combinations were found, meaning the size of the
+      * ArrayList == 0, then return false. Next, two arrays listOfPrices and listOfRows 
+      * are created and a for loop iterates over all combinations in the ArrayList, adding
+      * each price into the array and the rows corresponding to those prices are added to 
+      * listOfRows as a String seperated by a comma. Then, this method calls 
+      * minFinder with both arrays. Then, deleteFromDataBase is called to update the database
+      * and then this method returns true.
+      */
     private boolean algorithmToCreateOrderForElse() {
         ArrayList<String> combinations = new ArrayList<String>();
         int yChecker1 = loopMethod(0);
@@ -1106,82 +1107,80 @@ public class DataBaseManipulator extends InputReader {
    }
 
    /** 
-     * Getter for URL
-     */
+    * Getter for URL
+    */
    protected String getURL()
    {
        return this.URL;
    }
    /** 
-     * Getter for USERNAME
-     */
+    * Getter for USERNAME
+    */
    protected String getUSERNAME()
    {
        return this.USERNAME;
    }
    /** 
-     * Getter for PASSWORD
-     */
+    * Getter for PASSWORD
+    */
    protected String getPASSWORD()
    {
        return this.PASSWORD;
    }
    /** 
-     * Getter for dataBaseConnection
-     */
+    * Getter for dataBaseConnection
+    */
    protected Connection getDataBaseConnection()
    {
        return this.dataBaseConnection;
    }
    /** 
-     * Getter for lowestPrice
-     */
+    * Getter for lowestPrice
+    */
    protected int getLowestPrice()
    {
        return this.lowestPrice;
    }
    /** 
-     * Getter for rowsAffected
-     */
+    * Getter for rowsAffected
+    */
    protected int getRowsAffected()
    {
        return this.rowsAffected;
    }
    /** 
-     * Getter for rowToAdd
-     */
+    * Getter for rowToAdd
+    */
    protected int getRowToAdd()
    {
        return this.rowToAdd;
    }
    /** 
-     * Getter for quantityStored
-     */
+    * Getter for quantityStored
+    */
    protected int getQuantityStored()
    {
        return this.quantityStored;
    }
-
    /** 
-     * Setter for lowestPrice
-     */
+    * Setter for lowestPrice
+    */
    protected void setLowestPrice(int lowestPriceToAdd)
    {
         this.lowestPrice = lowestPriceToAdd;
    }
    /** 
-     * Setter for rowToAdd
-     */
+    * Setter for rowToAdd
+    */
    protected void setRowToAdd(int row)
    {
        this.rowToAdd = row;
    }
    /** 
-     * Setter for quantityStored
-     */
+    * Setter for quantityStored
+    */
    protected void setQuantityStored(int store)
    {
        this.quantityStored = store;
    }
-
 }
