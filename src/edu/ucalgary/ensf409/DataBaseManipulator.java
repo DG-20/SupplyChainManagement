@@ -1098,6 +1098,7 @@ public class DataBaseManipulator extends InputReader {
    {
        return this.URL;
    }
+   
    /** 
     * Getter for USERNAME
     */
@@ -1105,6 +1106,7 @@ public class DataBaseManipulator extends InputReader {
    {
        return this.USERNAME;
    }
+
    /** 
     * Getter for PASSWORD
     */
@@ -1112,6 +1114,7 @@ public class DataBaseManipulator extends InputReader {
    {
        return this.PASSWORD;
    }
+
    /** 
     * Getter for dataBaseConnection
     */
@@ -1119,6 +1122,7 @@ public class DataBaseManipulator extends InputReader {
    {
        return this.dataBaseConnection;
    }
+
    /** 
     * Getter for lowestPrice
     */
@@ -1126,6 +1130,7 @@ public class DataBaseManipulator extends InputReader {
    {
        return this.lowestPrice;
    }
+
    /** 
     * Getter for rowsAffected
     */
@@ -1133,6 +1138,7 @@ public class DataBaseManipulator extends InputReader {
    {
        return this.rowsAffected;
    }
+
    /** 
     * Getter for rowToAdd
     */
@@ -1140,6 +1146,7 @@ public class DataBaseManipulator extends InputReader {
    {
        return this.rowToAdd;
    }
+
    /** 
     * Getter for quantityStored
     */
@@ -1154,6 +1161,7 @@ public class DataBaseManipulator extends InputReader {
    {
         this.lowestPrice = lowestPriceToAdd;
    }
+
    /** 
     * Setter for rowToAdd
     */
@@ -1161,6 +1169,7 @@ public class DataBaseManipulator extends InputReader {
    {
        this.rowToAdd = row;
    }
+
    /** 
     * Setter for quantityStored
     */
