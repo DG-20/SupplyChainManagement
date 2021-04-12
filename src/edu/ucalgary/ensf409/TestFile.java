@@ -227,7 +227,7 @@ public class TestFile
      * the IDs that need to be deleted from the database. This test is passing
      * in a valid ID (one that does exist in the database). The rowsAffected
      * variable is expected to be 1 as 1 row was affected in the database.
-    */
+     */
     @Test
     public void testPPassingValidCodeToDelete()
     {
@@ -239,6 +239,11 @@ public class TestFile
         assertEquals(1,obj.rowsAffected);
     }
 
+    /*
+     * This tests the algorithm for finding the lowest price of 1 order of a mesh chair.
+     * After the connection to the database has been established the algorithm
+     * is run and compared to the expected value.
+     */
     @Test
     public void testQLowestPriceOf1MeshChair()
     {
@@ -247,6 +252,11 @@ public class TestFile
         assertEquals(200, obj.lowestPrice);
     }
 
+    /*
+     * This tests the algorithm for finding the lowest price of 2 orders of ergonomic
+     * chairs. After the connection to the database has been established the algorithm
+     * is run and a system exit value of 1 is expected as it is an invalid order.
+     */
     @Test
     public void testRInvalidOrderOf2ErgonomicChairs()
     {
@@ -254,6 +264,11 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("chair" , "Ergonomic", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
+     /*
+     * This tests the algorithm for finding the lowest price of 1 order of a kneeling
+     * chair. After the connection to the database has been established the algorithm
+     * is run and a system exit value of 1 is expected as it is an invalid order.
+     */
     @Test
     public void testSInvalidOrderOf1KneelingChair()
     {
@@ -261,6 +276,12 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("chair" , "Kneeling", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
+    /*
+     * This tests the algorithm for finding the IDs of 2 orders of standing
+     * desks. After the connection to the database has been established the algorithm
+     * is run and the IDs that make up the order are stored in an ArrayList and then 
+     * compared to the expected values.
+     */
     @Test
     public void testTIDsOf2StandingDesks()
     {
@@ -273,12 +294,24 @@ public class TestFile
         assertEquals(true, codesToCheck.equals(obj.codes));
     }
 
+     /*
+     * This tests the algorithm for finding the lowest price of 1 order of a standing
+     * desk. After the connection to the database has been established the algorithm
+     * is run and a system exit value of 1 is expected as it is an invalid order.
+     */
+
     @Test
     public void testUInvalidOrderOf1StandingDesk()
     {
         exit.expectSystemExitWithStatus(1);
         DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
+
+     /*
+     * This tests the algorithm for finding the lowest price of 1 order of a adjustable
+     * desk. After the connection to the database has been established the algorithm
+     * is run and compared to the expected value from the original database.
+     */
 
     @Test
     public void testVLowestPriceOf1AdjustableDesk()
@@ -287,6 +320,12 @@ public class TestFile
         assertEquals(400, obj.lowestPrice);
     }
 
+     /*
+     * This tests the algorithm for finding the lowest price of 1 order of a adjustable
+     * desk. After the connection to the database has been established the algorithm
+     * is run and a system exit value of 1 is expected as it is an invalid order.
+     */
+
     @Test
     public void testWLowestPriceOf1AdjustableDeskAgain()
     {
@@ -294,12 +333,24 @@ public class TestFile
         assertEquals(400, obj.lowestPrice);
     }
 
+     /*
+     * This tests the algorithm for finding the lowest price of 3 orders of medium
+     * filings. After the connection to the database has been established the algorithm
+     * is run and compared to the expected value.
+     */
+
     @Test
     public void testXLowestPriceOf3MediumFilings()
     {
         DataBaseManipulator obj = new DataBaseManipulator("filing" , "Medium", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         assertEquals(600, obj.lowestPrice);
     }
+
+     /*
+     * This tests the algorithm for finding the IDs that make up the 2 orders of small
+     * filings. After the connection to the database has been established the algorithm
+     * is run and compared to the expected value.
+     */
 
     @Test
     public void testYIDsOf2SmallFilings()
@@ -313,6 +364,12 @@ public class TestFile
         assertEquals(true, codesToCheck.equals(obj.codes));
     }
 
+     /*
+     * This tests the algorithm for finding the lowest price that make up the 2 orders of 
+     * small filings. After the connection to the database has been established the 
+     * algorithm is run and compared to the expected value.
+     */
+
     @Test
     public void testZInvalidOrderOf2SmallFiling()
     {
@@ -320,6 +377,11 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
+    /*
+     * This tests the algorithm for an invalid input of 1 study lamp.  
+     * After the connection to the database has been established the algorithm 
+     * is run and compared to the expected value of a system exit value of 1.
+     */
     @Test
     public void testZZInvalidOrderOf1StudyLamp()
     {
@@ -327,12 +389,24 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Study", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
+    /*
+     * This tests the algorithm for finding the lowest price of the 2 orders of 
+     * small filings. After the connection to the database has been established the 
+     * algorithm is run and compared to the expected value.
+     */
+
     @Test
     public void testZZZLowestPriceOf2SwingArmLamps()
     {
         DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Swing Arm", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         assertEquals(60, obj.lowestPrice);
     }
+
+    /*
+     * This tests the algorithm for finding the IDs that make up the 3 orders of 
+     * desk lamps. After the connection to the database has been established the 
+     * algorithm is run and compared to the expected IDs.
+     */
 
     @Test
     public void testZZZZIDsOf3DeskLamps()
@@ -346,6 +420,12 @@ public class TestFile
         codesToCheck.add("L564");
         assertEquals(true, codesToCheck.equals(obj.codes));
     }
+
+    /*
+     * This tests the algorithm for finding the IDS that make up the 1 order of 
+     * desk lamps. After the connection to the database has been established the 
+     * algorithm is run and compared to the expected value of system exit 1.
+     */
 
     @Test
     public void testZZZZZIDsOf1DeskLamp()
