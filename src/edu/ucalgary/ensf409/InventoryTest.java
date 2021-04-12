@@ -467,6 +467,8 @@ public class InventoryTest
         while(scan.hasNextLine()) //checks to see when a line exists.
 		{
 			outputMessage = outputMessage.concat(scan.nextLine());
+            //newline is concatenated to the outputMessage string as the nextLine needs to be scanned
+            //and the nextLine does not add a newline charachter to the string
             outputMessage = outputMessage.concat("\n");
         }
         boolean correctStringMessage = outputMessage.equals(myOrderForm.getOrderFormCode());
