@@ -33,12 +33,6 @@ import java.io.FileWriter;
 public class DataBaseManipulator extends InputReader {
 
     public static void main(String[] args) throws IOException {
-        /*
-        String url = "jdbc:mysql://localhost/inventory"; String username = "scm";
-         String password = "ensf409"; DataBaseManipulator obj2 = new
-         DataBaseManipulator(url, username, password);
-         obj2.sumAllRows();
-         */
     }
 
     // The URL, USERNAME, and PASSWORD are member variables which are used in 
@@ -52,10 +46,10 @@ public class DataBaseManipulator extends InputReader {
     protected Connection dataBaseConnection;
     // The following four String arrays provide the names of the available manufacturers 
     // that supply the specified type of furniture.
-    private final String[] manuChairs = { "Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies" };
-    private final String[] manuDesks = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
-    private final String[] manuFilings = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
-    private final String[] manuLamp = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
+    private final String[] MANUCHAIRS = { "Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies" };
+    private final String[] MANUDESKS = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
+    private final String[] MANUFILINGS = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
+    private final String[] MANULAMP = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     // The storage 2D array is created in the method create2DArray and is used throughout the class
     // to have a version of the database rows which are relevant to the selections made in InputReader.
     // This is used in all three algorithms to iterate over and create combinations which can fulfill the order.
@@ -179,33 +173,33 @@ public class DataBaseManipulator extends InputReader {
             // If the furniture selected was a desk, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("desk"))
             {
-                for (int i = 0; i < manuDesks.length; i++)
+                for (int i = 0; i < MANUDESKS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + manuDesks[i]);
+                    System.out.println(i+1 + ". " + MANUDESKS[i]);
                 }
             }
             // If the furniture selected was a filing, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("filing"))
             {
-                for (int i = 0; i < manuFilings.length; i++)
+                for (int i = 0; i < MANUFILINGS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + manuFilings[i]);
+                    System.out.println(i+1 + ". " + MANUFILINGS[i]);
                 }
             }
             // If the furniture selected was a chair, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("chair"))
             {
-                for (int i = 0; i < manuChairs.length; i++)
+                for (int i = 0; i < MANUCHAIRS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + manuChairs[i]);
+                    System.out.println(i+1 + ". " + MANUCHAIRS[i]);
                 }
             }
             // If the furniture selected was a lamp, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("lamp"))
             {
-                for (int i = 0; i < manuLamp.length; i++)
+                for (int i = 0; i < MANULAMP.length; i++)
                 {
-                    System.out.println(i+i + ". " + manuLamp[i]);
+                    System.out.println(i+i + ". " + MANULAMP[i]);
                 }
             }
 
@@ -1061,33 +1055,33 @@ public class DataBaseManipulator extends InputReader {
             // If the furniture selected was a desk, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("desk"))
             {
-                for (int i = 0; i < manuDesks.length; i++)
+                for (int i = 0; i < MANUDESKS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + manuDesks[i]);
+                    System.out.println(i+1 + ". " + MANUDESKS[i]);
                 }
             }
             // If the furniture selected was a filing, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("filing"))
             {
-                for (int i = 0; i < manuFilings.length; i++)
+                for (int i = 0; i < MANUFILINGS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + manuFilings[i]);
+                    System.out.println(i+1 + ". " + MANUFILINGS[i]);
                 }
             }
             // If the furniture selected was a chair, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("chair"))
             {
-                for (int i = 0; i < manuChairs.length; i++)
+                for (int i = 0; i < MANUCHAIRS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + manuChairs[i]);
+                    System.out.println(i+1 + ". " + MANUCHAIRS[i]);
                 }
             }
             // If the furniture selected was a lamp, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("lamp"))
             {
-                for (int i = 0; i < manuLamp.length; i++)
+                for (int i = 0; i < MANULAMP.length; i++)
                 {
-                    System.out.println(i+i + ". " + manuLamp[i]);
+                    System.out.println(i+i + ". " + MANULAMP[i]);
                 }
             }
             // Terminate the program.

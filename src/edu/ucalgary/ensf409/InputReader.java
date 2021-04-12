@@ -41,11 +41,11 @@ public class InputReader {
      * used as the index to set the member variables to the Strings in the same
      * exact way as they appear in the database.
      */
-    private final String[] typeOfFurniture = { "chair", "desk", "filing", "lamp" };
-    private final String[] typeOfFiling = { "Small", "Medium", "Large" };
-    private final String[] typeOfLamps = { "Desk", "Study", "Swing Arm" };
-    private final String[] typeOfDesks = { "Adjustable", "Standing", "Traditional" };
-    private final String[] typeOfChairs = { "Ergonomic", "Executive", "Kneeling", "Mesh", "Task" };
+    private final String[] TYPEOFFURNITURE = { "chair", "desk", "filing", "lamp" };
+    private final String[] TYPEOFFILING = { "Small", "Medium", "Large" };
+    private final String[] TYPEOFLAMPS = { "Desk", "Study", "Swing Arm" };
+    private final String[] TYPEOFDESKS = { "Adjustable", "Standing", "Traditional" };
+    private final String[] TYPEOFCHAIRS = { "Ergonomic", "Executive", "Kneeling", "Mesh", "Task" };
 
     /*
      * Three protected member fields. These fields will later be accessed by the
@@ -101,7 +101,7 @@ public class InputReader {
 
         // Using the user input as an index to the typeOfFurniture array and storing into the
         // member field for later use.
-        setFurnitureChosen(this.typeOfFurniture[userInput - 1]);
+        setFurnitureChosen(this.TYPEOFFURNITURE[userInput - 1]);
 
         int userInput2 = 0;
 
@@ -111,19 +111,19 @@ public class InputReader {
         if (userInput == 1) {
             userInput2 = selectChairType();
             if (userInput2 != -1)
-                setTypeChosen(this.typeOfChairs[userInput2 - 1]);
+                setTypeChosen(this.TYPEOFCHAIRS[userInput2 - 1]);
         } else if (userInput == 2) {
             userInput2 = selectDeskType();
             if (userInput2 != -1)
-                setTypeChosen(this.typeOfDesks[userInput2 - 1]);
+                setTypeChosen(this.TYPEOFDESKS[userInput2 - 1]);
         } else if (userInput == 3) {
             userInput2 = selectFilingType();
             if (userInput2 != -1)
-                setTypeChosen(this.typeOfFiling[userInput2 - 1]);
+                setTypeChosen(this.TYPEOFFILING[userInput2 - 1]);
         } else if (userInput == 4) {
             userInput2 = selectLampType();
             if (userInput2 != -1)
-                setTypeChosen(this.typeOfLamps[userInput2 - 1]);
+                setTypeChosen(this.TYPEOFLAMPS[userInput2 - 1]);
         }
 
         // If the method corresponding to the user's choice returned -1, the user wants to 
