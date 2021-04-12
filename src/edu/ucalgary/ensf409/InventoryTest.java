@@ -3,10 +3,14 @@ package edu.ucalgary.ensf409;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 // Please download the inventory.sql file provided in the D2L shell: www
 // Please run Source filepath/inventory.sql in the command line for mysql
@@ -427,5 +431,29 @@ public class InventoryTest
         exit.expectSystemExitWithStatus(1);
         OrderForm obj = new OrderForm("lamp" , "Desk", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         
+    }
+
+    @Test
+    public void testIfOrderFormExists()
+    {
+        OrderForm myOrderForm = new OrderForm("desk" , "Traditional", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        File fileChecker = new File("OrderForm.txt");
+        boolean fileExists = fileChecker.exists();
+        assertEquals(true, fileExists);
+    }
+
+    @Test
+    public void testCheckOutputOfOrderForm() throws FileNotFoundException
+    {
+        OrderForm myOrderForm = new OrderForm("filing" , "Large", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        File inputFile = new File("OrderForm.txt");
+		Scanner scan = new Scanner(inputFile); //uses the scanner class on the input file
+		String outputMessage = "";
+        while(scan.hasNextLine()) //checks to see when a line exists.
+		{
+			outputMessage += scan.nextLine();
+        }
+        boolean correctStringMessage = outputMessage.equals(myOrderForm.getOrderFormCode());
+        assertEquals(true, correctStringMessage);
     }
 }

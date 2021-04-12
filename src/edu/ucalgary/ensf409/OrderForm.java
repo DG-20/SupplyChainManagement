@@ -29,6 +29,7 @@ import java.util.Scanner;
  */
 public class OrderForm extends DataBaseManipulator {
 
+    private String outputFormInfo;
     /** 
      * The main method specifies the connection for the database.
      * It also creates an object of type OrderForm which is where everything
@@ -81,24 +82,32 @@ public class OrderForm extends DataBaseManipulator {
     public void finalOrderTextFile(String furniture, String type, int quantity) throws IOException 
     {
         System.out.println("Printing Furniture Order Form...\n");
-        String outputForm = "";
-        outputForm = "┎                                                          ┓\n";
-        outputForm = outputForm.concat("\nFurniture Order Form\n");
-        outputForm = outputForm.concat("┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n");
-        outputForm = outputForm.concat("Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n" + "\n");
-        outputForm = outputForm
+        outputFormInfo = "";
+        outputFormInfo = "┎                                                          ┓\n";
+        outputFormInfo = outputFormInfo.concat("\nFurniture Order Form\n");
+        outputFormInfo = outputFormInfo.concat("┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅\n");
+        outputFormInfo = outputFormInfo.concat("Faculty Name:     " + "\n" + "Contact:      \n" + "Date:     \n" + "\n");
+        outputFormInfo = outputFormInfo
                 .concat("Original Request: " + type + " " + furniture + ", " + Integer.toString(quantity) + "\n");
-        outputForm = outputForm.concat("\n" + "Items Ordered" + "\n");
+        outputFormInfo = outputFormInfo.concat("\n" + "Items Ordered" + "\n");
         for(int i = 0; i < super.codes.size(); i++)
         {
-            outputForm = outputForm.concat("ID: " + super.codes.get(i));
-            outputForm = outputForm.concat("\n");
+            outputFormInfo = outputFormInfo.concat("ID: " + super.codes.get(i));
+            outputFormInfo = outputFormInfo.concat("\n");
         }
-        outputForm = outputForm.concat("\n\n" + "Total Price: " + super.getLowestPrice());
-        outputForm = outputForm.concat("\n\n┗                                                          ┛\n");
+        outputFormInfo = outputFormInfo.concat("\n\n" + "Total Price: " + super.getLowestPrice());
+        outputFormInfo = outputFormInfo.concat("\n\n┗                                                          ┛\n");
         FileWriter fileOutput = new FileWriter("OrderForm.txt");
-        fileOutput.write(outputForm);
+        fileOutput.write(outputFormInfo);
         fileOutput.close();
         System.out.println("Furniture Order Form generated.");
+    }
+
+    /**
+     * getter method which returns the value for the private String method outputFormCode.
+     */
+    public String getOrderFormCode()
+    {
+        return(this.outputFormInfo);
     }
 }
