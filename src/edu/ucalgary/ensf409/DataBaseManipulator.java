@@ -19,7 +19,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.io.FileWriter;
 
-/*
+/**
  * DataBaseManipulator is a class which performs the algorithms required 
  * to calculate the cheapest combination available for the order. If no such
  * combination is possible, this class prints the suggested manufacturers
@@ -69,7 +69,7 @@ public class DataBaseManipulator extends InputReader {
     protected int rowsAffected = 0;
     private boolean done = false;
 
-    /*
+    /** 
      * The constructor is where the appropriate algorithm is called based on the stored variables
      * in InputReader. This is also where, if no combinations are found, it prints the list
      * of manufacturers. The constructor takes in three Strings, url, username, and password
@@ -252,7 +252,7 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-    /*
+    /** 
      * sumAllRows is a method that totals up all of the sums of a specified furniture object and its specific sub type.
      * It makes a statement called newstmt which is used to execute a select from statement. The result of the executed
      * statement is then stored and the string contained under the "Type" column is compared to the desired type. If  
@@ -288,7 +288,7 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-    /*
+    /** 
      * deleteAllRows is a method that deletes all the rows that match the specified furniture type.
      * A query is created that holds the instruction to delete from a specified furniture name where
      * the desired type to delete is stored. This method is used in conjunction with sumAllRows,
@@ -310,7 +310,7 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-    /*
+    /** 
      * deleteFromDataBase is a method which creates a statement and query which 
      * deletes certain rows in the database using the IDs which have been used
      * already to create a combination to obtain the lowest price when fulfilling 
@@ -424,7 +424,7 @@ public class DataBaseManipulator extends InputReader {
 
     }
 
-    /*
+    /** 
      * initializeConnection is a method that creates a connection from the code to the database.
      * dataBaseConnection stores the connection between the sql database and the code by taking 
      * in a url, username, and password for the host connection storing the database.
@@ -930,7 +930,7 @@ public class DataBaseManipulator extends InputReader {
         getCodes(lowestPriceCell);
     }
 
-    /*
+    /**
      * The following method is used in conjuction with the algorithmToCreateOrderForChair(), 
      * algorithmToCreateOrderForLamp() and algorithmToCreateOrderForElse() methods.
      * The integer that this method takes as a parameter specifies the column that is mentioned.
@@ -950,7 +950,7 @@ public class DataBaseManipulator extends InputReader {
         return numOfY;
     }
 
-    /*
+    /**
      * This overloaded constructor is to test the entire algorithm in JUNIT testing by passing in the inputs
      * as Strings instead of command prompt inputs.
      */
@@ -1089,7 +1089,7 @@ public class DataBaseManipulator extends InputReader {
         }
     }
 
-    /*
+    /** 
      * This overloaded constructor just sets the values of the member fields, used in JUNIT
      * tests for things other than the algorithm.
      */
@@ -1105,58 +1105,80 @@ public class DataBaseManipulator extends InputReader {
        setQuantityStored(quantity);
    }
 
-   // Getters.
+   /** 
+     * Getter for URL
+     */
    protected String getURL()
    {
        return this.URL;
    }
-
+   /** 
+     * Getter for USERNAME
+     */
    protected String getUSERNAME()
    {
        return this.USERNAME;
    }
-
+   /** 
+     * Getter for PASSWORD
+     */
    protected String getPASSWORD()
    {
        return this.PASSWORD;
    }
-
+   /** 
+     * Getter for dataBaseConnection
+     */
    protected Connection getDataBaseConnection()
    {
        return this.dataBaseConnection;
    }
-
+   /** 
+     * Getter for lowestPrice
+     */
    protected int getLowestPrice()
    {
        return this.lowestPrice;
    }
-
+   /** 
+     * Getter for rowsAffected
+     */
    protected int getRowsAffected()
    {
        return this.rowsAffected;
    }
-
+   /** 
+     * Getter for rowToAdd
+     */
    protected int getRowToAdd()
    {
        return this.rowToAdd;
    }
-
+   /** 
+     * Getter for quantityStored
+     */
    protected int getQuantityStored()
    {
        return this.quantityStored;
    }
 
-   // Setters.
+   /** 
+     * Setter for lowestPrice
+     */
    protected void setLowestPrice(int lowestPriceToAdd)
    {
         this.lowestPrice = lowestPriceToAdd;
    }
-
+   /** 
+     * Setter for rowToAdd
+     */
    protected void setRowToAdd(int row)
    {
        this.rowToAdd = row;
    }
-
+   /** 
+     * Setter for quantityStored
+     */
    protected void setQuantityStored(int store)
    {
        this.quantityStored = store;
