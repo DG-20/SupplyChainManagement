@@ -68,7 +68,7 @@ public class InputReader {
     public InputReader() {
         // Creating a new Scanner object to read in from the user's keyboard
         // when prompted for an input.
-        Scanner inputCollected = new Scanner(System.in);
+        Scanner chooseFurniture = new Scanner(System.in);
         int userInput = -1;
 
         // This do-while loop keeps prompting the user with 5 options, to choose
@@ -81,7 +81,7 @@ public class InputReader {
                             + "2. Desk\n" + "3. Filing\n" + "4. Lamp\n" + "5. If you would like to exit the program.");
                             try
                             {
-                                userInput = inputCollected.nextInt();
+                                userInput = chooseFurniture.nextInt();
                             }
                             catch (Exception e)
                             {
@@ -143,7 +143,7 @@ public class InputReader {
                     + "Enter -1 to exit this program.");
                     try
                     {
-                        userInput333 = inputCollected.nextInt();
+                        userInput333 = chooseFurniture.nextInt();
                     }
                     catch (Exception e)
                     {
@@ -180,7 +180,7 @@ public class InputReader {
      */
 
     private int selectChairType() {
-        Scanner inputCollected2 = new Scanner(System.in);
+        Scanner chooseChair = new Scanner(System.in);
         int userInput = -1;
 
         do {
@@ -189,7 +189,7 @@ public class InputReader {
                     + "3. Kneeling\n" + "4. Mesh\n" + "5. Task\n" + "6. If you would like to exit the program.");
             try
             {
-                userInput = inputCollected2.nextInt();
+                userInput = chooseChair.nextInt();
             }
             catch (Exception e)
             {
@@ -209,7 +209,7 @@ public class InputReader {
     }
 
     private int selectFilingType() {
-        Scanner inputCollected3 = new Scanner(System.in);
+        Scanner chooseFiling = new Scanner(System.in);
         int userInput = -1;
 
         do {
@@ -218,7 +218,7 @@ public class InputReader {
                     + "3. Large\n" + "4. If you would like to exit the program");
             try
             {
-                userInput = inputCollected3.nextInt();
+                userInput = chooseFiling.nextInt();
             }
             catch (Exception e)
             {
@@ -238,7 +238,7 @@ public class InputReader {
     }
 
     private int selectDeskType() {
-        Scanner inputCollected4 = new Scanner(System.in);
+        Scanner chooseDesk = new Scanner(System.in);
         int userInput = -1;
 
         do {
@@ -247,7 +247,7 @@ public class InputReader {
                     + "3. Traditional\n" + "4. If you would like to exit the program.");
             try
             {
-                userInput = inputCollected4.nextInt();
+                userInput = chooseDesk.nextInt();
             }
             catch (Exception e)
             {
@@ -267,7 +267,7 @@ public class InputReader {
     }
 
     private int selectLampType() {
-        Scanner inputCollected5 = new Scanner(System.in);
+        Scanner chooseLamp = new Scanner(System.in);
         int userInput = -1;
 
         do {
@@ -276,7 +276,7 @@ public class InputReader {
                     + "3. Swing Arm\n" + "4. If you would like to exit the program.");
             try 
             {
-                userInput = inputCollected5.nextInt();
+                userInput =  chooseLamp.nextInt();
             }
             catch (Exception e)
             {

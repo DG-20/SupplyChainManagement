@@ -1154,6 +1154,14 @@ public class DataBaseManipulator extends InputReader {
    }
 
    /** 
+    * Getter for codes
+    */
+    protected ArrayList<String> getCodes()
+    {
+        return this.codes;
+    }
+
+   /** 
     * Setter for lowestPrice
     */
    protected void setLowestPrice(int lowestPriceToAdd)
