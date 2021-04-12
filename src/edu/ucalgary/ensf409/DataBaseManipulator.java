@@ -169,33 +169,41 @@ public class DataBaseManipulator extends InputReader {
             // If the furniture selected was a desk, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("desk"))
             {
+                int counterToList = 1;
                 for (int i = 0; i < MANUDESKS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + MANUDESKS[i]);
+                    System.out.println(counterToList + ". " + MANUDESKS[i]);
+                    counterToList++;
                 }
             }
             // If the furniture selected was a filing, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("filing"))
             {
+                int counterToList = 1;
                 for (int i = 0; i < MANUFILINGS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + MANUFILINGS[i]);
+                    System.out.println(counterToList + ". " + MANUFILINGS[i]);
+                    counterToList++;
                 }
             }
             // If the furniture selected was a chair, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("chair"))
             {
+                int counterToList = 1;
                 for (int i = 0; i < MANUCHAIRS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + MANUCHAIRS[i]);
+                    System.out.println(counterToList + ". " + MANUCHAIRS[i]);
+                    counterToList++;
                 }
             }
             // If the furniture selected was a lamp, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("lamp"))
             {
+                int counterToList = 1;
                 for (int i = 0; i < MANULAMP.length; i++)
                 {
-                    System.out.println(i+i + ". " + MANULAMP[i]);
+                    System.out.println(counterToList + ". " + MANULAMP[i]);
+                    counterToList++;
                 }
             }
 
@@ -1030,33 +1038,41 @@ public class DataBaseManipulator extends InputReader {
             // If the furniture selected was a desk, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("desk"))
             {
+                int countToList = 1;
                 for (int i = 0; i < MANUDESKS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + MANUDESKS[i]);
+                    System.out.println(countToList + ". " + MANUDESKS[i]);
+                    countToList++;
                 }
             }
             // If the furniture selected was a filing, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("filing"))
             {
+                int countToList = 1;
                 for (int i = 0; i < MANUFILINGS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + MANUFILINGS[i]);
+                    System.out.println(countToList + ". " + MANUFILINGS[i]);
+                    countToList++;
                 }
             }
             // If the furniture selected was a chair, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("chair"))
             {
+                int countToList = 1;
                 for (int i = 0; i < MANUCHAIRS.length; i++)
                 {
-                    System.out.println(i+1 + ". " + MANUCHAIRS[i]);
+                    System.out.println(countToList + ". " + MANUCHAIRS[i]);
+                    countToList++;
                 }
             }
             // If the furniture selected was a lamp, print the appropriate manufacturers.
             if (super.furnitureChosen.equals("lamp"))
             {
+                int countToList = 1;
                 for (int i = 0; i < MANULAMP.length; i++)
                 {
-                    System.out.println(i+i + ". " + MANULAMP[i]);
+                    System.out.println(countToList + ". " + MANULAMP[i]);
+                    countToList++;
                 }
             }
             try
