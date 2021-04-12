@@ -16,11 +16,11 @@ package edu.ucalgary.ensf409;
 import java.io.FileWriter;
 /*
  * Importing the libraries necessary to read in from the terminal to obtain user choices.
-*/
+ */
 import java.io.IOException;
 import java.util.Scanner;
 
-/*
+/**
  * InputReader is a class which is the input part for this program. This is where
  * the program takes in inputs from the user to get the details of the 
  * order. It utilizes a Scanner, which reads in from the keyboard, 
@@ -60,7 +60,7 @@ public class InputReader {
     protected String typeChosen;
     protected int quantity;
 
-    /*
+    /**
      * The constructor is where everything takes place. This is where
      * the user is asked to make selections based on the options displayed,
      * one at a time, and their responses stored.
@@ -170,7 +170,7 @@ public class InputReader {
         + "\nType: " + getTypeChosen() + "\nFurniture: " + getFurnitureChosen() + "\n");
     }
 
-    /*
+    /**
      * The following are methods which are conditionally called in the constructor as described above.
      * These methods print the choices for the user based on the user's first choice.
      * They then take in the user's choice, and if the choice entered is not one of the presented
@@ -178,7 +178,7 @@ public class InputReader {
      * If the user has selected to terminate and exit the program, the method returns a -1 which
      * is dealt with in the constructor above.
      */
-    
+
     private int selectChairType() {
         Scanner inputCollected2 = new Scanner(System.in);
         int userInput = -1;
@@ -295,8 +295,9 @@ public class InputReader {
         return (userInput);
     }
 
-    /*
-     * Constructor used when testing to take in values and set them.
+    /**
+     * Constructor used when testing to take in values and set them for JUnit tests. This
+     * takes in 2 Strings, one for furniture and one for type, and 1 int, the size of the order.
      */
     public InputReader(String furniture, String type, int size)
     {
@@ -314,6 +315,12 @@ public class InputReader {
         }
     }
 
+    /**
+     * isValid is a protected method which checks (for JUnit tests) whether the inputs
+     * to the second constructor are valid inputs or not. If any of them are invalid, it
+     * returns a false boolean, causing the constructor the perform a System.exit(1).
+     * If they are valid, continues with the program by returning a true boolean.
+     */
     protected static boolean isValid(String furniture, String type, int size)
     {
         furniture = furniture.strip();
@@ -358,39 +365,54 @@ public class InputReader {
         }
         else
         {
-            
             return(false);
         }
         return(true);
     }
 
-    // Getters.
+    /**
+     * Getter for furnitureChosen.
+     */
     protected String getFurnitureChosen()
     {
         return this.furnitureChosen;
     }
 
+    /**
+     * Getter for typeChosen.
+     */
     protected String getTypeChosen()
     {
         return this.typeChosen;
     }
 
+    /**
+     * Getter for quantity.
+     */
     protected int getQuantity()
     {
         return this.quantity;
     }
 
-    // Setters.
+    /**
+     * Setter for furnitureChosen.
+     */
     protected void setFurnitureChosen(String furniture)
     {
         this.furnitureChosen = furniture;
     }
 
+    /**
+     * Setter for typeChosen.
+     */
     protected void setTypeChosen(String type)
     {
         this.typeChosen = type;
     }
 
+    /**
+     * Setter for quantity.
+     */
     protected void setQuantity(int quantityAdd)
     {
         this.quantity = quantityAdd;

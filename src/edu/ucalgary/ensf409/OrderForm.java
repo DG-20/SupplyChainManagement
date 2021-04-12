@@ -15,11 +15,11 @@ package edu.ucalgary.ensf409;
 
 /*
  * Importing the libraries necessary to read in from the terminal to obtain user choices.
-*/
+ */
 import java.io.*;
 import java.util.Scanner;
 
-/*
+/**
  * OrderForm is a class which is the output part for this program.
  * OrderForm extends DataBaseManipulator which in turn extends
  * InputReader. Thus, the main method is implemented here as calling
@@ -29,7 +29,8 @@ import java.util.Scanner;
  */
 public class OrderForm extends DataBaseManipulator {
 
-    /* The main method specifies the connection for the database.
+    /** 
+     * The main method specifies the connection for the database.
      * It also creates an object of type OrderForm which is where everything
      * begins to run from.
      */
@@ -40,7 +41,8 @@ public class OrderForm extends DataBaseManipulator {
         OrderForm object = new OrderForm(url, username, password); 
     }
 
-    /* The constructor OrderForm takes in 3 arguments: A string containing the path
+    /** 
+     * The constructor OrderForm takes in 3 arguments: A string containing the path
      * to the file, a string for the username of the host, and a string for the password
      * to the host connection. It then calls the super constructor and passes in these values
      * so that DataBaseManipulator can initialize the connection.
@@ -53,7 +55,8 @@ public class OrderForm extends DataBaseManipulator {
         finalOrderTextFile(super.furnitureChosen, super.typeChosen, super.quantity);
     }
 
-    /* The following method finalOrderTextFile generates an order form and concatenates 
+    /**
+     * The following method finalOrderTextFile generates an order form and concatenates 
      *  many different strings that are formatted in specified ways using information from
      *  DataBaseManipulator. The method takes in 3 arguments: A string for the desired furniture, 
      *  a string for the type of furniture selected, and the quantity desired for that
