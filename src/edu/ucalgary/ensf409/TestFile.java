@@ -247,7 +247,6 @@ public class TestFile
     @Test
     public void testQLowestPriceOf1MeshChair()
     {
-        System.out.println("THIS FAILED\n\n\n\n");
         DataBaseManipulator obj = new DataBaseManipulator("chair" , "Mesh", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         assertEquals(200, obj.lowestPrice);
     }

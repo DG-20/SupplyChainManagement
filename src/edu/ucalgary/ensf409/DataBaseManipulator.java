@@ -101,7 +101,6 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForLamp();
                 this.quantityStored--;
-                //System.out.println(status);
                 if (status == false)
                   break;  
                 if (this.done == true)
@@ -124,7 +123,6 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForChair();
                 this.quantityStored--;
-                //System.out.println(status);
                 if (status == false)
                   break;  
                 if (this.done == true)
@@ -160,8 +158,6 @@ public class DataBaseManipulator extends InputReader {
         }
 
         setLowestPrice(priceStore);
-
-        print2DArray();
 
         // If the for loops above were unable, at any point, to create
         // the complete order.
@@ -240,18 +236,6 @@ public class DataBaseManipulator extends InputReader {
         System.out.println("Furniture Order Form generated.");
     }
 
-    private void print2DArray()
-    {
-        for(int i = 0; i < storage.length; i++)
-        {
-            for(int j = 0; j < storage[i].length; j++)
-            {
-                System.out.print(storage[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
     /** 
      * sumAllRows is a method that totals up all of the sums of a specified furniture object and its specific sub type.
      * It makes a statement called newstmt which is used to execute a select from statement. The result of the executed
@@ -275,7 +259,6 @@ public class DataBaseManipulator extends InputReader {
                     if (!this.codes.contains(idToAdd))
                         this.codes.add(idToAdd);
                     lowestPriceToAdd += Integer.parseInt(results.getString("Price"));
-                    System.out.println(lowestPriceToAdd);
                 }
             }
         setLowestPrice(lowestPriceToAdd);
@@ -330,7 +313,6 @@ public class DataBaseManipulator extends InputReader {
                 myStmt = this.dataBaseConnection.prepareStatement(query);
                 myStmt.setString(1, codesToDel.get(i));
                 this.rowsAffected += myStmt.executeUpdate();
-                //System.out.println(codes.get(i));
             }
         } catch (SQLException e) {
             System.out.println("Unable to delete from the database! Something went wrong :(");
@@ -649,7 +631,6 @@ public class DataBaseManipulator extends InputReader {
      * the row in the storage array is set to -1's.
      */
     private void getCodes(String lowestPriceCell) {
-        System.out.println("LOWEST PRICE CELL " + lowestPriceCell);
         char[] charArray = lowestPriceCell.toCharArray();
         int commas = 0;
         for(int charachter = 0; charachter < charArray.length; charachter++)
@@ -757,7 +738,6 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
-        System.out.println(combinations.size());
         if (combinations.size() == 0) {
             return false;
         }
@@ -786,7 +766,6 @@ public class DataBaseManipulator extends InputReader {
             }
         }
 
-        System.out.println("MIN FINDER BEING CALLED");
         minFinder(listOfPrices, listOfRows);
         deleteFromDataBase(this.codes);
         return true;
@@ -927,7 +906,6 @@ public class DataBaseManipulator extends InputReader {
         lowestPrice = lowest;
 
         lowestPriceCell = listOfRows[getRowToAdd()];
-        System.out.println(lowestPriceCell + " LOW PRICE STUFF");
         getCodes(lowestPriceCell);
     }
 
@@ -952,8 +930,8 @@ public class DataBaseManipulator extends InputReader {
     }
 
     /**
-     * This overloaded constructor is to test the entire algorithm in JUNIT testing by passing in the inputs
-     * as Strings instead of command prompt inputs.
+     * This overloaded constructor is to test the entire algorithm in JUNIT testing by passing 
+     * in the inputs as Strings instead of command prompt inputs.
      */
     public DataBaseManipulator(String furniture, String type, int a, String url, String username, String password, boolean fullTest)
     {
@@ -984,7 +962,6 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForLamp();
                 this.quantityStored--;
-                //System.out.println(status);
                 if (status == false)
                   break;  
                 if (this.done == true)
@@ -1007,7 +984,6 @@ public class DataBaseManipulator extends InputReader {
             {
                 status = algorithmToCreateOrderForChair();
                 this.quantityStored--;
-                //System.out.println(status);
                 if (status == false)
                   break;  
                 if (this.done == true)
@@ -1044,7 +1020,7 @@ public class DataBaseManipulator extends InputReader {
 
         setLowestPrice(priceStore);
 
-        print2DArray();
+        OrderForm(this.codes, this.furnitureChosen, this.typeChosen, this.quantity);
 
         // If the for loops above were unable, at any point, to create
         // the complete order.
@@ -1084,6 +1060,15 @@ public class DataBaseManipulator extends InputReader {
                 {
                     System.out.println(i+i + ". " + MANULAMP[i]);
                 }
+            }
+            try
+            {
+                resetOrderForm();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Something went wrong!");
+                System.exit(1);
             }
             // Terminate the program.
             System.exit(1);

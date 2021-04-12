@@ -6,14 +6,13 @@ Faculty Name:
 Contact:      
 Date:     
 
-Original Request: Study lamp, 2
+Original Request: Ergonomic chair, 1
 
 Items Ordered
-ID: L928
-ID: L982
-ID: L223
+ID: C5409
+ID: C4839
 
 
-Total Price: 20
+Total Price: 250
 
 ┗                                                          ┛
