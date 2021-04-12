@@ -76,7 +76,7 @@ public class InventoryTest
     public void testEInvalidInputForConstructor()
     {
         exit.expectSystemExitWithStatus(1);
-        InputReader obj= new InputReader("chiar" , "Ergonomic" , 4); 
+        InputReader incorrectChairName= new InputReader("chiar" , "Ergonomic" , 4); 
     }
 
     /** 
@@ -89,12 +89,12 @@ public class InventoryTest
     @Test
     public void testFConstructorCorrectlyAssignsMemberFields()
     {
-        InputReader obj = new InputReader("filing", "Medium", 2);
+        InputReader correctInput = new InputReader("filing", "Medium", 2);
         String[] expected = {"filing", "Medium", "2"};
         String[] actual = new String[3];
-        actual[0] = obj.getFurnitureChosen();
-        actual[1] = obj.getTypeChosen();
-        String quantity = "" + obj.getQuantity();
+        actual[0] = correctInput.getFurnitureChosen();
+        actual[1] = correctInput.getTypeChosen();
+        String quantity = "" + correctInput.getQuantity();
         actual[2] = quantity;
         assertEquals(true, Arrays.equals(expected, actual));
     }
@@ -106,8 +106,8 @@ public class InventoryTest
     @Test
     public void testGGetterForUsername()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Executive", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        String username = obj.getUSERNAME();
+        DataBaseManipulator usernameGetter = new DataBaseManipulator("chair" , "Executive", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        String username =usernameGetter.getUSERNAME();
         assertEquals("scm", username);
     }
 
@@ -118,8 +118,8 @@ public class InventoryTest
     @Test
     public void testHGetterForPassword()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        String password = obj.getPASSWORD();
+        DataBaseManipulator passwordGetter = new DataBaseManipulator("desk" , "Standing", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        String password = passwordGetter.getPASSWORD();
         assertEquals("ensf409", password);
     }
 
@@ -130,8 +130,8 @@ public class InventoryTest
     @Test
     public void testIGetterForUrl()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        String url = obj.getURL();
+        DataBaseManipulator urlGetter = new DataBaseManipulator("filing" , "Small", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        String url = urlGetter.getURL();
         assertEquals("jdbc:mysql://localhost/inventory", url);
     }
 
@@ -142,9 +142,9 @@ public class InventoryTest
     @Test
     public void testJGetterForConnection()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Ergonomic", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        obj.initializeConnection();
-        Connection connection = obj.getDataBaseConnection();
+        DataBaseManipulator connectionGetter = new DataBaseManipulator("chair" , "Ergonomic", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        connectionGetter.initializeConnection();
+        Connection connection = connectionGetter.getDataBaseConnection();
         assertNotEquals(null, connection);
     }
 
@@ -155,9 +155,9 @@ public class InventoryTest
      */
     @Test
     public void testKGetterForQuantityStored(){
-        DataBaseManipulator obj = new DataBaseManipulator("chair" , "Kneeling", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        obj.setQuantityStored(5);
-        int quantityObtained=obj.getQuantityStored();
+        DataBaseManipulator quantityStoredGetter = new DataBaseManipulator("chair" , "Kneeling", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        quantityStoredGetter.setQuantityStored(5);
+        int quantityObtained=quantityStoredGetter.getQuantityStored();
         assertEquals(5,quantityObtained);
     }
 
@@ -168,10 +168,10 @@ public class InventoryTest
     @Test
     public void testLSumAllRows()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Adjustable", 4, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        obj.initializeConnection();
-        obj.sumAllRows("desk", "Adjustable");
-        assertEquals(1200, obj.lowestPrice);
+        DataBaseManipulator sumAllRowsTest = new DataBaseManipulator("desk" , "Adjustable", 4, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        sumAllRowsTest.initializeConnection();
+        sumAllRowsTest.sumAllRows("desk", "Adjustable");
+        assertEquals(1200, sumAllRowsTest.getLowestPrice());
     }
 
     /** 
@@ -183,10 +183,10 @@ public class InventoryTest
     public void testMLoopMethod()
     {
         String array [][] = {{"C123","-1"}, {"-1","D52"}, {"E62","-1"}};
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Adjustable", 4, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        obj.initializeConnection();
-        obj.storage = array;
-        int numOfYInCol0 = obj.loopMethod(0);
+        DataBaseManipulator loopMethodTest = new DataBaseManipulator("desk" , "Adjustable", 4, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        loopMethodTest.initializeConnection();
+        loopMethodTest.storage = array;
+        int numOfYInCol0 = loopMethodTest.loopMethod(0);
         assertEquals(2,numOfYInCol0);
     }
 
@@ -200,10 +200,10 @@ public class InventoryTest
     public void testNDeleteAllRows()
     {
         exit.expectSystemExitWithStatus(1);
-        DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Study", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        obj.initializeConnection();
-        obj.deleteAllRows("lamp", "Study");
-        obj = new DataBaseManipulator("lamp" , "Study", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        DataBaseManipulator deleteAllRowsTest = new DataBaseManipulator("lamp" , "Study", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        deleteAllRowsTest.initializeConnection();
+        deleteAllRowsTest.deleteAllRows("lamp", "Study");
+        deleteAllRowsTest = new DataBaseManipulator("lamp" , "Study", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -216,13 +216,13 @@ public class InventoryTest
     @Test
     public void testOPassingInvalidCodesToDelete()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        obj.initializeConnection();
+        DataBaseManipulator invalidIdTest = new DataBaseManipulator("filing" , "Small", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        invalidIdTest.initializeConnection();
         ArrayList <String> codes = new ArrayList <String>();
         codes.add("F9999");
         codes.add("F1234");
-        obj.deleteFromDataBase(codes);
-        assertEquals(0,obj.rowsAffected);
+        invalidIdTest.deleteFromDataBase(codes);
+        assertEquals(0,invalidIdTest.getRowsAffected());
     }
    
     /** 
@@ -235,12 +235,12 @@ public class InventoryTest
     @Test
     public void testPPassingValidCodeToDelete()
     {
-        DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
-        obj.initializeConnection();
+        DataBaseManipulator validIDTest = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409");
+        validIDTest.initializeConnection();
         ArrayList <String> codes = new ArrayList <String>();
         codes.add("D9387");
-        obj.deleteFromDataBase(codes);
-        assertEquals(1,obj.rowsAffected);
+        validIDTest.deleteFromDataBase(codes);
+        assertEquals(1,validIDTest.getRowsAffected());
     }
 
     /** 
@@ -251,8 +251,8 @@ public class InventoryTest
     @Test
     public void testQLowestPriceOf1MeshChair()
     {
-        OrderForm obj = new OrderForm("chair" , "Mesh", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
-        assertEquals(200, obj.lowestPrice);
+        OrderForm lowestMeshChairPrice = new OrderForm("chair" , "Mesh", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(200, lowestMeshChairPrice.getLowestPrice());
     }
 
     /**
@@ -264,7 +264,7 @@ public class InventoryTest
     public void testRInvalidOrderOf2ErgonomicChairs()
     {
         exit.expectSystemExitWithStatus(1);
-        OrderForm obj = new OrderForm("chair" , "Ergonomic", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm invalidErgonomicChairOrder = new OrderForm("chair" , "Ergonomic", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -276,7 +276,7 @@ public class InventoryTest
     public void testSInvalidOrderOf1KneelingChair()
     {
         exit.expectSystemExitWithStatus(1);
-        OrderForm obj = new OrderForm("chair" , "Kneeling", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm invalidKneelingChairOrder = new OrderForm("chair" , "Kneeling", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -288,13 +288,13 @@ public class InventoryTest
     @Test
     public void testTIDsOf2StandingDesks()
     {
-        OrderForm obj = new OrderForm("desk" , "Standing", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm StandingDesksIDTest = new OrderForm("desk" , "Standing", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         ArrayList<String> codesToCheck = new ArrayList<String>();
         codesToCheck.add("D1927");
         codesToCheck.add("D2341");
         codesToCheck.add("D3820");
         codesToCheck.add("D4438");
-        assertEquals(true, codesToCheck.equals(obj.codes));
+        assertEquals(true, codesToCheck.equals(StandingDesksIDTest.getCodes()));
     }
 
     /** 
@@ -306,7 +306,7 @@ public class InventoryTest
     public void testUInvalidOrderOf1StandingDesk()
     {
         exit.expectSystemExitWithStatus(1);
-        OrderForm obj = new OrderForm("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm invalidStandingDeskOrder = new OrderForm("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -317,8 +317,8 @@ public class InventoryTest
     @Test
     public void testVLowestPriceOf1AdjustableDesk()
     {
-        OrderForm obj = new OrderForm("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
-        assertEquals(400, obj.lowestPrice);
+        OrderForm lowestAdjustableDeskPrice = new OrderForm("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(400, lowestAdjustableDeskPrice.getLowestPrice());
     }
 
     /** 
@@ -329,8 +329,8 @@ public class InventoryTest
     @Test
     public void testWLowestPriceOf1AdjustableDeskAgain()
     {
-        OrderForm obj = new OrderForm("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
-        assertEquals(400, obj.lowestPrice);
+        OrderForm lowestAdjustableDeskPriceAgain = new OrderForm("desk" , "Adjustable", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(400, lowestAdjustableDeskPriceAgain.getLowestPrice());
     }
 
     /** 
@@ -341,8 +341,8 @@ public class InventoryTest
     @Test
     public void testXLowestPriceOf3MediumFilings()
     {
-        OrderForm obj = new OrderForm("filing" , "Medium", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
-        assertEquals(600, obj.lowestPrice);
+        OrderForm lowestMediumFilingPrice = new OrderForm("filing" , "Medium", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(600, lowestMediumFilingPrice.getLowestPrice());
     }
 
     /** 
@@ -353,13 +353,13 @@ public class InventoryTest
     @Test
     public void testYIDsOf2SmallFilings()
     {
-        OrderForm obj = new OrderForm("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm smallFilingsIDTest = new OrderForm("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         ArrayList<String> codesToCheck = new ArrayList<String>();
         codesToCheck.add("F001");
         codesToCheck.add("F013");
         codesToCheck.add("F005");
         codesToCheck.add("F006");
-        assertEquals(true, codesToCheck.equals(obj.codes));
+        assertEquals(true, codesToCheck.equals(smallFilingsIDTest.getCodes()));
     }
 
     /** 
@@ -371,7 +371,7 @@ public class InventoryTest
     public void testZInvalidOrderOf2SmallFiling()
     {
         exit.expectSystemExitWithStatus(1);
-        OrderForm obj = new OrderForm("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm invalidSmallFilingOrder = new OrderForm("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -383,7 +383,7 @@ public class InventoryTest
     public void testZZInvalidOrderOf1StudyLamp()
     {
         exit.expectSystemExitWithStatus(1);
-        OrderForm obj = new OrderForm("lamp" , "Study", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm invalidStudyLampOrder = new OrderForm("lamp" , "Study", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
     /** 
@@ -394,8 +394,8 @@ public class InventoryTest
     @Test
     public void testZZZLowestPriceOf2SwingArmLamps()
     {
-        OrderForm obj = new OrderForm("lamp" , "Swing Arm", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
-        assertEquals(60, obj.lowestPrice);
+        OrderForm lowestSwingArmLampPrice = new OrderForm("lamp" , "Swing Arm", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        assertEquals(60, lowestSwingArmLampPrice.getLowestPrice());
     }
 
     /**
@@ -406,14 +406,14 @@ public class InventoryTest
     @Test
     public void testZZZZIDsOf3DeskLamps()
     {
-        OrderForm obj = new OrderForm("lamp" , "Desk", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm deskLampIDTest = new OrderForm("lamp" , "Desk", 3, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         ArrayList<String> codesToCheck = new ArrayList<String>();
         codesToCheck.add("L013");
         codesToCheck.add("L208");
         codesToCheck.add("L112");
         codesToCheck.add("L342");
         codesToCheck.add("L564");
-        assertEquals(true, codesToCheck.equals(obj.codes));
+        assertEquals(true, codesToCheck.equals(deskLampIDTest.getCodes()));
     }
 
     /**
@@ -422,10 +422,10 @@ public class InventoryTest
      * algorithm is run and compared to the expected value of system exit 1.
      */
     @Test
-    public void testZZZZZIDsOf1DeskLamp()
+    public void testZZZZZInvalidOrderOf1DeskLamp()
     {
         exit.expectSystemExitWithStatus(1);
-        OrderForm obj = new OrderForm("lamp" , "Desk", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
+        OrderForm invalidDeskLampTest = new OrderForm("lamp" , "Desk", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         
     }
 }
