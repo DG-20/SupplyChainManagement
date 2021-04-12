@@ -1,0 +1,18 @@
+┎                                                          ┓
+
+Furniture Order Form
+┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅┅
+Faculty Name:     
+Contact:      
+Date:     
+
+Original Request: Large filing, 1
+
+Items Ordered
+ID: F010
+ID: F012
+
+
+Total Price: 300
+
+┗                                                          ┛

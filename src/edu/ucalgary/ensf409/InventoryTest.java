@@ -430,11 +430,10 @@ public class InventoryTest
     {
         exit.expectSystemExitWithStatus(1);
         OrderForm obj = new OrderForm("lamp" , "Desk", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
-        
     }
 
     @Test
-    public void testIfOrderFormExists()
+    public void testZZZZZZIfOrderFormExists()
     {
         OrderForm myOrderForm = new OrderForm("desk" , "Traditional", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         File fileChecker = new File("OrderForm.txt");
@@ -443,7 +442,7 @@ public class InventoryTest
     }
 
     @Test
-    public void testCheckOutputOfOrderForm() throws FileNotFoundException
+    public void testZZZZZZZCheckOutputOfOrderForm() throws FileNotFoundException
     {
         OrderForm myOrderForm = new OrderForm("filing" , "Large", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
         File inputFile = new File("OrderForm.txt");
@@ -451,7 +450,8 @@ public class InventoryTest
 		String outputMessage = "";
         while(scan.hasNextLine()) //checks to see when a line exists.
 		{
-			outputMessage += scan.nextLine();
+			outputMessage = outputMessage.concat(scan.nextLine());
+            outputMessage = outputMessage.concat("\n");
         }
         boolean correctStringMessage = outputMessage.equals(myOrderForm.getOrderFormCode());
         assertEquals(true, correctStringMessage);
