@@ -21,12 +21,11 @@ public class TestFile
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
-    /*
-     * The following 3 tests call upon the isValid method passing in 
-     * an incorrect type, an incorrect furniture, and an invalid quantity
-     * respectively. The tests expect the return value of this method
-     * to be false in each case.
-    */
+    /** 
+     * This tests calls the isValid method, which is part of the InputReader class.
+     * It passes in an incorrect type of chair ("small"). The test expects
+     * isValid to return false.
+     */
     @Test
     public void testAInvalidTypePassedIntoIsValidMethod()
     {
@@ -34,14 +33,23 @@ public class TestFile
         assertEquals(false, invalidType);
     }
 
+    /** 
+     * This tests calls the isValid method, which is part of the InputReader class.
+     * It passes in an incorrect type of furniture("table"). The test expects
+     * isValid to return false.
+     */
     @Test
-
     public void testBInvalidFurniturePassedIntoIsValidMethod()
     {
         boolean invalidFurniture=InputReader.isValid("table", "Swing Arm", 20);
         assertEquals(false, invalidFurniture);
     }
 
+    /**
+     * This tests calls the isValid method, which is part of the InputReader class.
+     * It passes in an invalid quantity ordered (0). The test expects
+     * isValid to return false.
+     */
     @Test
     public void testCInvalidQuantityPassedIntoIsValidMethod()
     {
@@ -49,12 +57,12 @@ public class TestFile
         assertEquals(false, invalidQuantity);
     }
 
-    /*
+    /** 
      * This test calls upon the isValid method passing in
      * valid arguments for the furniture, the type, and the
      * quantity. This test expects a return value of true
      * as all arguments are valid.
-    */
+     */
     @Test
     public void testDValidIsValidMethodCall()
     {
@@ -62,12 +70,12 @@ public class TestFile
         assertEquals(true, valid);
     }
 
-    /*
+    /** 
      * This test calls upon the constructor of InputReader
      * passing in an incorrect spelling of "chair" (invalid input).
      * The test expects this constructor to produce a System.exit(1)
      * as this is the correct handling of this situation.
-    */
+     */
     @Test
     public void testEInvalidInputForConstructor()
     {
@@ -75,13 +83,13 @@ public class TestFile
         InputReader obj= new InputReader("chiar" , "Ergonomic" , 4); 
     }
 
-    /*
+    /** 
      * This test calls upon the constructor of InputReader, passing
      * in valid inputs for furniture, type, and quantity.
      * It then stores the expected values in a String array
      * and compares it to the member variables of InputReader,
      * to check if they were correctly assigned the inputs.
-    */
+     */
     @Test
     public void testFConstructorCorrectlyAssignsMemberFields()
     {
@@ -95,7 +103,7 @@ public class TestFile
         assertEquals(true, Arrays.equals(expected, actual));
     }
 
-    /*
+    /**
      * This tests the getter method getUSERNAME, and checks to see if the returned
      * String matches the input String provided to the constructor.
      */
@@ -107,7 +115,7 @@ public class TestFile
         assertEquals("scm", username);
     }
 
-    /*
+    /** 
      * This tests the getter method getPASSWORD, and checks to see if the returned
      * String matches the input String provided to the constructor.
      */
@@ -119,7 +127,7 @@ public class TestFile
         assertEquals("ensf409", password);
     }
 
-     /*
+    /** 
      * This tests the getter method getURL, and checks to see if the returned
      * String matches the input String provided to the constructor.
      */
@@ -131,7 +139,7 @@ public class TestFile
         assertEquals("jdbc:mysql://localhost/inventory", url);
     }
 
-     /*
+    /**
      * This tests the getter method getDataBaseConnection, and checks to see if the returned
      * Connection is not null, which indicates that a connection was established. 
      */
@@ -144,7 +152,7 @@ public class TestFile
         assertNotEquals(null, connection);
     }
 
-     /*
+    /**
      * This tests the setter method setQuantityStored and the getter method getQuantityStored 
      * by checking to see if the returned integer value from the getter matches the input integer
      * to the setter.
@@ -157,7 +165,7 @@ public class TestFile
         assertEquals(5,quantityObtained);
     }
 
-    /*
+    /** 
      * This tests the method sumAllRows and checks to see if the lowestPrice variable 
      * contains the correct sum of all rows for adjustable desks. 
      */
@@ -170,7 +178,7 @@ public class TestFile
         assertEquals(1200, obj.lowestPrice);
     }
 
-    /*
+    /** 
      * This tests the method loopMethod by checking to see if the number of Ys (non "-1")
      * in the first column (column 0) is 2, based on the given 2D array, which is passed
      * into the storage variable.
@@ -186,7 +194,7 @@ public class TestFile
         assertEquals(2,numOfYInCol0);
     }
 
-    /*
+    /** 
      * This tests the method deleteAllRows by first calling deleteAllRows, passing in
      * "lamp" and "Study", and then calling the constructor to see if there are any possible
      * combinations of this furniture type that can be created. Since that is impossible, it 
@@ -202,7 +210,7 @@ public class TestFile
         obj = new DataBaseManipulator("lamp" , "Study", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
-     /*
+    /** 
      * This tests the method deleteFromDatabase. After the connection has
      * been established, a new ArrayList of type String is created and stores
      * the IDs that need to be deleted from the database. This test is passing
@@ -221,7 +229,7 @@ public class TestFile
         assertEquals(0,obj.rowsAffected);
     }
    
-    /*
+    /** 
      * This tests the method deleteFromDatabase. After the connection has
      * been established, a new ArrayList of type String is created and stores
      * the IDs that need to be deleted from the database. This test is passing
@@ -239,7 +247,7 @@ public class TestFile
         assertEquals(1,obj.rowsAffected);
     }
 
-    /*
+    /** 
      * This tests the algorithm for finding the lowest price of 1 order of a mesh chair.
      * After the connection to the database has been established the algorithm
      * is run and compared to the expected value.
@@ -252,7 +260,7 @@ public class TestFile
         assertEquals(200, obj.lowestPrice);
     }
 
-    /*
+    /**
      * This tests the algorithm for finding the lowest price of 2 orders of ergonomic
      * chairs. After the connection to the database has been established the algorithm
      * is run and a system exit value of 1 is expected as it is an invalid order.
@@ -264,7 +272,7 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("chair" , "Ergonomic", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
-     /*
+    /** 
      * This tests the algorithm for finding the lowest price of 1 order of a kneeling
      * chair. After the connection to the database has been established the algorithm
      * is run and a system exit value of 1 is expected as it is an invalid order.
@@ -276,7 +284,7 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("chair" , "Kneeling", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
-    /*
+    /** 
      * This tests the algorithm for finding the IDs of 2 orders of standing
      * desks. After the connection to the database has been established the algorithm
      * is run and the IDs that make up the order are stored in an ArrayList and then 
@@ -294,7 +302,7 @@ public class TestFile
         assertEquals(true, codesToCheck.equals(obj.codes));
     }
 
-     /*
+    /** 
      * This tests the algorithm for finding the lowest price of 1 order of a standing
      * desk. After the connection to the database has been established the algorithm
      * is run and a system exit value of 1 is expected as it is an invalid order.
@@ -307,7 +315,7 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("desk" , "Standing", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
-     /*
+    /** 
      * This tests the algorithm for finding the lowest price of 1 order of a adjustable
      * desk. After the connection to the database has been established the algorithm
      * is run and compared to the expected value from the original database.
@@ -320,7 +328,7 @@ public class TestFile
         assertEquals(400, obj.lowestPrice);
     }
 
-     /*
+    /** 
      * This tests the algorithm for finding the lowest price of 1 order of a adjustable
      * desk. After the connection to the database has been established the algorithm
      * is run and a system exit value of 1 is expected as it is an invalid order.
@@ -333,7 +341,7 @@ public class TestFile
         assertEquals(400, obj.lowestPrice);
     }
 
-     /*
+    /** 
      * This tests the algorithm for finding the lowest price of 3 orders of medium
      * filings. After the connection to the database has been established the algorithm
      * is run and compared to the expected value.
@@ -346,7 +354,7 @@ public class TestFile
         assertEquals(600, obj.lowestPrice);
     }
 
-     /*
+    /** 
      * This tests the algorithm for finding the IDs that make up the 2 orders of small
      * filings. After the connection to the database has been established the algorithm
      * is run and compared to the expected value.
@@ -364,7 +372,7 @@ public class TestFile
         assertEquals(true, codesToCheck.equals(obj.codes));
     }
 
-     /*
+    /** 
      * This tests the algorithm for finding the lowest price that make up the 2 orders of 
      * small filings. After the connection to the database has been established the 
      * algorithm is run and compared to the expected value.
@@ -377,7 +385,7 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("filing" , "Small", 2, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
-    /*
+    /** 
      * This tests the algorithm for an invalid input of 1 study lamp.  
      * After the connection to the database has been established the algorithm 
      * is run and compared to the expected value of a system exit value of 1.
@@ -389,7 +397,7 @@ public class TestFile
         DataBaseManipulator obj = new DataBaseManipulator("lamp" , "Study", 1, "jdbc:mysql://localhost/inventory", "scm", "ensf409", true);
     }
 
-    /*
+    /** 
      * This tests the algorithm for finding the lowest price of the 2 orders of 
      * small filings. After the connection to the database has been established the 
      * algorithm is run and compared to the expected value.
@@ -402,7 +410,7 @@ public class TestFile
         assertEquals(60, obj.lowestPrice);
     }
 
-    /*
+    /**
      * This tests the algorithm for finding the IDs that make up the 3 orders of 
      * desk lamps. After the connection to the database has been established the 
      * algorithm is run and compared to the expected IDs.
@@ -421,7 +429,7 @@ public class TestFile
         assertEquals(true, codesToCheck.equals(obj.codes));
     }
 
-    /*
+    /**
      * This tests the algorithm for finding the IDS that make up the 1 order of 
      * desk lamps. After the connection to the database has been established the 
      * algorithm is run and compared to the expected value of system exit 1.
