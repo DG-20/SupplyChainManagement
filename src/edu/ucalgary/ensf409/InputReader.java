@@ -85,7 +85,7 @@ public class InputReader {
                             }
                             catch (Exception e)
                             {
-                                System.out.println("Try again but enter an integer!");
+                                System.out.println("Rerun the program but enter an integer!");
                                 System.exit(1);
                             }
             if (userInput < 1 || userInput > 5)
@@ -147,7 +147,7 @@ public class InputReader {
                     }
                     catch (Exception e)
                     {
-                        System.out.println("Try again but enter an integer!");
+                        System.out.println("Rerun the program but enter an integer!");
                         System.exit(1);
                     }
             if ((userInput333 < 1) && (userInput333 != -1)) {
@@ -193,7 +193,7 @@ public class InputReader {
             }
             catch (Exception e)
             {
-                System.out.println("Try again but enter an integer!");
+                System.out.println("Rerun the program but enter an integer!");
                 System.exit(1);
             }
             if (userInput < 0 || userInput > 6) {
@@ -222,7 +222,7 @@ public class InputReader {
             }
             catch (Exception e)
             {
-                System.out.println("Try again but enter an integer!");
+                System.out.println("Rerun the program but enter an integer!");
                 System.exit(1);
             }
             if (userInput < 0 || userInput > 4) {
@@ -251,7 +251,7 @@ public class InputReader {
             }
             catch (Exception e)
             {
-                System.out.println("Try again but enter an integer!");
+                System.out.println("Rerun the program but enter an integer!");
                 System.exit(1);
             }
             if (userInput < 0 || userInput > 4) {
@@ -280,7 +280,7 @@ public class InputReader {
             }
             catch (Exception e)
             {
-                System.out.println("Try again but enter an integer!");
+                System.out.println("Rerun the program but enter an integer!");
                 System.exit(1);
             }
             if (userInput < 0 || userInput > 4) {
