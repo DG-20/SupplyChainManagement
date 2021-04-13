@@ -1,3 +1,16 @@
+/**
+ * @author Divyansh Goyal <a href="mailto:divyansh.goyal@ucalgary.ca">divyansh.goyal@ucalgary.ca</a>
+ * 
+ * @author Maheen Hossain <a href="mailto:maheen.hossain@ucalgary.ca">maheen.hossain@ucalgary.ca</a>
+ * 
+ * @author Liam Parmar <a href="mailto:liam.parmar@ucalgary.ca">liam.parmar@ucalgary.ca</a>
+ * 
+ * @author Curtis Silva <a href="mailto:curtis.silva@ucalgary.ca">curtis.silva@ucalgary.ca</a>
+ * 
+ * @version 85.0
+ * 
+ * @since 1.0
+ */
 package edu.ucalgary.ensf409;
 
 import org.junit.*;
@@ -12,9 +25,15 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-// Please download the inventory.sql file provided in the D2L shell: www
-// Please run Source filepath/inventory.sql in the command line for mysql
-// And 
+// Please follow the instructions outlined in the readMe file. 
+
+/**
+ * InventoryTest is a JUnit test file which tests the code configuration through
+ * all types of possibilities, including edge cases, error checks, and algorithm 
+ * checks. This test file is designed to run in a fixed alphabetical order as the
+ * database gets affected on some runs and other runs after that depend on those 
+ * changes to succeed.
+ */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InventoryTest
 {
