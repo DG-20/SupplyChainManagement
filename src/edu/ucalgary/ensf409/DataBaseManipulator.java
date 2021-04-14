@@ -66,7 +66,7 @@ public class DataBaseManipulator extends InputReader {
     protected ArrayList<String> codes= new ArrayList<String>();
     // quantityStored retrieves the quantity member field from InputReader by using super and storing it.
     private int quantityStored = super.quantity;
-    protected int rowsAffected = 0;
+    private int rowsAffected = 0;
     private boolean done = false;
 
     /** 
