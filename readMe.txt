@@ -8,8 +8,7 @@ Instructions to Run (Not JUnit testing)
 ---------------------------------------
 To run the program in a regular manner (ie not for JUnit tests), please download the src folder. Then, change directories into the src folder in the terminal being used to run
 and compile the files. Before running commands in the terminal, please be sure to enter the command "SOURCE nameOfPath/databaseUsed.sql" in the MySQL 8.0 Command Line Client. 
-Next, please type in the command: "javac -cp .;lib/mysql-connector-java-8.0.23 edu/ucalgary/ensf409/OrderForm.java" followed by the command "java -cp .;lib/mysql-connector-java-
-8.0.23 edu/ucalgary/ensf409/OrderForm".
+Next, please type in the command: "javac -cp .;lib/mysql-connector-java-8.0.23 edu/ucalgary/ensf409/OrderForm.java" followed by the command "java -cp .;lib/mysql-connector-java-8.0.23 edu/ucalgary/ensf409/OrderForm".
 
 After these two commands have been ran, the program should run on the command prompt.
 
@@ -39,8 +38,7 @@ DataBaseManipulator are used to generate the "orderform" text file created in th
 
 
 *Note: Currently, the url, username, and password for the database are set in the code as: URL: jdbc:mysql://localhost/inventory, USERNAME: scm, PASSWORD: ensf409. If you would 
-like to use a different username, password, or URL, please change the lines of code associated with the three in the main method of the OrderForm.java file (lines 38, 39, and 
-40).
+like to use a different username, password, or URL, please change the lines of code associated with the three in the main method of the OrderForm.java file (lines 38, 39, and 40).
 
 Instructions to Run JUnit Test File
 -----------------------------------
