@@ -1,11 +1,11 @@
 Folder Structure
-
+----------------
 The folder src contains two folders, lib, which contains the jar files required to connect to the database and to run JUnit tests, and edu/ucalgary/ensf409 which is where all 
 the java files are contained. In the edu/ucalgary/ensf409 folder, there are four java files, three of which are the files for the actual algorithm and one test file called 
 TestFile.java.
 
 Instructions to Run (Not JUnit testing)
-
+---------------------------------------
 To run the program in a regular manner (ie not for JUnit tests), please download the src folder. Then, change directories into the src folder in the terminal being used to run
 and compile the files. Before running commands in the terminal, please be sure to enter the command "SOURCE nameOfPath/databaseUsed.sql" in the MySQL 8.0 Command Line Client. 
 Next, please type in the command: "javac -cp .;lib/mysql-connector-java-8.0.23 edu/ucalgary/ensf409/OrderForm.java" followed by the command "java -cp .;lib/mysql-connector-java-
@@ -26,7 +26,7 @@ ordered and the total price of the order. Any requests not able to be processed 
 manufacturers being printed on the user's terminal. If the program cannot connect to the database, a message will be provided to the user once again on the terminal.
 
 Implementation of Code
-
+----------------------
 There are three java files utilized in this project. The first java file is called InputReader, which scans the inputs provided by the user using a Scanner object. Once the 
 input values are scanned they are checked to ensure validity (ie if they are a valid integer or not) and stored if they are valid, otherwise the user is re-prompted. The second 
 java file is called DataBaseManipulator which extends the InputReader class. In DataBaseManipulator, algorithmic methods for each category of furniture are utlilized based on 
@@ -43,7 +43,7 @@ like to use a different username, password, or URL, please change the lines of c
 40).
 
 Instructions to Run JUnit Test File
-
+-----------------------------------
 To run the JUnit test files from the command line, refresh the database, using the command SOURCE pathToInventory.sql in the MySQL Command Line Client. Then, change directories 
 to the src folder. Then, type in your command line: javac -cp .;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/OrderForm.java to compile the code initially, then, 
 typing in: javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/system-rules-1.19.0.jar;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/InventoryTest.java to 
