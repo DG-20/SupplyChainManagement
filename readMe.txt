@@ -50,7 +50,7 @@ typing in:
 
 to compile the InventoryTest.java file, and finally typing in: 
 
-"java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/system-rules-1.19.0.jar;lib/mysql-connector-java- 8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.InventoryTest"
+"java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/system-rules-1.19.0.jar;lib/mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.InventoryTest"
 
 This should cause all tests to run in sequential order as the way we have organized the tests are so that they work if the tests are ran in alphabetical order.
 
