@@ -57,6 +57,17 @@ public class OrderForm extends DataBaseManipulator {
         finalOrderTextFile(super.furnitureChosen, super.typeChosen, super.quantity);
     }
 
+
+    /** 
+     * This constructor overloads OrderForm and takes in 7 arguments: A string containing the path
+     * to the file, a string for the username of the host, and a string for the password
+     * to the host connection. It then calls the super constructor and passes in these values
+     * so that DataBaseManipulator can initialize the connection. There are also String arguments for
+     * the type and furniture, as well as an int for the quantity asked for and a boolean to check is its a full test. 
+     * It then uses the asrgument values of the furniture, the type
+     * of the furniture, and the quantity desired to the creation method of 
+     * the finalOrder, finalOrderTextFile. This constructor is only used for test purposes.
+     */
     public OrderForm(String furniture, String type, int quantityAskedFor, String url, String username, String password, boolean fullTest)
     {
         super(furniture, type, quantityAskedFor, url, username, password, fullTest);
