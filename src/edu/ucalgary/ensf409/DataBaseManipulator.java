@@ -1084,7 +1084,7 @@ public class DataBaseManipulator extends InputReader {
             }
             catch (Exception e)
             {
-                System.out.println("Something went wrong!");
+                System.out.println("Something went wrong when creating an orderform.txt file with empty values!");
                 System.exit(1);
             }
             // Terminate the program.
