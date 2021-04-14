@@ -47,7 +47,7 @@ public class DataBaseManipulator extends InputReader {
     // The following four String arrays provide the names of the available manufacturers 
     // that supply the specified type of furniture.
     private final String[] MANUCHAIRS = { "Office Furnishings", "Chairs R Us", "Furniture Goods", "Fine Office Supplies" };
-    private final String[] MANUDESKS = { "Academic Desks", "Office Furnsishings, Furniture Goods", "Fine Office Supplies" };
+    private final String[] MANUDESKS = { "Academic Desks", "Office Furnishings, Furniture Goods", "Fine Office Supplies" };
     private final String[] MANUFILINGS = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     private final String[] MANULAMP = { "Office Furnishings", "Furniture Goods", "Fine Office Supplies" };
     // The storage 2D array is created in the method create2DArray and is used throughout the class
@@ -58,7 +58,7 @@ public class DataBaseManipulator extends InputReader {
     // cell which contains the combination of rows to obtain the cheapest price, the cheapest price
     // itself, and the actual rows, stored in the specified index as a String.
     private int rowToAdd;
-    protected int lowestPrice;
+    private int lowestPrice;
     private String lowestPriceCell;
     // The following ArrayList codes is used in the method getCodes to store the parts 
     // that are to be used in the cheapeast combination. This ArrayList is then accessed 
