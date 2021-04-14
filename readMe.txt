@@ -46,9 +46,14 @@ Instructions to Run JUnit Test File
 -----------------------------------
 To run the JUnit test files from the command line, refresh the database, using the command SOURCE pathToInventory.sql in the MySQL Command Line Client. Then, change directories 
 to the src folder. Then, type in your command line: javac -cp .;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/OrderForm.java to compile the code initially, then, 
-typing in: javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/system-rules-1.19.0.jar;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/InventoryTest.java to 
-compile the InventoryTest.java file, and finally typing in: java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/system-rules-1.19.0.jar;lib/mysql-connector-java-
-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.InventoryTest. This should cause all tests to run in sequential order as the way we have organized the tests are so 
-that they work if the tests are ran in alphabetical order.
+typing in: 
+
+javac -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/system-rules-1.19.0.jar;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/InventoryTest.java 
+
+to compile the InventoryTest.java file, and finally typing in: 
+
+java -cp .;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar;lib/system-rules-1.19.0.jar;lib/mysql-connector-java- 8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.ensf409.InventoryTest
+
+This should cause all tests to run in sequential order as the way we have organized the tests are so that they work if the tests are ran in alphabetical order.
 
 Creators: Curtis Silva, Maheen Hossain, Divyansh Goyal, Liam Parmar.
