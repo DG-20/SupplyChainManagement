@@ -1,6 +1,8 @@
 Folder Structure
 
-The folder src contains two folders, lib, which contains the jar files required to connect to the database and to run JUnit tests, and edu/ucalgary/ensf409 which is where all the java files are contained. In the edu/ucalgary/ensf409 folder, there are four java files, three of which are the files for the actual algorithm and one test file called TestFile.java.
+The folder src contains two folders, lib, which contains the jar files required to connect to the database and to run JUnit tests, and edu/ucalgary/ensf409 which is where all 
+the java files are contained. In the edu/ucalgary/ensf409 folder, there are four java files, three of which are the files for the actual algorithm and one test file called 
+TestFile.java.
 
 Instructions to Run (Not JUnit testing)
 
