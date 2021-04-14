@@ -165,7 +165,7 @@ public class InputReader {
         // Printing the user's order.
         System.out.println();
         System.out.println("Your placed order is: \n" + "Quantity: " + getQuantity() + "\nType: " + getTypeChosen()
-                + "\nFurniture: " + getFurnitureChosen() + "\n");
+                + "\nFurniture: " + getFurnitureChosen());
     }
 
     /**

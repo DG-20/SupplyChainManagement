@@ -159,6 +159,8 @@ public class DataBaseManipulator extends InputReader {
 
         setLowestPrice(priceStore);
 
+        System.out.println("Cheapest Combination Price: " + getLowestPrice() + "\n");
+
         // If the for loops above were unable, at any point, to create
         // the complete order.
         if (status == false)
@@ -1028,6 +1030,7 @@ public class DataBaseManipulator extends InputReader {
 
         setLowestPrice(priceStore);
 
+        System.out.println("Cheapest Combination Price: " + getLowestPrice() + "\n");
         // If the for loops above were unable, at any point, to create
         // the complete order.
         if (status == false)
