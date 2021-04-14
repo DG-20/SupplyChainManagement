@@ -88,26 +88,22 @@ public class InputReader {
         } while (userInput < 1 || userInput > 5);
 
         // This is a conditional which checks the condition of whether the user inputted
-        // "5", which means
-        // the user wants to terminate the program. If this is true, print a message and
-        // terminate the program.
+        // "5", which means the user wants to terminate the program. If this is true, 
+        // print a message and terminate the program.
         if (userInput == 5) {
             System.out.println("\nYou have successfully exited the program, to run again, compile and run!\n");
             System.exit(1);
         }
 
         // Using the user input as an index to the typeOfFurniture array and storing
-        // into the
-        // member field for later use.
+        // into the member field for later use.
         setFurnitureChosen(this.TYPEOFFURNITURE[userInput - 1]);
 
         int userInput2 = 0;
 
         // Based on the user's first input, this series of if/else-if called different
-        // methods
-        // which print and take in the user input for the corresponding furniture
-        // chosen.
-        // The methods return -1 if the user has chosen to terminate and exit the
+        // methods which print and take in the user input for the corresponding furniture
+        // chosen. The methods return -1 if the user has chosen to terminate and exit the
         // program.
         if (userInput == 1) {
             userInput2 = selectChairType();
@@ -128,19 +124,16 @@ public class InputReader {
         }
 
         // If the method corresponding to the user's choice returned -1, the user wants
-        // to
-        // exit the program. Do so after printing a message.
+        // to exit the program. Do so after printing a message.
         if (userInput2 == -1) {
             System.out.println("\nYou have successfully exited the program, to run again, compile and run!\n");
             System.exit(1);
         }
 
         // This do-while loop keeps prompting the user to enter a valid quantity
-        // requested.
-        // If the user enters a quantity less than 1, except for -1, the program will
-        // re-prompt and
-        // keep doing so until the user enters a valid int. If the user enters a -1, the
-        // program will
+        // requested. If the user enters a quantity less than 1, except for -1, 
+        // the program will re-prompt and keep doing so until the user enters 
+        // a valid int. If the user enters a -1, the program will
         // terminate and print a message, which is also specified in the print statement
         // below.
         int userInput333 = 0;
@@ -176,15 +169,14 @@ public class InputReader {
     }
 
     /**
-     * The following are methods which are conditionally called in the constructor
-     * as described above. These methods print the choices for the user based on the
-     * user's first choice. They then take in the user's choice, and if the choice
-     * entered is not one of the presented options, they keep re-prompting the user
+     * The following is a method which is conditionally called in the constructor
+     * as described above. This method prints the choices for the user based on the
+     * user's first choice of Chair. It then takes in the user's choice, and if the 
+     * choice entered is not one of the presented options, it keeps re-prompting the user
      * until the user inputs an acceptable int. If the user has selected to
      * terminate and exit the program, the method returns a -1 which is dealt with
      * in the constructor above.
      */
-
     private int selectChairType() {
         Scanner chooseChair = new Scanner(System.in);
         int userInput = -1;
@@ -211,6 +203,15 @@ public class InputReader {
         return userInput;
     }
 
+    /**
+     * The following is a method which is conditionally called in the constructor
+     * as described above. This method prints the choices for the user based on the
+     * user's first choice of Filing. It then takes in the user's choice, and if the 
+     * choice entered is not one of the presented options, it keeps re-prompting the user
+     * until the user inputs an acceptable int. If the user has selected to
+     * terminate and exit the program, the method returns a -1 which is dealt with
+     * in the constructor above.
+     */
     private int selectFilingType() {
         Scanner chooseFiling = new Scanner(System.in);
         int userInput = -1;
@@ -237,6 +238,15 @@ public class InputReader {
         return userInput;
     }
 
+    /**
+     * The following is a method which is conditionally called in the constructor
+     * as described above. This method prints the choices for the user based on the
+     * user's first choice of Desk. It then takes in the user's choice, and if the 
+     * choice entered is not one of the presented options, it keeps re-prompting the user
+     * until the user inputs an acceptable int. If the user has selected to
+     * terminate and exit the program, the method returns a -1 which is dealt with
+     * in the constructor above.
+     */
     private int selectDeskType() {
         Scanner chooseDesk = new Scanner(System.in);
         int userInput = -1;
@@ -263,6 +273,15 @@ public class InputReader {
         return (userInput);
     }
 
+    /**
+     * The following is a method which is conditionally called in the constructor
+     * as described above. This method prints the choices for the user based on the
+     * user's first choice of Lamp. It then takes in the user's choice, and if the 
+     * choice entered is not one of the presented options, it keeps re-prompting the user
+     * until the user inputs an acceptable int. If the user has selected to
+     * terminate and exit the program, the method returns a -1 which is dealt with
+     * in the constructor above.
+     */
     private int selectLampType() {
         Scanner chooseLamp = new Scanner(System.in);
         int userInput = -1;
