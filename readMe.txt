@@ -8,7 +8,7 @@ Instructions to Run (Not JUnit testing)
 ---------------------------------------
 To run the program in a regular manner (ie not for JUnit tests), please download the src folder. Then, change directories into the src folder in the terminal being used to run
 and compile the files. Before running commands in the terminal, please be sure to enter the command "SOURCE nameOfPath/databaseUsed.sql" in the MySQL 8.0 Command Line Client. 
-Next, please type in the command: "javac -cp .;lib/mysql-connector-java-8.0.23 edu/ucalgary/ensf409/OrderForm.java" followed by the command "java -cp .;lib/mysql-connector-java-8.0.23 edu/ucalgary/ensf409/OrderForm".
+Next, please type in the command: "javac -cp .;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/OrderForm.java" followed by the command "java -cp .;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/ensf409/OrderForm".
 
 After these two commands have been ran, the program should run on the command prompt.
 
